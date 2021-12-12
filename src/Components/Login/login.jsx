@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+import { Form, Input, Button, message, Spin } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
+import "./login.css";
+
+const Login = () => {
+  let navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form] = Form.useForm();
+  const onFinish = (values) => {
+    fetch("http://localhost:1111/login", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((data) => {
+        setIsSubmitting(false);
+        Cookies.remove("sessionId");
+        console.log(data);
+        Cookies.set("accessToken", data.accessToken, {
+          expires: 7,
+          path: "",
+        });
+        Cookies.set("refreshToken", data.jwtRefreshToken, {
+          expires: 7,
+          path: "",
+        });
+        message.success("Login Successful", 5);
+        navigate("/");
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        message.error("Invalid Credentials!!!", 5);
+      });
+  };
+  return (
+    <div className="login">
+      <Form
+        form={form}
+        name="normal_login"
+        className="login-form"
+        autoComplete="on"
+        onFinish={onFinish}
+        style={{ marginTop: "40px" }}
+      >
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Please input your email!",
+            },
+            { type: "email", warningOnly: true },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Email"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Password!",
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Link className="login-form-forgot" to="/forgetpassword">
+            Forgot password
+          </Link>
+        </Form.Item>
+
+        <Form.Item>
+          <div className="login_button">
+            <Button type="primary" htmlType="submit">
+              {isSubmitting ? <Spin size="small" /> : "Login"}
+            </Button>
+            <Link to="/register">Register now!</Link>
+          </div>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
+export default Login;
