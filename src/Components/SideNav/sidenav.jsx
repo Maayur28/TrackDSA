@@ -8,7 +8,7 @@ import {
   SettingOutlined,
   SketchOutlined,
 } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const { Sider } = Layout;
@@ -16,7 +16,17 @@ const { SubMenu } = Menu;
 
 const SideNav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [currentPath, setcurrentPath] = useState("1");
   const [collapsed, setcollapsed] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/problems") setcurrentPath("2");
+    else if (location.pathname === "/lovebabbar") setcurrentPath("3");
+    else if (location.pathname === "/striver") setcurrentPath("4");
+    else if (location.pathname === "/settings") setcurrentPath("5");
+    else if (location.pathname === "/") setcurrentPath("1");
+  }, [location]);
 
   const handleLoginLogout = () => {
     Cookies.remove("accessToken");
@@ -34,12 +44,12 @@ const SideNav = () => {
         onCollapse={() => setcollapsed((prevState) => !prevState)}
       >
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={<CodeOutlined />}>
-            <Link to="/">Problems</Link>
+        <Menu theme="dark" selectedKeys={[currentPath]} mode="inline">
+          <Menu.Item key="1" icon={<TrophyOutlined />}>
+            <Link to="/">Top Interview Questions</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<TrophyOutlined />}>
-            <Link to="/top-interview-questions">Top Interview Questions</Link>
+          <Menu.Item key="2" icon={<CodeOutlined />}>
+            <Link to="/problems">Problems</Link>
           </Menu.Item>
           <SubMenu key="sub1" icon={<SketchOutlined />} title="DSA Sheet">
             <Menu.Item key="3" icon={<UserOutlined />}>
@@ -49,11 +59,11 @@ const SideNav = () => {
               Striver
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="sub2" icon={<SettingOutlined />} title="Settings">
-            <Menu.Item key="6">Nothing</Menu.Item>
-          </SubMenu>
+          <Menu.Item key="5" icon={<SettingOutlined />}>
+            <Link to="/settings">Settings</Link>
+          </Menu.Item>
           <Menu.Item
-            key="9"
+            key="6"
             icon={<LoginOutlined />}
             onClick={handleLoginLogout}
           >

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Select, Button, Steps, Alert, Spin, message } from "antd";
+import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import "./register.css";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -14,7 +15,6 @@ const Register = () => {
   const [error, setError] = useState("");
   const [otp, setotp] = useState("");
   const onFinish = (values) => {
-    console.log(values);
     setIsSubmitting(true);
     setError("");
     fetch("http://localhost:1111/register", {
@@ -40,7 +40,7 @@ const Register = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        setError(err);
+        setError(err.message);
       });
   };
   const verifyOtp = () => {
@@ -106,7 +106,6 @@ const Register = () => {
         >
           <Form.Item
             name="name"
-            label="Name"
             tooltip="What do you want others to call you?"
             rules={[
               {
@@ -116,16 +115,11 @@ const Register = () => {
               },
             ]}
           >
-            <Input />
+            <Input prefix={<UserOutlined />} placeholder="Name" />
           </Form.Item>
           <Form.Item
             name="email"
-            label="E-mail"
             rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
               {
                 required: true,
                 message: "Please input your E-mail!",
@@ -133,12 +127,11 @@ const Register = () => {
             ]}
             extra="We will never share you email."
           >
-            <Input />
+            <Input prefix={<MailOutlined />} placeholder="E-mail" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
             rules={[
               {
                 required: true,
@@ -147,12 +140,11 @@ const Register = () => {
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password prefix={<LockOutlined />} placeholder="Password" />
           </Form.Item>
 
           <Form.Item
             name="confirmpassword"
-            label="Confirm Password"
             dependencies={["password"]}
             hasFeedback
             rules={[
@@ -175,11 +167,13 @@ const Register = () => {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="Confirm Password"
+            />
           </Form.Item>
           <Form.Item
             name="gender"
-            label="Gender"
             rules={[
               {
                 required: true,
@@ -187,7 +181,7 @@ const Register = () => {
               },
             ]}
           >
-            <Select placeholder="select your gender">
+            <Select placeholder="Select your gender">
               <Option value="male">Male</Option>
               <Option value="female">Female</Option>
               <Option value="other">Other</Option>

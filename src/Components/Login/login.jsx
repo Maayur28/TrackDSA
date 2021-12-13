@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, message, Spin } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -28,7 +28,6 @@ const Login = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        Cookies.remove("sessionId");
         console.log(data);
         Cookies.set("accessToken", data.accessToken, {
           expires: 7,
@@ -67,7 +66,7 @@ const Login = () => {
           ]}
         >
           <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
+            prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="Email"
           />
         </Form.Item>

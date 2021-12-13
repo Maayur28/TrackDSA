@@ -7,6 +7,7 @@ import Register from "./Components/Register/register";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Reset from "./Components/Reset/reset";
+import TopInterviewQuestions from "./Components/TopInterviewQuestions/topinterviewques";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           }}
         >
           <Routes>
-            <Route path="/" element={<Problems />} />
+            <Route path="/" element={<TopInterviewQuestions />} />
+            <Route path="/problems" element={<Problems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
