@@ -1,4 +1,14 @@
-import { Table, Modal, Input, Space, Button } from "antd";
+import {
+  Table,
+  Modal,
+  Input,
+  Space,
+  Button,
+  Form,
+  Radio,
+  Spin,
+  message,
+} from "antd";
 import {
   SearchOutlined,
   PlusSquareOutlined,
@@ -6,12 +16,18 @@ import {
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Problems = () => {
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
   const [loading, setIsloading] = useState(true);
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchInput, setsearchInput] = useState("");
+  const [topics, settopics] = useState([]);
   const [pagination, setpagination] = useState({
     current: 1,
     pageSize: 10,
@@ -22,30 +38,124 @@ const Problems = () => {
     setpagination(pagination);
   };
   const [addProblemVisible, setaddProblemVisible] = useState(false);
-  // useEffect(() => {
-  //   fetch("http://localhost:8080/get", {
-  //     headers: {
-  //       "x-auth-token": localStorage.getItem("x-auth-token"),
-  //     },
-  //   })
-  //     .then(async (response) => {
-  //       if (response.status >= 200 && response.status <= 299) {
-  //         return response.json();
-  //       } else {
-  //         const text = await response.text();
-  //         throw new Error(text);
-  //       }
-  //     })
-  //     .then((data) => {
-  //       setIsloading((prevState) => !prevState);
-  //       setData([...data]);
-  //     })
-  //     .catch((err) => {
-  //       setIsloading((prevState) => !prevState);
-  //       setError(err);
-  //     });
-  // }, [pagination]);
+  useEffect(() => {
+    fetch("http://localhost:1111/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.accessToken != false) {
+          Cookies.set("accessToken", data.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          fetch(`http://localhost:2222/getproblems/${data.userid}`)
+            .then(async (response) => {
+              if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+              } else {
+                const text = await response.text();
+                throw new Error(text);
+              }
+            })
+            .then((data) => {
+              setIsSubmitting(false);
+              console.table(data.totalproblem);
+              setData([...data.totalproblem]);
+            })
+            .catch((err) => {
+              setIsSubmitting(false);
+              console.log(err.message);
+            });
+        } else {
+          message.success("Access Denied!!! Please login", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        console.log(err.message);
+      });
+  }, []);
 
+  const onFinish = (values) => {
+    setIsSubmitting(true);
+    setError("");
+    fetch("http://localhost:1111/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.accessToken != false) {
+          Cookies.set("accessToken", data.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          values.userid = data.userid;
+          fetch("http://localhost:2222/addproblem", {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
+            .then(async (response) => {
+              if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+              } else {
+                const text = await response.text();
+                throw new Error(text);
+              }
+            })
+            .then((data) => {
+              setIsSubmitting(false);
+              setData([...data.totalproblem]);
+              console.table(data.totalproblem);
+            })
+            .catch((err) => {
+              setIsSubmitting(false);
+              console.log(err.message);
+            });
+        } else {
+          message.success("Access Denied!!! Please login", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        console.log(err.message);
+      });
+  };
   const handleSearch = (selectedKeys, confirm) => {
     confirm();
     setsearchInput(selectedKeys[0]);
@@ -111,11 +221,21 @@ const Problems = () => {
       title: "Status",
       dataIndex: "status",
       width: "5%",
+      sorter: {
+        compare: (a, b) => a.status - b.status,
+        multiple: 1,
+      },
     },
     {
-      title: "Title",
-      dataIndex: "name",
-      ...getColumnSearchProps("name"),
+      title: "Topic",
+      dataIndex: "topic",
+      width: "10%",
+      filters: [...topics],
+    },
+    {
+      title: "Url",
+      dataIndex: "url",
+      ...getColumnSearchProps("url"),
     },
     {
       title: "Note",
@@ -127,13 +247,13 @@ const Problems = () => {
       dataIndex: "difficulty",
       sorter: {
         compare: (a, b) => a.difficulty - b.difficulty,
-        multiple: 1,
+        multiple: 2,
       },
       width: "10%",
       filters: [
-        { text: "Easy", value: "easy" },
-        { text: "Medium", value: "medium" },
-        { text: "Hard", value: "hard" },
+        { text: "Easy", value: 1 },
+        { text: "Medium", value: 2 },
+        { text: "Hard", value: 3 },
       ],
     },
     {
@@ -143,8 +263,10 @@ const Problems = () => {
       width: "10%",
       render: () => (
         <Space size="middle">
-          <button>Delete</button>
-          <button>Edit</button>
+          <Button size="small">Edit</Button>
+          <Button size="small" danger>
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -189,20 +311,64 @@ const Problems = () => {
       <Modal
         title="Add Problem"
         visible={addProblemVisible}
-        onOk={handleAddProblem}
         onCancel={() => setaddProblemVisible(false)}
-        footer={[
-          <Button key="back" onClick={() => setaddProblemVisible(false)}>
-            Cancel
-          </Button>,
-          <Button key="submit" type="primary" onClick={handleAddProblem}>
-            Add
-          </Button>,
-        ]}
+        width={360}
+        footer={[]}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Form
+          form={form}
+          name="addproblem"
+          onFinish={onFinish}
+          scrollToFirstError
+          autoComplete="on"
+        >
+          <Form.Item
+            name="url"
+            label="Url"
+            rules={[{ required: true, message: "Please add url" }]}
+          >
+            <Input placeholder="Exp: https://leetcode.com/problems/two-sum/" />
+          </Form.Item>
+          <Form.Item
+            name="topic"
+            label="Topic"
+            rules={[{ required: true, message: "Please add topic" }]}
+          >
+            <Input placeholder="Exp: Array,Tree etc" />
+          </Form.Item>
+          <Form.Item
+            name="difficulty"
+            label="Difficulty"
+            rules={[{ required: true, message: "Please select difficulty" }]}
+          >
+            <Radio.Group>
+              <Radio value="1">Easy</Radio>
+              <Radio value="2">Medium</Radio>
+              <Radio value="3">Hard</Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item name="note" label="Note">
+            <Input.TextArea />
+          </Form.Item>
+          <Form.Item>
+            <Space>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={isSubmitting ? true : false}
+              >
+                {isSubmitting ? <Spin size="small" /> : "Add"}
+              </Button>
+              <Button
+                danger
+                onClick={() => setaddProblemVisible(false)}
+                disabled={isSubmitting ? true : false}
+              >
+                Cancel
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
       </Modal>
     </div>
   );

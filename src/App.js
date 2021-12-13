@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ForgetPassword from "./Components/ForgetPassword/forgetpassword";
 import Reset from "./Components/Reset/reset";
 import TopInterviewQuestions from "./Components/TopInterviewQuestions/topinterviewques";
+import BreadCrumb from "./Components/Breadcrumb/breadcrumb";
+import Home from "./Components/Home/home";
 
 function App() {
   return (
@@ -19,8 +21,13 @@ function App() {
             width: localStorage.getItem("sideNavCollapsed") ? "96vw" : "90vw",
           }}
         >
+          <BreadCrumb />
           <Routes>
-            <Route path="/" element={<TopInterviewQuestions />} />
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/top-interview-questions"
+              element={<TopInterviewQuestions />}
+            />
             <Route path="/problems" element={<Problems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

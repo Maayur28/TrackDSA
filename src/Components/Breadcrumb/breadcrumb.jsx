@@ -1,20 +1,37 @@
 import React from "react";
 import { Breadcrumb } from "antd";
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router-dom";
+import { HomeOutlined } from "@ant-design/icons";
 
 const BreadCrumb = () => {
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Item href="">
-        <HomeOutlined />
+  const location = useLocation();
+  const breadcrumbNameMap = {
+    "/top-interview-questions": "Top Interview Questions",
+    "/problems": "Problems",
+    "/lovebabbar": "Love Babbar",
+    "/striver": "Striver",
+    "/settings": "Settings",
+    "/login": "Login",
+    "/register": "Register",
+    "/forgetpassword": "Forget Password",
+    "/reset": "Reset Password",
+  };
+  const pathSnippets = location.pathname.split("/").filter((i) => i);
+  const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+    return (
+      <Breadcrumb.Item key={url}>
+        <Link to={url}>{breadcrumbNameMap[url]}</Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item href="">
-        <UserOutlined />
-        <span>Application List</span>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>Application</Breadcrumb.Item>
-    </Breadcrumb>
-  );
+    );
+  });
+  const breadcrumbItems = [
+    <Breadcrumb.Item key="home">
+      <HomeOutlined />
+      <Link to="/">Home</Link>
+    </Breadcrumb.Item>,
+  ].concat(extraBreadcrumbItems);
+  return <Breadcrumb>{breadcrumbItems}</Breadcrumb>;
 };
 
 export default BreadCrumb;
