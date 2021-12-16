@@ -8,11 +8,25 @@ import {
   Radio,
   Spin,
   message,
+  Tag,
+  Typography,
+  Tooltip,
+  Popconfirm,
+  Select,
 } from "antd";
+
 import {
   SearchOutlined,
   PlusSquareOutlined,
   NodeIndexOutlined,
+  LineOutlined,
+  CheckOutlined,
+  FileDoneOutlined,
+  FileExclamationOutlined,
+  QuestionCircleOutlined,
+  SendOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
@@ -20,82 +34,154 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Problems = () => {
+  const { Option } = Select;
+  const { Text } = Typography;
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setIsloading] = useState(true);
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const [editMode, seteditMode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchInput, setsearchInput] = useState("");
   const [topics, settopics] = useState([]);
+  const [topicdefaultedit, settopicdefaultedit] = useState([]);
+  const topicTags = [
+    "Array",
+    "String",
+    "Hash Table",
+    "Dynamic Programming",
+    "Math",
+    "Depth-First Search",
+    "Sorting",
+    "Greedy",
+    "Breadth-First Search",
+    "Database",
+    "Tree",
+    "Binary Search",
+    "Binary Tree",
+    "Matrix",
+    "Two pointers",
+    "Bit Manipulation",
+    "Stack",
+    "Design",
+    "Heap",
+    "Backtracking",
+    "Graph",
+    "Simulation",
+    "Prefix Sum",
+    "Sliding Window",
+    "Counting",
+    "Linked List",
+    "Union Find",
+    "Recursion",
+    "Binary Search Tree",
+    "Trie",
+    "Divide and Conquer",
+    "Bitmask",
+    "Queue",
+    "Geometry",
+  ];
+  const topicTagSelect = [];
+  for (let i = 0; i < topicTags.length; i++) {
+    topicTagSelect.push(<Option key={topicTags[i]}>{topicTags[i]}</Option>);
+  }
   const [pagination, setpagination] = useState({
     current: 1,
     pageSize: 10,
     total: 100,
   });
+  const [edit, setedit] = useState({});
   const [editorVisible, seteditorVisible] = useState(false);
   const handleTableChange = (pagination) => {
     setpagination(pagination);
   };
   const [addProblemVisible, setaddProblemVisible] = useState(false);
   useEffect(() => {
-    fetch("http://localhost:1111/verifyaccess", {
-      method: "POST",
-      body: JSON.stringify({
-        accessToken: Cookies.get("accessToken"),
-        refreshToken: Cookies.get("refreshToken"),
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then(async (response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          const text = await response.text();
-          throw new Error(text);
-        }
+    if (
+      Cookies.get("accessToken") == undefined ||
+      Cookies.get("refreshToken") == undefined
+    ) {
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+      navigate("/login");
+    } else {
+      setIsSubmitting(true);
+      fetch("http://localhost:1111/verifyaccess", {
+        method: "POST",
+        body: JSON.stringify({
+          accessToken: Cookies.get("accessToken"),
+          refreshToken: Cookies.get("refreshToken"),
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
       })
-      .then((data) => {
-        console.log(data);
-        if (data.accessToken != false) {
-          Cookies.set("accessToken", data.accessToken, {
-            expires: 7,
-            path: "",
-          });
-          fetch(`http://localhost:2222/getproblems/${data.userid}`)
-            .then(async (response) => {
-              if (response.status >= 200 && response.status <= 299) {
-                return response.json();
-              } else {
-                const text = await response.text();
-                throw new Error(text);
-              }
-            })
-            .then((data) => {
-              setIsSubmitting(false);
-              console.table(data.totalproblem);
-              setData([...data.totalproblem]);
-            })
-            .catch((err) => {
-              setIsSubmitting(false);
-              console.log(err.message);
+        .then(async (response) => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+          } else {
+            const text = await response.text();
+            throw new Error(text);
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.accessToken != false) {
+            Cookies.set("accessToken", data.accessToken, {
+              expires: 7,
+              path: "",
             });
-        } else {
-          message.success("Access Denied!!! Please login", 5);
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        setIsSubmitting(false);
-        console.log(err.message);
-      });
+            fetch(`http://localhost:2222/getproblems/${data.userid}`)
+              .then(async (response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                  return response.json();
+                } else {
+                  const text = await response.text();
+                  throw new Error(text);
+                }
+              })
+              .then((data) => {
+                setIsSubmitting(false);
+                console.table(data.totalproblem);
+                setData([...data.totalproblem]);
+              })
+              .catch((err) => {
+                setIsSubmitting(false);
+                console.log(err.message);
+              });
+          } else {
+            message.success("Access Denied!!! Please login", 5);
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          setIsSubmitting(false);
+          console.log(err.message);
+        });
+    }
   }, []);
+
+  useEffect(() => {
+    console.log(data);
+    setpagination({ ...pagination, total: data.length });
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].topic.length; j++) {
+        if (
+          arr.length === 0 ||
+          arr.find((o) => o.text === data[i].topic[j]) === undefined
+        )
+          arr.push({ text: data[i].topic[j], value: data[i].topic[j] });
+      }
+    }
+    settopics([...arr]);
+  }, [data]);
 
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
+    console.log(values);
     fetch("http://localhost:1111/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
@@ -122,30 +208,61 @@ const Problems = () => {
             path: "",
           });
           values.userid = data.userid;
-          fetch("http://localhost:2222/addproblem", {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          })
-            .then(async (response) => {
-              if (response.status >= 200 && response.status <= 299) {
-                return response.json();
-              } else {
-                const text = await response.text();
-                throw new Error(text);
-              }
+          if (editMode) {
+            values._id = edit._id;
+            console.log(values);
+            fetch("http://localhost:2222/editproblem", {
+              method: "PUT",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
             })
-            .then((data) => {
-              setIsSubmitting(false);
-              setData([...data.totalproblem]);
-              console.table(data.totalproblem);
+              .then(async (response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                  return response.json();
+                } else {
+                  const text = await response.text();
+                  throw new Error(text);
+                }
+              })
+              .then((data) => {
+                setIsSubmitting(false);
+                setData([...data.totalproblem]);
+                console.log(data.totalproblem);
+                setaddProblemVisible(false);
+              })
+              .catch((err) => {
+                setIsSubmitting(false);
+                console.log(err.message);
+              });
+          } else {
+            fetch("http://localhost:2222/addproblem", {
+              method: "POST",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
             })
-            .catch((err) => {
-              setIsSubmitting(false);
-              console.log(err.message);
-            });
+              .then(async (response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                  return response.json();
+                } else {
+                  const text = await response.text();
+                  throw new Error(text);
+                }
+              })
+              .then((data) => {
+                setIsSubmitting(false);
+                setData([...data.totalproblem]);
+                console.table(data.totalproblem);
+                setaddProblemVisible(false);
+              })
+              .catch((err) => {
+                setIsSubmitting(false);
+                console.log(err.message);
+              });
+          }
         } else {
           message.success("Access Denied!!! Please login", 5);
           navigate("/login");
@@ -165,7 +282,86 @@ const Problems = () => {
     clearFilters();
     setsearchInput("");
   };
+  const confirmDelete = (values) => {
+    setIsSubmitting(true);
+    setError("");
+    console.log(values);
+    fetch("http://localhost:1111/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.accessToken != false) {
+          Cookies.set("accessToken", data.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          values.userid = data.userid;
+          fetch("http://localhost:2222/deleteproblem", {
+            method: "DELETE",
+            body: JSON.stringify(values),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
+            .then(async (response) => {
+              if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+              } else {
+                const text = await response.text();
+                throw new Error(text);
+              }
+            })
+            .then((data) => {
+              setIsSubmitting(false);
+              setData([...data.totalproblem]);
+              console.log(data.totalproblem);
+              setaddProblemVisible(false);
+            })
+            .catch((err) => {
+              setIsSubmitting(false);
+              console.log(err.message);
+            });
+        } else {
+          message.success("Access Denied!!! Please login", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        console.log(err.message);
+      });
+  };
+  const editData = (text) => {
+    setedit({ ...edit, ...text });
+    form.setFieldsValue(text);
+    seteditMode(true);
+    settopicdefaultedit([...text.topic]);
+    setaddProblemVisible(true);
+  };
 
+  const openNotes = (text) => {
+    Modal.info({
+      title: "Note",
+      content: text,
+      onOk() {},
+    });
+  };
   const getColumnSearchProps = () => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -206,6 +402,8 @@ const Problems = () => {
     filterIcon: (filtered) => (
       <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
+    onFilter: (value, record) =>
+      record ? record.title.toLowerCase().includes(value.toLowerCase()) : "",
     render: (text) => (
       <Highlighter
         highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
@@ -225,22 +423,52 @@ const Problems = () => {
         compare: (a, b) => a.status - b.status,
         multiple: 1,
       },
+      render: (text) => (
+        <div>
+          {text === false ? <LineOutlined /> : <CheckOutlined color="green" />}
+        </div>
+      ),
     },
     {
       title: "Topic",
       dataIndex: "topic",
-      width: "10%",
+      width: "12%",
       filters: [...topics],
+      onFilter: (value, record) => {
+        console.log(record, value);
+        return record.topic.includes(value);
+      },
+      render: (topic) => (
+        <>
+          {topic.map((tag) => (
+            <Tag style={{ marginBottom: "5px" }} key={tag}>
+              {tag}
+            </Tag>
+          ))}
+        </>
+      ),
     },
     {
-      title: "Url",
-      dataIndex: "url",
-      ...getColumnSearchProps("url"),
+      title: "Title",
+      dataIndex: "title",
+      ...getColumnSearchProps("title"),
     },
     {
       title: "Note",
       dataIndex: "note",
       width: "5%",
+      render: (text) => (
+        <div>
+          {text.length > 0 ? (
+            <FileDoneOutlined
+              onClick={() => openNotes(text)}
+              style={{ color: "#1890FF" }}
+            />
+          ) : (
+            <FileExclamationOutlined />
+          )}
+        </div>
+      ),
     },
     {
       title: "Difficulty",
@@ -249,29 +477,56 @@ const Problems = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
-      width: "10%",
+      width: "5%",
       filters: [
         { text: "Easy", value: 1 },
         { text: "Medium", value: 2 },
         { text: "Hard", value: 3 },
       ],
+      onFilter: (value, record) => {
+        return record.difficulty.toString() === value.toString();
+      },
+      render: (text) => (
+        <Tag
+          color={text === "1" ? "success" : text === "2" ? "warning" : "error"}
+        >
+          {text === "1" ? "Easy" : text === "2" ? "Medium" : "Hard"}
+        </Tag>
+      ),
     },
     {
       title: "Action",
       key: "action",
       fixed: "right",
       width: "10%",
-      render: () => (
-        <Space size="middle">
-          <Button size="small">Edit</Button>
-          <Button size="small" danger>
-            Delete
-          </Button>
+      render: (text) => (
+        <Space size="large">
+          <Tooltip title="View">
+            <a href={text.url} target="_blank" rel="noopener noreferrer">
+              <SendOutlined style={{ color: "#1890ff" }} />
+            </a>
+          </Tooltip>
+          <Tooltip title="Edit">
+            <EditOutlined
+              style={{ cursor: "pointer" }}
+              onClick={() => editData(text)}
+            />
+          </Tooltip>
+          <Tooltip title="Delete">
+            <Popconfirm
+              title="Are you sure want to delete?"
+              onConfirm={() => confirmDelete(text)}
+              okText="Yes"
+              cancelText="No"
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            >
+              <DeleteOutlined style={{ color: "#ff4d4f" }} />
+            </Popconfirm>
+          </Tooltip>
         </Space>
       ),
     },
   ];
-  const handleAddProblem = () => {};
   return (
     <div>
       <Table
@@ -279,12 +534,19 @@ const Problems = () => {
         dataSource={data}
         pagination={pagination}
         onChange={handleTableChange}
+        loading={isSubmitting}
+        align="center"
         title={() => (
           <div style={{ float: "right" }}>
             <Button
               type="text"
               icon={<PlusSquareOutlined />}
-              onClick={() => setaddProblemVisible(true)}
+              onClick={() => {
+                seteditMode(false);
+                setedit({});
+                form.resetFields();
+                setaddProblemVisible(true);
+              }}
             >
               Add Problem
             </Button>
@@ -311,7 +573,9 @@ const Problems = () => {
       <Modal
         title="Add Problem"
         visible={addProblemVisible}
-        onCancel={() => setaddProblemVisible(false)}
+        onCancel={() => {
+          setaddProblemVisible(false);
+        }}
         width={360}
         footer={[]}
       >
@@ -323,10 +587,13 @@ const Problems = () => {
           autoComplete="on"
         >
           <Form.Item
-            name="url"
-            label="Url"
-            rules={[{ required: true, message: "Please add url" }]}
+            name="title"
+            label="Title"
+            rules={[{ required: true, message: "Please add title" }]}
           >
+            <Input placeholder="Exp: Two sum" />
+          </Form.Item>
+          <Form.Item name="url" label="Url">
             <Input placeholder="Exp: https://leetcode.com/problems/two-sum/" />
           </Form.Item>
           <Form.Item
@@ -334,7 +601,14 @@ const Problems = () => {
             label="Topic"
             rules={[{ required: true, message: "Please add topic" }]}
           >
-            <Input placeholder="Exp: Array,Tree etc" />
+            <Select
+              mode="tags"
+              style={{ width: "100%" }}
+              placeholder="Exp: Array, Math, String etc"
+              value={[topicdefaultedit]}
+            >
+              {topicTagSelect}
+            </Select>
           </Form.Item>
           <Form.Item
             name="difficulty"
@@ -352,12 +626,8 @@ const Problems = () => {
           </Form.Item>
           <Form.Item>
             <Space>
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={isSubmitting ? true : false}
-              >
-                {isSubmitting ? <Spin size="small" /> : "Add"}
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
+                Add
               </Button>
               <Button
                 danger

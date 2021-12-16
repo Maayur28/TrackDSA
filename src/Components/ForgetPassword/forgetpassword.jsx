@@ -12,6 +12,7 @@ const ForgetPassword = () => {
   const [resetStatus, setresetStatus] = useState(false);
   const [form] = Form.useForm();
   const onFinish = (values) => {
+    setIsSubmitting(true);
     fetch("http://localhost:1111/forgetpassword", {
       method: "POST",
       body: JSON.stringify(values),
@@ -70,8 +71,8 @@ const ForgetPassword = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              {isSubmitting ? <Spin size="small" /> : "Get Reset Link"}
+            <Button type="primary" htmlType="submit" loading={isSubmitting}>
+              Get Reset Link
             </Button>
           </Form.Item>
         </Form>

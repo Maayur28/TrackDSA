@@ -189,12 +189,8 @@ const Register = () => {
           </Form.Item>
           <Form.Item>
             <div className="login_button">
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={isSubmitting ? true : false}
-              >
-                {isSubmitting ? <Spin size="small" /> : "Register"}
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
+                Register
               </Button>
               <Link to="/login">Login!</Link>
             </div>
@@ -217,6 +213,7 @@ const Register = () => {
               style={{ marginTop: "10px" }}
               type="primary"
               onClick={verifyOtp}
+              loading={isSubmitting}
             >
               Verify
             </Button>

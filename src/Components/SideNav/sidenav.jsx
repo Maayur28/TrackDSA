@@ -27,6 +27,7 @@ const SideNav = () => {
     else if (location.pathname === "/lovebabbar") setcurrentPath("4");
     else if (location.pathname === "/striver") setcurrentPath("5");
     else if (location.pathname === "/settings") setcurrentPath("6");
+    else if (location.pathname === "/login") setcurrentPath("7");
     else if (location.pathname === "/") setcurrentPath("1");
   }, [location]);
 

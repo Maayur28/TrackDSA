@@ -11,6 +11,7 @@ const Reset = () => {
   useEffect(() => {
     let obj = {};
     obj.token = token;
+    setIsSubmitting(true);
     fetch("http://localhost:1111/reset", {
       method: "POST",
       body: JSON.stringify(obj),
@@ -123,12 +124,8 @@ const Reset = () => {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={isSubmitting ? true : false}
-          >
-            {isSubmitting ? <Spin size="small" /> : "Reset Password"}
+          <Button type="primary" htmlType="submit" loading={isSubmitting}>
+            Reset Password
           </Button>
         </Form.Item>
       </Form>

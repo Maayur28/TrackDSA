@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, message, Spin } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,21 @@ const Login = () => {
   let navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (
+      Cookies.get("accessToken") != undefined &&
+      Cookies.get("refreshToken") != undefined
+    )
+      navigate("/");
+    else {
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+    }
+  }, []);
+
   const onFinish = (values) => {
+    setIsSubmitting(true);
     fetch("http://localhost:1111/login", {
       method: "POST",
       body: JSON.stringify(values),
@@ -93,8 +107,8 @@ const Login = () => {
 
         <Form.Item>
           <div className="login_button">
-            <Button type="primary" htmlType="submit">
-              {isSubmitting ? <Spin size="small" /> : "Login"}
+            <Button type="primary" htmlType="submit" loading={isSubmitting}>
+              Login
             </Button>
             <Link to="/register">Register now!</Link>
           </div>
