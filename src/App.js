@@ -10,6 +10,7 @@ import Reset from "./Components/Reset/reset";
 import TopInterviewQuestions from "./Components/TopInterviewQuestions/topinterviewques";
 import BreadCrumb from "./Components/Breadcrumb/breadcrumb";
 import Home from "./Components/Home/home";
+import DSASheet from "./Components/DSASheet/dsaSheet";
 
 function App() {
   return (
@@ -31,6 +32,16 @@ function App() {
             <Route path="/problems" element={<Problems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route
+              path="/dsasheet"
+              search="?name=lovebabbar"
+              element={<DSASheet />}
+            />
+            <Route
+              path="/dsasheet"
+              search="?name=striver"
+              element={<DSASheet />}
+            />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/reset/:token" element={<Reset />} />
           </Routes>

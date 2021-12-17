@@ -22,10 +22,14 @@ const SideNav = () => {
   const [collapsed, setcollapsed] = useState(false);
 
   useEffect(() => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
     if (location.pathname === "/top-interview-questions") setcurrentPath("2");
     else if (location.pathname === "/problems") setcurrentPath("3");
-    else if (location.pathname === "/lovebabbar") setcurrentPath("4");
-    else if (location.pathname === "/striver") setcurrentPath("5");
+    else if (location.pathname === "/dsasheet" && params.name === "lovebabbar")
+      setcurrentPath("4");
+    else if (location.pathname === "/dsasheet" && params.name === "striver")
+      setcurrentPath("5");
     else if (location.pathname === "/settings") setcurrentPath("6");
     else if (location.pathname === "/login") setcurrentPath("7");
     else if (location.pathname === "/") setcurrentPath("1");
@@ -59,10 +63,10 @@ const SideNav = () => {
           </Menu.Item>
           <SubMenu key="sub1" icon={<SketchOutlined />} title="DSA Sheet">
             <Menu.Item key="4" icon={<UserOutlined />}>
-              Love Babbar
+              <Link to="/dsasheet?name=lovebabbar">Love Babbar</Link>
             </Menu.Item>
             <Menu.Item key="5" icon={<UserOutlined />}>
-              Striver
+              <Link to="/dsasheet?name=striver">Striver</Link>
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="6" icon={<SettingOutlined />}>

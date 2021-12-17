@@ -25,6 +25,7 @@ import {
   FileExclamationOutlined,
   QuestionCircleOutlined,
   SendOutlined,
+  EyeOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -86,16 +87,8 @@ const Problems = () => {
   for (let i = 0; i < topicTags.length; i++) {
     topicTagSelect.push(<Option key={topicTags[i]}>{topicTags[i]}</Option>);
   }
-  const [pagination, setpagination] = useState({
-    current: 1,
-    pageSize: 10,
-    total: 100,
-  });
   const [edit, setedit] = useState({});
   const [editorVisible, seteditorVisible] = useState(false);
-  const handleTableChange = (pagination) => {
-    setpagination(pagination);
-  };
   const [addProblemVisible, setaddProblemVisible] = useState(false);
   useEffect(() => {
     if (
@@ -151,7 +144,9 @@ const Problems = () => {
                 console.log(err.message);
               });
           } else {
-            message.success("Access Denied!!! Please login", 5);
+            message.error("Access Denied!!! Please login", 5);
+            Cookies.remove("accessToken");
+            Cookies.remove("refreshToken");
             navigate("/login");
           }
         })
@@ -163,8 +158,6 @@ const Problems = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
-    setpagination({ ...pagination, total: data.length });
     let arr = [];
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].topic.length; j++) {
@@ -264,7 +257,7 @@ const Problems = () => {
               });
           }
         } else {
-          message.success("Access Denied!!! Please login", 5);
+          message.error("Access Denied!!! Please login", 5);
           navigate("/login");
         }
       })
@@ -425,7 +418,11 @@ const Problems = () => {
       },
       render: (text) => (
         <div>
-          {text === false ? <LineOutlined /> : <CheckOutlined color="green" />}
+          {text === false ? (
+            <LineOutlined />
+          ) : (
+            <CheckOutlined style={{ color: "darkgreen" }} />
+          )}
         </div>
       ),
     },
@@ -503,7 +500,7 @@ const Problems = () => {
         <Space size="large">
           <Tooltip title="View">
             <a href={text.url} target="_blank" rel="noopener noreferrer">
-              <SendOutlined style={{ color: "#1890ff" }} />
+              <EyeOutlined style={{ color: "#1890ff" }} />
             </a>
           </Tooltip>
           <Tooltip title="Edit">
@@ -532,8 +529,6 @@ const Problems = () => {
       <Table
         columns={columns}
         dataSource={data}
-        pagination={pagination}
-        onChange={handleTableChange}
         loading={isSubmitting}
         align="center"
         title={() => (
@@ -621,6 +616,18 @@ const Problems = () => {
               <Radio value="3">Hard</Radio>
             </Radio.Group>
           </Form.Item>
+          {editMode ? (
+            <Form.Item
+              name="status"
+              label="Status"
+              rules={[{ required: true, message: "Please select status" }]}
+            >
+              <Radio.Group>
+                <Radio value={false}>Not Solved</Radio>
+                <Radio value={true}>Solved</Radio>
+              </Radio.Group>
+            </Form.Item>
+          ) : null}
           <Form.Item name="note" label="Note">
             <Input.TextArea />
           </Form.Item>

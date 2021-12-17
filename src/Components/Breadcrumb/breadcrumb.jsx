@@ -5,11 +5,13 @@ import { HomeOutlined } from "@ant-design/icons";
 
 const BreadCrumb = () => {
   const location = useLocation();
+  const urlSearchParams = new URLSearchParams(location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
   const breadcrumbNameMap = {
     "/top-interview-questions": "Top Interview Questions",
     "/problems": "Problems",
-    "/lovebabbar": "Love Babbar",
-    "/striver": "Striver",
+    "/dsasheet?name=lovebabbar": "Love Babbar",
+    "/dsasheet?name=striver": "Striver",
     "/settings": "Settings",
     "/login": "Login",
     "/register": "Register",
@@ -18,7 +20,9 @@ const BreadCrumb = () => {
   };
   const pathSnippets = location.pathname.split("/").filter((i) => i);
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+    const url = `/${pathSnippets.slice(0, index + 1).join("/")}${
+      params != null ? `?name=${params.name}` : null
+    }`;
     return (
       <Breadcrumb.Item key={url}>
         <Link to={url}>{breadcrumbNameMap[url]}</Link>
