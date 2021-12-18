@@ -87,7 +87,10 @@ const DSASheet = () => {
   };
   const onFinish = (values) => {
     let obj = { ...addText };
-    obj.difficulty = values.difficulty;
+    for (let [key, value] of Object.entries(values)) {
+      obj[key] = value;
+    }
+    console.log(obj);
     setIsSubmitting(true);
     setError("");
     fetch("http://localhost:1111/verifyaccess", {
@@ -159,7 +162,8 @@ const DSASheet = () => {
   };
   const handleAdd = (text) => {
     setaddText(text);
-    seteditorVisible(true);
+    if (text.difficulty != undefined) onFinish(text);
+    else seteditorVisible(true);
   };
   const getColumnSearchProps = () => ({
     filterDropdown: ({

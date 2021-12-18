@@ -8,10 +8,11 @@ const BreadCrumb = () => {
   const urlSearchParams = new URLSearchParams(location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const breadcrumbNameMap = {
-    "/top-interview-questions": "Top Interview Questions",
+    // "/top-interview-questions": "Top Interview Questions",
     "/problems": "Problems",
     "/dsasheet?name=lovebabbar": "Love Babbar",
     "/dsasheet?name=striver": "Striver",
+    "/dsasheet?name=fraz": "Fraz",
     "/settings": "Settings",
     "/login": "Login",
     "/register": "Register",
@@ -21,7 +22,7 @@ const BreadCrumb = () => {
   const pathSnippets = location.pathname.split("/").filter((i) => i);
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
     const url = `/${pathSnippets.slice(0, index + 1).join("/")}${
-      params != null ? `?name=${params.name}` : null
+      params.name != undefined ? `?name=${params.name}` : ""
     }`;
     return (
       <Breadcrumb.Item key={url}>

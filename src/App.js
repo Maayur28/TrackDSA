@@ -20,15 +20,16 @@ function App() {
         <div
           style={{
             width: localStorage.getItem("sideNavCollapsed") ? "96vw" : "90vw",
+            // backgroundColor: "#ececec",
           }}
         >
           <BreadCrumb />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
+            {/* <Route
               path="/top-interview-questions"
               element={<TopInterviewQuestions />}
-            />
+            /> */}
             <Route path="/problems" element={<Problems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

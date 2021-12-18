@@ -141,10 +141,14 @@ const Problems = () => {
               })
               .catch((err) => {
                 setIsSubmitting(false);
-                console.log(err.message);
+                message.error(
+                  "Sorry!!! Server is busy. Please try again later",
+                  5
+                );
               });
           } else {
             message.error("Access Denied!!! Please login", 5);
+            setIsSubmitting(false);
             Cookies.remove("accessToken");
             Cookies.remove("refreshToken");
             navigate("/login");
@@ -152,7 +156,10 @@ const Problems = () => {
         })
         .catch((err) => {
           setIsSubmitting(false);
-          console.log(err.message);
+          message.error("Access Denied!!! Please login", 5);
+          Cookies.remove("accessToken");
+          Cookies.remove("refreshToken");
+          navigate("/login");
         });
     }
   }, []);
@@ -509,17 +516,15 @@ const Problems = () => {
               onClick={() => editData(text)}
             />
           </Tooltip>
-          <Tooltip title="Delete">
-            <Popconfirm
-              title="Are you sure want to delete?"
-              onConfirm={() => confirmDelete(text)}
-              okText="Yes"
-              cancelText="No"
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
-              <DeleteOutlined style={{ color: "#ff4d4f" }} />
-            </Popconfirm>
-          </Tooltip>
+          <Popconfirm
+            title="Are you sure want to delete?"
+            onConfirm={() => confirmDelete(text)}
+            okText="Yes"
+            cancelText="No"
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
+            <DeleteOutlined style={{ color: "#ff4d4f" }} />
+          </Popconfirm>
         </Space>
       ),
     },
