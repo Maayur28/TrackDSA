@@ -145,10 +145,7 @@ const DSASheet = () => {
               seteditorVisible(false);
             });
         } else {
-          message.error("Access Denied!!! Please login", 5);
-          Cookies.remove("accessToken");
-          Cookies.remove("refreshToken");
-          navigate("/login");
+          message.error("Access Denied!!! Please login to continue", 5);
         }
       })
       .catch((err) => {

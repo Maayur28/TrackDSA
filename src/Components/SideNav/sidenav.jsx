@@ -74,9 +74,9 @@ const SideNav = () => {
               <Link to="/dsasheet?name=fraz">Fraz</Link>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="6" icon={<SettingOutlined />}>
+          {/* <Menu.Item key="6" icon={<SettingOutlined />}>
             <Link to="/settings">Settings</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item
             key="7"
             icon={<LoginOutlined />}

@@ -6,3 +6,6 @@
   /* background-color: #ececec; */
   flex-wrap: wrap;
 }
+.ant-card-meta-title {
+  white-space: pre-line;
+}

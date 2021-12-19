@@ -2,6 +2,7 @@ import React from "react";
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
+import "./breadcrumb.css";
 
 const BreadCrumb = () => {
   const location = useLocation();
@@ -20,8 +21,9 @@ const BreadCrumb = () => {
     "/reset": "Reset Password",
   };
   const pathSnippets = location.pathname.split("/").filter((i) => i);
+  let url;
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-    const url = `/${pathSnippets.slice(0, index + 1).join("/")}${
+    url = `/${pathSnippets.slice(0, index + 1).join("/")}${
       params.name != undefined ? `?name=${params.name}` : ""
     }`;
     return (
@@ -36,7 +38,16 @@ const BreadCrumb = () => {
       <Link to="/">Home</Link>
     </Breadcrumb.Item>,
   ].concat(extraBreadcrumbItems);
-  return <Breadcrumb>{breadcrumbItems}</Breadcrumb>;
+  return (
+    <div>
+      <h1 className="right-side-top">
+        {location.pathname === "/"
+          ? "PROBLEMS OF THE DAY"
+          : breadcrumbNameMap[url]}
+      </h1>
+      <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+    </div>
+  );
 };
 
 export default BreadCrumb;
