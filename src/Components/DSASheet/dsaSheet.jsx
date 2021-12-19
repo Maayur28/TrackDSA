@@ -1,50 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  Modal,
-  Input,
-  Space,
-  Button,
-  Form,
-  Radio,
-  Spin,
-  message,
-  Tag,
-  Typography,
-  Tooltip,
-  Popconfirm,
-  Select,
-} from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Table, Input, Space, Button, message, Tag, Tooltip } from "antd";
+import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import {
-  SearchOutlined,
-  PlusSquareOutlined,
-  NodeIndexOutlined,
-  LineOutlined,
-  CheckOutlined,
-  FileDoneOutlined,
-  FileExclamationOutlined,
-  QuestionCircleOutlined,
-  SendOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  CopyOutlined,
-  EyeOutlined,
-  FileAddOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined, SendOutlined, EyeOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 const DSASheet = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const [error, setError] = useState("");
   const [data, setData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [topics, settopics] = useState([]);
   const [searchInput, setsearchInput] = useState("");
-  const [editorVisible, seteditorVisible] = useState(false);
-  const [addText, setaddText] = useState({});
   useEffect(() => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
@@ -60,12 +25,11 @@ const DSASheet = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        console.log(data);
         setData([...data.totalProblem]);
       })
       .catch((err) => {
         setIsSubmitting(false);
-        console.log(err.message);
+        message(err.message, 5);
       });
   }, [location]);
   useEffect(() => {
@@ -85,14 +49,8 @@ const DSASheet = () => {
     confirm();
     setsearchInput(selectedKeys[0]);
   };
-  const onFinish = (values) => {
-    let obj = { ...addText };
-    for (let [key, value] of Object.entries(values)) {
-      obj[key] = value;
-    }
-    console.log(obj);
+  const handleAdd = (values) => {
     setIsSubmitting(true);
-    setError("");
     fetch("http://localhost:1111/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
@@ -112,16 +70,15 @@ const DSASheet = () => {
         }
       })
       .then((data) => {
-        console.log(data);
-        if (data.accessToken != false) {
+        if (data.accessToken !== false) {
           Cookies.set("accessToken", data.accessToken, {
             expires: 7,
             path: "",
           });
-          obj.userid = data.userid;
+          values.userid = data.userid;
           fetch("http://localhost:2222/addproblem", {
             method: "POST",
-            body: JSON.stringify(obj),
+            body: JSON.stringify(values),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
@@ -137,12 +94,10 @@ const DSASheet = () => {
             .then((data) => {
               setIsSubmitting(false);
               message.success("Added to problems", 5);
-              seteditorVisible(false);
             })
             .catch((err) => {
               setIsSubmitting(false);
               message.error(err.message, 5);
-              seteditorVisible(false);
             });
         } else {
           message.error("Access Denied!!! Please login to continue", 5);
@@ -150,17 +105,12 @@ const DSASheet = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        console.log(err.message);
+        message.error(err.message, 5);
       });
   };
   const handleReset = (clearFilters) => {
     clearFilters();
     setsearchInput("");
-  };
-  const handleAdd = (text) => {
-    setaddText(text);
-    if (text.difficulty != undefined) onFinish(text);
-    else seteditorVisible(true);
   };
   const getColumnSearchProps = () => ({
     filterDropdown: ({
@@ -220,7 +170,6 @@ const DSASheet = () => {
       width: "12%",
       filters: [...topics],
       onFilter: (value, record) => {
-        console.log(record, value);
         return record.topic.includes(value);
       },
       render: (topic) => (
@@ -237,6 +186,30 @@ const DSASheet = () => {
       title: "Title",
       dataIndex: "title",
       ...getColumnSearchProps("title"),
+    },
+    {
+      title: "Difficulty",
+      dataIndex: "difficulty",
+      sorter: {
+        compare: (a, b) => a.difficulty - b.difficulty,
+        multiple: 2,
+      },
+      width: "5%",
+      filters: [
+        { text: "Easy", value: 1 },
+        { text: "Medium", value: 2 },
+        { text: "Hard", value: 3 },
+      ],
+      onFilter: (value, record) => {
+        return record.difficulty.toString() === value.toString();
+      },
+      render: (text) => (
+        <Tag
+          color={text === "1" ? "success" : text === "2" ? "warning" : "error"}
+        >
+          {text === "1" ? "Easy" : text === "2" ? "Medium" : "Hard"}
+        </Tag>
+      ),
     },
     {
       title: "Action",
@@ -269,55 +242,7 @@ const DSASheet = () => {
         dataSource={data}
         loading={isSubmitting}
         align="center"
-        // title={() => (
-        //   <div style={{ float: "right" }}>
-        //     <Button type="link" icon={<NodeIndexOutlined />}>
-        //       Pick Random
-        //     </Button>
-        //   </div>
-        // )}
       />
-      <Modal
-        title="Please specify difficulty"
-        centered
-        visible={editorVisible}
-        onCancel={() => seteditorVisible(false)}
-        footer={[]}
-      >
-        <Form
-          form={form}
-          name="copyprob"
-          onFinish={onFinish}
-          scrollToFirstError
-          autoComplete="on"
-        >
-          <Form.Item
-            name="difficulty"
-            label="Difficulty"
-            rules={[{ required: true, message: "Please select difficulty" }]}
-          >
-            <Radio.Group>
-              <Radio value="1">Easy</Radio>
-              <Radio value="2">Medium</Radio>
-              <Radio value="3">Hard</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit" loading={isSubmitting}>
-                Move to problems
-              </Button>
-              <Button
-                danger
-                onClick={() => seteditorVisible(false)}
-                disabled={isSubmitting ? true : false}
-              >
-                Cancel
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   );
 };

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Form, Input, Button, message, Spin, Alert } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Form, Input, Button, message, Alert } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 import "./forgetpassword.css";
 
 const ForgetPassword = () => {
-  let navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resetStatus, setresetStatus] = useState(false);
   const [form] = Form.useForm();
@@ -30,7 +27,7 @@ const ForgetPassword = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        if (data.status == true) setresetStatus(true);
+        if (data.status === true) setresetStatus(true);
       })
       .catch((err) => {
         setIsSubmitting(false);

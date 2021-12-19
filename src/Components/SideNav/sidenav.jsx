@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import {
-  TrophyOutlined,
   CodeOutlined,
   LoginOutlined,
   UserOutlined,
-  SettingOutlined,
   SketchOutlined,
   HomeOutlined,
 } from "@ant-design/icons";

@@ -46,8 +46,7 @@ const Home = () => {
         }
       })
       .then((data) => {
-        console.log(data, values);
-        if (data.accessToken != false) {
+        if (data.accessToken !== false) {
           Cookies.set("accessToken", data.accessToken, {
             expires: 7,
             path: "",
@@ -79,7 +78,7 @@ const Home = () => {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        message.error(err.message, 5);
       });
   };
   return (

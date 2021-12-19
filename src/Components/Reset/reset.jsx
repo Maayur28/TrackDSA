@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, message, Button, Spin } from "antd";
+import { Form, Input, message, Button } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Reset = () => {
@@ -39,7 +39,7 @@ const Reset = () => {
         message.error("Token expired!!!", 5);
         navigate("/forgetpassword", { replace: true });
       });
-  }, []);
+  }, [navigate, token]);
 
   const onFinish = (values) => {
     values.token = token;

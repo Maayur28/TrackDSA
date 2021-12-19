@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Button, Steps, Alert, Spin, message } from "antd";
+import { Form, Input, Select, Button, Steps, Alert, message } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import "./register.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -64,7 +64,7 @@ const Register = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        if (data.sessionId == false) setError("Invalid Otp!!!");
+        if (data.sessionId === false) setError("Invalid Otp!!!");
         else {
           Cookies.remove("sessionId");
           Cookies.set("accessToken", data.accessToken, {

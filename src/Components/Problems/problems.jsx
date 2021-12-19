@@ -6,10 +6,8 @@ import {
   Button,
   Form,
   Radio,
-  Spin,
   message,
   Tag,
-  Typography,
   Tooltip,
   Popconfirm,
   Select,
@@ -24,7 +22,6 @@ import {
   FileDoneOutlined,
   FileExclamationOutlined,
   QuestionCircleOutlined,
-  SendOutlined,
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
@@ -36,12 +33,9 @@ import { useNavigate } from "react-router-dom";
 
 const Problems = () => {
   const { Option } = Select;
-  const { Text } = Typography;
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [loading, setIsloading] = useState(true);
   const [data, setData] = useState([]);
-  const [error, setError] = useState("");
   const [editMode, seteditMode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchInput, setsearchInput] = useState("");
@@ -92,8 +86,8 @@ const Problems = () => {
   const [addProblemVisible, setaddProblemVisible] = useState(false);
   useEffect(() => {
     if (
-      Cookies.get("accessToken") == undefined ||
-      Cookies.get("refreshToken") == undefined
+      Cookies.get("accessToken") === undefined ||
+      Cookies.get("refreshToken") === undefined
     ) {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
@@ -119,8 +113,7 @@ const Problems = () => {
           }
         })
         .then((data) => {
-          console.log(data);
-          if (data.accessToken != false) {
+          if (data.accessToken !== false) {
             Cookies.set("accessToken", data.accessToken, {
               expires: 7,
               path: "",
@@ -162,7 +155,7 @@ const Problems = () => {
           navigate("/login");
         });
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     let arr = [];
@@ -180,8 +173,6 @@ const Problems = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    setError("");
-    console.log(values);
     fetch("http://localhost:1111/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
@@ -201,8 +192,7 @@ const Problems = () => {
         }
       })
       .then((data) => {
-        console.log(data);
-        if (data.accessToken != false) {
+        if (data.accessToken !== false) {
           Cookies.set("accessToken", data.accessToken, {
             expires: 7,
             path: "",
@@ -210,7 +200,6 @@ const Problems = () => {
           values.userid = data.userid;
           if (editMode) {
             values._id = edit._id;
-            console.log(values);
             fetch("http://localhost:2222/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
@@ -229,12 +218,11 @@ const Problems = () => {
               .then((data) => {
                 setIsSubmitting(false);
                 setData([...data.totalproblem]);
-                console.log(data.totalproblem);
                 setaddProblemVisible(false);
               })
               .catch((err) => {
                 setIsSubmitting(false);
-                console.log(err.message);
+                message.error(err.message, 5);
               });
           } else {
             fetch("http://localhost:2222/addproblem", {
@@ -260,7 +248,7 @@ const Problems = () => {
               })
               .catch((err) => {
                 setIsSubmitting(false);
-                console.log(err.message);
+                message.error(err.message, 5);
               });
           }
         } else {
@@ -270,7 +258,7 @@ const Problems = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        console.log(err.message);
+        message.error(err.message, 5);
       });
   };
   const handleSearch = (selectedKeys, confirm) => {
@@ -284,8 +272,6 @@ const Problems = () => {
   };
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    setError("");
-    console.log(values);
     fetch("http://localhost:1111/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
@@ -305,8 +291,7 @@ const Problems = () => {
         }
       })
       .then((data) => {
-        console.log(data);
-        if (data.accessToken != false) {
+        if (data.accessToken !== false) {
           Cookies.set("accessToken", data.accessToken, {
             expires: 7,
             path: "",
@@ -330,12 +315,11 @@ const Problems = () => {
             .then((data) => {
               setIsSubmitting(false);
               setData([...data.totalproblem]);
-              console.log(data.totalproblem);
               setaddProblemVisible(false);
             })
             .catch((err) => {
               setIsSubmitting(false);
-              console.log(err.message);
+              message.error(err.message, 5);
             });
         } else {
           message.success("Access Denied!!! Please login", 5);
@@ -344,7 +328,7 @@ const Problems = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        console.log(err.message);
+        message.error(err.message, 5);
       });
   };
   const editData = (text) => {
@@ -439,7 +423,6 @@ const Problems = () => {
       width: "12%",
       filters: [...topics],
       onFilter: (value, record) => {
-        console.log(record, value);
         return record.topic.includes(value);
       },
       render: (topic) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, message, Spin } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -13,15 +13,15 @@ const Login = () => {
 
   useEffect(() => {
     if (
-      Cookies.get("accessToken") != undefined &&
-      Cookies.get("refreshToken") != undefined
+      Cookies.get("accessToken") !== undefined &&
+      Cookies.get("refreshToken") !== undefined
     )
       navigate("/");
     else {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
     }
-  }, []);
+  }, [navigate]);
 
   const onFinish = (values) => {
     setIsSubmitting(true);
@@ -42,7 +42,6 @@ const Login = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        console.log(data);
         Cookies.set("accessToken", data.accessToken, {
           expires: 7,
           path: "",

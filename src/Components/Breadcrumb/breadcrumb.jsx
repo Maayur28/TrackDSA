@@ -24,12 +24,10 @@ const BreadCrumb = () => {
   let url;
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
     url = `/${pathSnippets.slice(0, index + 1).join("/")}${
-      params.name != undefined ? `?name=${params.name}` : ""
+      params.name !== undefined ? `?name=${params.name}` : ""
     }`;
     return (
-      <Breadcrumb.Item key={url}>
-        <Link to={url}>{breadcrumbNameMap[url]}</Link>
-      </Breadcrumb.Item>
+      <Breadcrumb.Item key={url}>{breadcrumbNameMap[url]}</Breadcrumb.Item>
     );
   });
   const breadcrumbItems = [
