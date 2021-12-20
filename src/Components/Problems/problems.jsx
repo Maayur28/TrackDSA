@@ -79,7 +79,7 @@ const Problems = () => {
   ];
   const topicTagSelect = [];
   for (let i = 0; i < topicTags.length; i++) {
-    topicTagSelect.push(<Option key={topicTags[i]}>{topicTags[i]}</Option>);
+    topicTagSelect.push(<Option key={i}>{topicTags[i]}</Option>);
   }
   const [edit, setedit] = useState({});
   const [editorVisible, seteditorVisible] = useState(false);
@@ -129,7 +129,6 @@ const Problems = () => {
               })
               .then((data) => {
                 setIsSubmitting(false);
-                console.table(data.totalproblem);
                 setData([...data.totalproblem]);
               })
               .catch((err) => {
@@ -140,7 +139,7 @@ const Problems = () => {
                 );
               });
           } else {
-            message.error("Access Denied!!! Please login", 5);
+            message.error("Access Denied!!! Please login to view problems", 5);
             setIsSubmitting(false);
             Cookies.remove("accessToken");
             Cookies.remove("refreshToken");
@@ -149,7 +148,7 @@ const Problems = () => {
         })
         .catch((err) => {
           setIsSubmitting(false);
-          message.error("Access Denied!!! Please login", 5);
+          message.error("Access Denied!!! Please login to view problems", 5);
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
           navigate("/login");
@@ -252,7 +251,7 @@ const Problems = () => {
               });
           }
         } else {
-          message.error("Access Denied!!! Please login", 5);
+          message.error("Access Denied!!! Please login to view problems", 5);
           navigate("/login");
         }
       })
@@ -265,7 +264,6 @@ const Problems = () => {
     confirm();
     setsearchInput(selectedKeys[0]);
   };
-
   const handleReset = (clearFilters) => {
     clearFilters();
     setsearchInput("");
@@ -322,7 +320,7 @@ const Problems = () => {
               message.error(err.message, 5);
             });
         } else {
-          message.success("Access Denied!!! Please login", 5);
+          message.success("Access Denied!!! Please login to view problems", 5);
           navigate("/login");
         }
       })
@@ -339,6 +337,32 @@ const Problems = () => {
     setaddProblemVisible(true);
   };
 
+  const openRandom = (text) => {
+    let random = Math.floor(Math.random() * text.length);
+    console.log(random, text[random]);
+    Modal.info({
+      title: (
+        <>
+          <h3>"Why not try this problem!!!"</h3>
+          <a href={text[random].url} target="_blank" rel="noopener noreferrer">
+            View
+          </a>
+        </>
+      ),
+      content: (
+        <>
+          <h4>Problem: {text[random].title}</h4>
+          {text[random].topic.map((val) => (
+            <Tag color="#001529" key={val} style={{ margin: "5px" }}>
+              {val}
+            </Tag>
+          ))}
+        </>
+      ),
+      icon: false,
+      onOk() {},
+    });
+  };
   const openNotes = (text) => {
     Modal.info({
       title: "Note",
@@ -407,15 +431,17 @@ const Problems = () => {
         compare: (a, b) => a.status - b.status,
         multiple: 1,
       },
-      render: (text) => (
-        <div>
-          {text === false ? (
-            <LineOutlined />
-          ) : (
-            <CheckOutlined style={{ color: "darkgreen" }} />
-          )}
-        </div>
-      ),
+      render: (text) => {
+        return (
+          <div key={text}>
+            {text === false ? (
+              <LineOutlined />
+            ) : (
+              <CheckOutlined style={{ color: "darkgreen" }} />
+            )}
+          </div>
+        );
+      },
     },
     {
       title: "Topic",
@@ -445,7 +471,7 @@ const Problems = () => {
       dataIndex: "note",
       width: "5%",
       render: (text) => (
-        <div>
+        <div key={text}>
           {text.length > 0 ? (
             <FileDoneOutlined
               onClick={() => openNotes(text)}
@@ -476,6 +502,7 @@ const Problems = () => {
       render: (text) => (
         <Tag
           color={text === "1" ? "success" : text === "2" ? "warning" : "error"}
+          key={text}
         >
           {text === "1" ? "Easy" : text === "2" ? "Medium" : "Hard"}
         </Tag>
@@ -487,7 +514,7 @@ const Problems = () => {
       fixed: "right",
       width: "10%",
       render: (text) => (
-        <Space size="large">
+        <Space size="large" key={text}>
           <Tooltip title="View">
             <a href={text.url} target="_blank" rel="noopener noreferrer">
               <EyeOutlined style={{ color: "#1890ff" }} />
@@ -519,7 +546,7 @@ const Problems = () => {
         dataSource={data}
         loading={isSubmitting}
         align="center"
-        title={() => (
+        title={(currentPageData) => (
           <div style={{ float: "right" }}>
             <Button
               type="text"
@@ -533,7 +560,11 @@ const Problems = () => {
             >
               Add Problem
             </Button>
-            <Button type="link" icon={<NodeIndexOutlined />}>
+            <Button
+              type="link"
+              icon={<NodeIndexOutlined />}
+              onClick={() => openRandom(currentPageData)}
+            >
               Pick Random
             </Button>
           </div>
