@@ -14,7 +14,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`http://localhost:2222/${params.name}`)
+    fetch(`https://trackdsaproblems.herokuapp.com/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -51,7 +51,7 @@ const DSASheet = () => {
   };
   const handleAdd = (values) => {
     setIsSubmitting(true);
-    fetch("http://localhost:1111/verifyaccess", {
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -76,7 +76,7 @@ const DSASheet = () => {
             path: "",
           });
           values.userid = data.userid;
-          fetch("http://localhost:2222/addproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
             body: JSON.stringify(values),
             headers: {

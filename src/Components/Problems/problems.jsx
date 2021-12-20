@@ -94,7 +94,7 @@ const Problems = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("http://localhost:1111/verifyaccess", {
+      fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -118,7 +118,9 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(`http://localhost:2222/getproblems/${data.userid}`)
+            fetch(
+              `https://trackdsaproblems.herokuapp.com/getproblems/${data.userid}`
+            )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -172,7 +174,7 @@ const Problems = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("http://localhost:1111/verifyaccess", {
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -199,7 +201,7 @@ const Problems = () => {
           values.userid = data.userid;
           if (editMode) {
             values._id = edit._id;
-            fetch("http://localhost:2222/editproblem", {
+            fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -224,7 +226,7 @@ const Problems = () => {
                 message.error(err.message, 5);
               });
           } else {
-            fetch("http://localhost:2222/addproblem", {
+            fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
               method: "POST",
               body: JSON.stringify(values),
               headers: {
@@ -270,7 +272,7 @@ const Problems = () => {
   };
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("http://localhost:1111/verifyaccess", {
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -295,7 +297,7 @@ const Problems = () => {
             path: "",
           });
           values.userid = data.userid;
-          fetch("http://localhost:2222/deleteproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(values),
             headers: {

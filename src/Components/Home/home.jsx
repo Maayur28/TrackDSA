@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:2222/problemoftheday`)
+    fetch(`https://trackdsaproblems.herokuapp.com/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -27,7 +27,7 @@ const Home = () => {
   const handleAdd = (values) => {
     delete values._id;
     delete values.__v;
-    fetch("http://localhost:1111/verifyaccess", {
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -52,7 +52,7 @@ const Home = () => {
             path: "",
           });
           values.userid = data.userid;
-          fetch("http://localhost:2222/addproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
             body: JSON.stringify(values),
             headers: {
