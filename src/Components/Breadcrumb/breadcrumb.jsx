@@ -1,11 +1,13 @@
 import React from "react";
-import { Breadcrumb } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Breadcrumb, Alert, Space, Button } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 import "./breadcrumb.css";
+import Cookies from "js-cookie";
 
 const BreadCrumb = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const urlSearchParams = new URLSearchParams(location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const breadcrumbNameMap = {
@@ -38,6 +40,35 @@ const BreadCrumb = () => {
   ].concat(extraBreadcrumbItems);
   return (
     <div>
+      {location.pathname === "/" &&
+      (Cookies.get("accessToken") === undefined ||
+        Cookies.get("refreshToken") === undefined) ? (
+        <Alert
+          message="You can add and track your favourite DSA problems just by login/creating an account"
+          type="info"
+          showIcon
+          closable
+          action={
+            <Space>
+              <Button
+                size="small"
+                type="primary"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+              <Button
+                size="small"
+                danger
+                type="ghost"
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </Button>
+            </Space>
+          }
+        />
+      ) : null}
       <h1 className="right-side-top">
         {location.pathname === "/"
           ? "PROBLEMS OF THE DAY"

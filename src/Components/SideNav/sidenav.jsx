@@ -32,6 +32,7 @@ const SideNav = () => {
       setcurrentPath("8");
     else if (location.pathname === "/settings") setcurrentPath("6");
     else if (location.pathname === "/login") setcurrentPath("7");
+    else if (location.pathname === "/register") setcurrentPath("7");
     else if (location.pathname === "/") setcurrentPath("1");
   }, [location]);
 
@@ -81,8 +82,11 @@ const SideNav = () => {
             onClick={handleLoginLogout}
           >
             {Cookies.get("accessToken") &&
-            Cookies.get("accessToken").endsWith("=")
+            Cookies.get("accessToken").endsWith("=") &&
+            Cookies.get("refreshToken")
               ? "Logout"
+              : location.pathname === "/register"
+              ? "Register"
               : "Login"}
           </Menu.Item>
         </Menu>

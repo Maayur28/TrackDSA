@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Select, Button, Steps, Alert, message } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import "./register.css";
@@ -14,6 +14,18 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [otp, setotp] = useState("");
+  useEffect(() => {
+    if (
+      Cookies.get("accessToken") !== undefined &&
+      Cookies.get("refreshToken") !== undefined
+    )
+      navigate("/");
+    else {
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+    }
+  }, [navigate]);
+
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
@@ -76,7 +88,7 @@ const Register = () => {
             path: "",
           });
           message.success("Registered Successfully", 3);
-          navigate("/");
+          navigate("/problems");
         }
       })
       .catch((err) => {

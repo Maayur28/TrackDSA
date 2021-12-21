@@ -51,7 +51,7 @@ const Login = () => {
           path: "",
         });
         message.success("Login Successful", 5);
-        navigate("/");
+        navigate("/problems");
       })
       .catch((err) => {
         setIsSubmitting(false);
