@@ -79,7 +79,11 @@ const Problems = () => {
   ];
   const topicTagSelect = [];
   for (let i = 0; i < topicTags.length; i++) {
-    topicTagSelect.push(<Option key={i}>{topicTags[i]}</Option>);
+    topicTagSelect.push(
+      <Option key={i} value={topicTags[i]}>
+        {topicTags[i]}
+      </Option>
+    );
   }
   const [edit, setedit] = useState({});
   const [editorVisible, seteditorVisible] = useState(false);
