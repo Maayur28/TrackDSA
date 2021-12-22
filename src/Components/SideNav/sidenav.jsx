@@ -6,6 +6,7 @@ import {
   UserOutlined,
   SketchOutlined,
   HomeOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -33,6 +34,7 @@ const SideNav = () => {
     else if (location.pathname === "/settings") setcurrentPath("6");
     else if (location.pathname === "/login") setcurrentPath("7");
     else if (location.pathname === "/register") setcurrentPath("7");
+    else if (location.pathname === "/contact") setcurrentPath("9");
     else if (location.pathname === "/") setcurrentPath("1");
   }, [location]);
 
@@ -76,6 +78,9 @@ const SideNav = () => {
           {/* <Menu.Item key="6" icon={<SettingOutlined />}>
             <Link to="/settings">Settings</Link>
           </Menu.Item> */}
+          <Menu.Item key="9" icon={<MailOutlined />}>
+            <Link to="/contact">Contact</Link>
+          </Menu.Item>
           <Menu.Item
             key="7"
             icon={<LoginOutlined />}

@@ -11,6 +11,7 @@ import Reset from "./Components/Reset/reset";
 import BreadCrumb from "./Components/Breadcrumb/breadcrumb";
 import Home from "./Components/Home/home";
 import DSASheet from "./Components/DSASheet/dsaSheet";
+import Contact from "./Components/Contact/contact";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/reset/:token" element={<Reset />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </Router>
