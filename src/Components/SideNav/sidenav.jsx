@@ -18,8 +18,8 @@ const SideNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentPath, setcurrentPath] = useState("1");
-  const [collapsed, setcollapsed] = useState(false);
-
+  const width = window.innerWidth;
+  const [collapsed, setcollapsed] = useState(width <= 400 ? true : false);
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
