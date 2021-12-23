@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+    <img src="https://res.cloudinary.com/mayur28/image/upload/v1631346937/logo_yuerkf.png" alt="Logo" width="80" height="80">
+  <h3 align="center">TrackDSA</h3>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <p align="center">
+   A clean and easy-to-use web experience!
+    <br />
+    <a href="https://trackdsa.vercel.app/"><strong>View Website»</strong></a>
+    <br />
+  </p>
+</p>
 
-## Available Scripts
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#run-the-development-server">Run the development server</a></li>
+      </ul>
+    </li>
+      <li><a href="#google-lighthouse-score">Google Lighthouse Score</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-In the project directory, you can run:
+## About The Project
 
-### `npm start`
+![TrackDSA](https://res.cloudinary.com/mayur28/image/upload/v1640238599/trackDSAresponsive_n5cm7v.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As you have already know from my [portfolio](https://www.mayuragarwal.in/) that my focussed is on creating the user-friendly websites that deliver over the top experience. It delivers clean and easy-to-use user-experience with excellent responsiveness. Some key points which I keep in mind while developing the projects:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Must provide clean and easy-to-use experience.
+- Must provide better responsiveness for all screen sizes.
 
-### `npm test`
+### Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Built a full-stack web app to reduce extra efforts required for storing and remembering DSA problems that provides attractive and user-friendly interface.
+- Added the search, pick random, sort and filter features to easily find and provides ease of use.
+- Added the DSA crack sheet provided by few famous competitive coders and youtubers also Problems of the day feature based on difficulty type.
+- Used React.js, Node.js, Express.js and MongoDB.
+- Utilized Ant-Design for better visualization.
 
-### `npm run build`
+### Built With
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This section should list any major frameworks that you built your project using.Here are a few examples.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [React.js](https://reactjs.org/)
+- [Ant Design](https://ant.design/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Prerequisites
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This is an example of how to list things you need to use the software and how to install them.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- npm
+  ```sh
+  npm install
+  ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Run the development server
 
-## Learn More
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+First, run the development server:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+# or
+yarn start
+```
 
-### Code Splitting
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+You can start editing the page by modifying `src/app.js`. The page auto-updates as you edit the file.
 
-### Analyzing the Bundle Size
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Connect with me - [drop message](https://trackdsa.vercel.app/contact)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Portfolio Link: [Portfolio](https://www.mayuragarwal.in/)
