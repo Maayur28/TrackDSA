@@ -7,6 +7,7 @@ import {
   SketchOutlined,
   HomeOutlined,
   MailOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -83,7 +84,15 @@ const SideNav = () => {
           </Menu.Item>
           <Menu.Item
             key="7"
-            icon={<LoginOutlined />}
+            icon={
+              Cookies.get("accessToken") &&
+              Cookies.get("accessToken").endsWith("=") &&
+              Cookies.get("refreshToken") ? (
+                <LogoutOutlined />
+              ) : (
+                <LoginOutlined />
+              )
+            }
             onClick={handleLoginLogout}
           >
             {Cookies.get("accessToken") &&

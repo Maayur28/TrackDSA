@@ -11,6 +11,8 @@ import {
   Tooltip,
   Popconfirm,
   Select,
+  Badge,
+  Progress,
 } from "antd";
 
 import {
@@ -41,6 +43,7 @@ const Problems = () => {
   const [searchInput, setsearchInput] = useState("");
   const [topics, settopics] = useState([]);
   const [topicdefaultedit, settopicdefaultedit] = useState([]);
+  const [solved, setsolved] = useState(0);
   const topicTags = [
     "Array",
     "String",
@@ -164,7 +167,11 @@ const Problems = () => {
 
   useEffect(() => {
     let arr = [];
+    let count = 0;
     for (let i = 0; i < data.length; i++) {
+      if (data[i].status === true) {
+        count = count + 1;
+      }
       for (let j = 0; j < data[i].topic.length; j++) {
         if (
           arr.length === 0 ||
@@ -173,6 +180,7 @@ const Problems = () => {
           arr.push({ text: data[i].topic[j], value: data[i].topic[j] });
       }
     }
+    setsolved(count);
     settopics([...arr]);
   }, [data]);
 
@@ -479,10 +487,12 @@ const Problems = () => {
       render: (text) => (
         <div key={text}>
           {text.length > 0 ? (
-            <FileDoneOutlined
-              onClick={() => openNotes(text)}
-              style={{ color: "#1890FF" }}
-            />
+            <Badge dot>
+              <FileDoneOutlined
+                onClick={() => openNotes(text)}
+                style={{ color: "#1890FF" }}
+              />
+            </Badge>
           ) : (
             <FileExclamationOutlined />
           )}
@@ -553,26 +563,43 @@ const Problems = () => {
         loading={isSubmitting}
         align="center"
         title={(currentPageData) => (
-          <div style={{ float: "right" }}>
-            <Button
-              type="text"
-              icon={<PlusSquareOutlined />}
-              onClick={() => {
-                seteditMode(false);
-                setedit({});
-                form.resetFields();
-                setaddProblemVisible(true);
-              }}
-            >
-              Add Problem
-            </Button>
-            <Button
-              type="link"
-              icon={<NodeIndexOutlined />}
-              onClick={() => openRandom(currentPageData)}
-            >
-              Pick Random
-            </Button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              Solved:&nbsp;&nbsp;
+              <Progress
+                percent={Math.round((solved * 100) / data.length)}
+                steps={10}
+                size="small"
+                strokeColor="#52c41a"
+              />
+            </div>
+            <div style={{ float: "right" }}>
+              <Button
+                type="text"
+                icon={<PlusSquareOutlined />}
+                onClick={() => {
+                  seteditMode(false);
+                  setedit({});
+                  form.resetFields();
+                  setaddProblemVisible(true);
+                }}
+              >
+                Add Problem
+              </Button>
+              <Button
+                type="link"
+                icon={<NodeIndexOutlined />}
+                onClick={() => openRandom(currentPageData)}
+              >
+                Pick Random
+              </Button>
+            </div>
           </div>
         )}
       />
