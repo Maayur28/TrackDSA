@@ -264,20 +264,20 @@ const DSASheet = () => {
   ];
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
       setselectedRowsNumber([...selectedRowKeys]);
       setselectedRowsData([...selectedRows]);
     },
-    onSelect: (record, selected, selectedRows) => {
-      console.log(record, selected, selectedRows);
-    },
-    onSelectAll: (selected, selectedRows, changeRows) => {
-      console.log(selected, selectedRows, changeRows);
-    },
+    // onSelect: (record, selected, selectedRows) => {
+    //   console.log(record, selected, selectedRows);
+    // },
+    // onSelectAll: (selected, selectedRows, changeRows) => {
+    //   console.log(selected, selectedRows, changeRows);
+    // },
   };
   return (
     <div>
