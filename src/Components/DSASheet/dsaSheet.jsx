@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Table, Input, Space, Button, message, Tag, Tooltip } from "antd";
+import {
+  Table,
+  Input,
+  Space,
+  Button,
+  message,
+  Tag,
+  Tooltip,
+  Switch,
+} from "antd";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { SearchOutlined, SendOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  SendOutlined,
+  EyeOutlined,
+  CheckOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 const DSASheet = () => {
   const location = useLocation();
@@ -10,7 +25,7 @@ const DSASheet = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [topics, settopics] = useState([]);
   const [searchInput, setsearchInput] = useState("");
-  const [showPagi, setshowPagi] = useState(true);
+  const [showPagi, setshowPagi] = useState(false);
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   useEffect(() => {
@@ -33,7 +48,7 @@ const DSASheet = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        message(err.message, 5);
+        message.error(err.message, 5);
       });
   }, [location]);
   useEffect(() => {
@@ -272,10 +287,19 @@ const DSASheet = () => {
         dataSource={data}
         loading={isSubmitting}
         rowKey={(record) => record._id}
-        pagination={showPagi}
+        pagination={!showPagi}
         align="center"
         title={(currentPageData) => (
           <Space>
+            <span>
+              {!showPagi ? "Show" : "Hide"} full table &nbsp;
+              <Switch
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                checked={showPagi}
+                onClick={() => setshowPagi(!showPagi)}
+              />
+            </span>
             <Button
               disabled={selectedRowsNumber.length > 0 ? false : true}
               loading={isSubmitting}
