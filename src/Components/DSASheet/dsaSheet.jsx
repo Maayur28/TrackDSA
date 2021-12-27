@@ -10,6 +10,9 @@ const DSASheet = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [topics, settopics] = useState([]);
   const [searchInput, setsearchInput] = useState("");
+  const [showPagi, setshowPagi] = useState(true);
+  const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
+  const [selectedRowsData, setselectedRowsData] = useState([]);
   useEffect(() => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
@@ -25,6 +28,7 @@ const DSASheet = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
+        console.table(data.totalProblem);
         setData([...data.totalProblem]);
       })
       .catch((err) => {
@@ -70,15 +74,23 @@ const DSASheet = () => {
         }
       })
       .then((data) => {
+        console.log(data);
         if (data.accessToken !== false) {
           Cookies.set("accessToken", data.accessToken, {
             expires: 7,
             path: "",
           });
-          values.userid = data.userid;
-          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
+          let obj = {};
+          delete values._id;
+          delete values.__v;
+          obj.userid = data.userid;
+          if (values.status !== undefined) {
+            obj.problems = [];
+            obj.problems.push(values);
+          } else obj.problems = [...selectedRowsData];
+          fetch("http://localhost:2222/addproblem", {
             method: "POST",
-            body: JSON.stringify(values),
+            body: JSON.stringify(obj),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
@@ -105,7 +117,7 @@ const DSASheet = () => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        message.error(err.message, 5);
+        message.error("Access Denied!!! Please login to continue", 5);
       });
   };
   const handleReset = (clearFilters) => {
@@ -235,13 +247,49 @@ const DSASheet = () => {
       },
     },
   ];
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+      setselectedRowsNumber([...selectedRowKeys]);
+      setselectedRowsData([...selectedRows]);
+    },
+    onSelect: (record, selected, selectedRows) => {
+      console.log(record, selected, selectedRows);
+    },
+    onSelectAll: (selected, selectedRows, changeRows) => {
+      console.log(selected, selectedRows, changeRows);
+    },
+  };
   return (
     <div>
       <Table
         columns={columns}
+        rowSelection={{ ...rowSelection }}
         dataSource={data}
         loading={isSubmitting}
+        rowKey={(record) => record._id}
+        pagination={showPagi}
         align="center"
+        title={(currentPageData) => (
+          <Space>
+            <Button
+              disabled={selectedRowsNumber.length > 0 ? false : true}
+              loading={isSubmitting}
+              onClick={handleAdd}
+            >
+              Move to problems
+            </Button>
+            <span>
+              {selectedRowsNumber.length > 0
+                ? `Selected ${selectedRowsNumber.length} items`
+                : ""}
+            </span>
+          </Space>
+        )}
       />
     </div>
   );

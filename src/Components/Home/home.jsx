@@ -25,8 +25,6 @@ const Home = () => {
       });
   }, []);
   const handleAdd = (values) => {
-    delete values._id;
-    delete values.__v;
     fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
@@ -51,10 +49,15 @@ const Home = () => {
             expires: 7,
             path: "",
           });
-          values.userid = data.userid;
+          let obj = {};
+          delete values._id;
+          delete values.__v;
+          obj.userid = data.userid;
+          obj.problems = [];
+          obj.problems.push(values);
           fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
-            body: JSON.stringify(values),
+            body: JSON.stringify(obj),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },

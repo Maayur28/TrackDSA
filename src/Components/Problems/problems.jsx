@@ -210,9 +210,9 @@ const Problems = () => {
             expires: 7,
             path: "",
           });
-          values.userid = data.userid;
           if (editMode) {
             values._id = edit._id;
+            values.userid = data.userid;
             fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
@@ -238,9 +238,15 @@ const Problems = () => {
                 message.error(err.message, 5);
               });
           } else {
+            let obj = {};
+            delete values._id;
+            delete values.__v;
+            obj.userid = data.userid;
+            obj.problems = [];
+            obj.problems.push(values);
             fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
               method: "POST",
-              body: JSON.stringify(values),
+              body: JSON.stringify(obj),
               headers: {
                 "Content-type": "application/json; charset=UTF-8",
               },
@@ -579,7 +585,7 @@ const Problems = () => {
                 strokeColor="#52c41a"
               />
             </div>
-            <div style={{ float: "right" }}>
+            <div>
               <Button
                 type="text"
                 icon={<PlusSquareOutlined />}
