@@ -88,7 +88,7 @@ const DSASheet = () => {
             obj.problems = [];
             obj.problems.push(values);
           } else obj.problems = [...selectedRowsData];
-          fetch("http://localhost:2222/addproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
