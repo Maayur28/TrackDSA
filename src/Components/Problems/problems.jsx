@@ -321,11 +321,19 @@ const Problems = () => {
             obj.problems = [];
             obj.problems.push(values);
           } else if (selectedRowsData.length > 0) {
-            obj.problems = [...selectedRowsData];
+            let arr = [];
+            for (let i = 0; i < selectedRowsData.length; i++) {
+              arr.push(selectedRowsData[i]._id);
+            }
+            obj.problems = [...arr];
           } else {
-            obj.problems = [...data];
+            let arr = [];
+            for (let i = 0; i < data.length; i++) {
+              arr.push(data[i]._id);
+            }
+            obj.problems = [...arr];
           }
-          fetch("http://localhost:2222/deleteproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -598,37 +606,39 @@ const Problems = () => {
             }}
           >
             <div>
-              <Space>
-                {selectedRowsNumber.length === 0 ? (
-                  <Button loading={isSubmitting} onClick={confirmDelete}>
-                    Delete all
-                  </Button>
-                ) : (
-                  <>
-                    <Button
-                      disabled={selectedRowsNumber.length > 0 ? false : true}
-                      loading={isSubmitting}
-                      onClick={confirmDelete}
-                    >
-                      Delete
+              {data.length > 0 ? (
+                <Space>
+                  {selectedRowsNumber.length === 0 ? (
+                    <Button loading={isSubmitting} onClick={confirmDelete}>
+                      Delete all
                     </Button>
-                    <span>
-                      {selectedRowsNumber.length > 0
-                        ? `Selected ${selectedRowsNumber.length} items`
-                        : ""}
-                    </span>
-                  </>
-                )}
-                <span>
-                  Solved:&nbsp;&nbsp;
-                  <Progress
-                    percent={Math.round((solved * 100) / data.length)}
-                    steps={10}
-                    size="small"
-                    strokeColor="#52c41a"
-                  />
-                </span>
-              </Space>
+                  ) : (
+                    <>
+                      <Button
+                        disabled={selectedRowsNumber.length > 0 ? false : true}
+                        loading={isSubmitting}
+                        onClick={confirmDelete}
+                      >
+                        Delete
+                      </Button>
+                      <span>
+                        {selectedRowsNumber.length > 0
+                          ? `Selected ${selectedRowsNumber.length} items`
+                          : ""}
+                      </span>
+                    </>
+                  )}
+                  <span>
+                    Solved:&nbsp;&nbsp;
+                    <Progress
+                      percent={Math.round((solved * 100) / data.length)}
+                      steps={10}
+                      size="small"
+                      strokeColor="#52c41a"
+                    />
+                  </span>
+                </Space>
+              ) : null}
             </div>
             <div>
               <Button
@@ -643,13 +653,15 @@ const Problems = () => {
               >
                 Add Problem
               </Button>
-              <Button
-                type="link"
-                icon={<NodeIndexOutlined />}
-                onClick={() => openRandom(currentPageData)}
-              >
-                Pick Random
-              </Button>
+              {data.length > 0 ? (
+                <Button
+                  type="link"
+                  icon={<NodeIndexOutlined />}
+                  onClick={() => openRandom(currentPageData)}
+                >
+                  Pick Random
+                </Button>
+              ) : null}
             </div>
           </div>
         )}
