@@ -20,13 +20,13 @@ import {
   PlusSquareOutlined,
   NodeIndexOutlined,
   LineOutlined,
-  CheckOutlined,
   FileDoneOutlined,
   FileExclamationOutlined,
   QuestionCircleOutlined,
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
+  CheckOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
@@ -44,6 +44,8 @@ const Problems = () => {
   const [topics, settopics] = useState([]);
   const [topicdefaultedit, settopicdefaultedit] = useState([]);
   const [solved, setsolved] = useState(0);
+  const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
+  const [selectedRowsData, setselectedRowsData] = useState([]);
   const topicTags = [
     "Array",
     "String",
@@ -148,7 +150,7 @@ const Problems = () => {
                 );
               });
           } else {
-            message.error("Access Denied!!! Please login to view problems", 5);
+            message.error("Please login to view problems", 5);
             setIsSubmitting(false);
             Cookies.remove("accessToken");
             Cookies.remove("refreshToken");
@@ -157,7 +159,7 @@ const Problems = () => {
         })
         .catch((err) => {
           setIsSubmitting(false);
-          message.error("Access Denied!!! Please login to view problems", 5);
+          message.error("Please login to view problems", 5);
           Cookies.remove("accessToken");
           Cookies.remove("refreshToken");
           navigate("/login");
@@ -262,7 +264,6 @@ const Problems = () => {
               .then((data) => {
                 setIsSubmitting(false);
                 setData([...data.totalproblem]);
-                console.table(data.totalproblem);
                 setaddProblemVisible(false);
               })
               .catch((err) => {
@@ -271,7 +272,7 @@ const Problems = () => {
               });
           }
         } else {
-          message.error("Access Denied!!! Please login to view problems", 5);
+          message.error("Please login to view problems", 5);
           navigate("/login");
         }
       })
@@ -308,16 +309,25 @@ const Problems = () => {
           throw new Error(text);
         }
       })
-      .then((data) => {
-        if (data.accessToken !== false) {
-          Cookies.set("accessToken", data.accessToken, {
+      .then((datas) => {
+        if (datas.accessToken !== false) {
+          Cookies.set("accessToken", datas.accessToken, {
             expires: 7,
             path: "",
           });
-          values.userid = data.userid;
-          fetch("https://trackdsaproblems.herokuapp.com/deleteproblem", {
+          let obj = {};
+          obj.userid = datas.userid;
+          if (values.status !== undefined) {
+            obj.problems = [];
+            obj.problems.push(values);
+          } else if (selectedRowsData.length > 0) {
+            obj.problems = [...selectedRowsData];
+          } else {
+            obj.problems = [...data];
+          }
+          fetch("http://localhost:2222/deleteproblem", {
             method: "DELETE",
-            body: JSON.stringify(values),
+            body: JSON.stringify(obj),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
@@ -332,6 +342,9 @@ const Problems = () => {
             })
             .then((data) => {
               setIsSubmitting(false);
+              message.success("Data has been deleted successfully", 3);
+              setselectedRowsNumber([]);
+              setselectedRowsData([]);
               setData([...data.totalproblem]);
               setaddProblemVisible(false);
             })
@@ -340,7 +353,7 @@ const Problems = () => {
               message.error(err.message, 5);
             });
         } else {
-          message.success("Access Denied!!! Please login to view problems", 5);
+          message.success("Please login to view problems", 5);
           navigate("/login");
         }
       })
@@ -359,7 +372,6 @@ const Problems = () => {
 
   const openRandom = (text) => {
     let random = Math.floor(Math.random() * text.length);
-    console.log(random, text[random]);
     Modal.info({
       title: (
         <>
@@ -561,12 +573,21 @@ const Problems = () => {
       ),
     },
   ];
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      setselectedRowsNumber([...selectedRowKeys]);
+      setselectedRowsData([...selectedRows]);
+    },
+  };
+
   return (
     <div>
       <Table
         columns={columns}
+        rowSelection={{ ...rowSelection }}
         dataSource={data}
         loading={isSubmitting}
+        rowKey={(record) => record._id}
         align="center"
         title={(currentPageData) => (
           <div
@@ -577,13 +598,37 @@ const Problems = () => {
             }}
           >
             <div>
-              Solved:&nbsp;&nbsp;
-              <Progress
-                percent={Math.round((solved * 100) / data.length)}
-                steps={10}
-                size="small"
-                strokeColor="#52c41a"
-              />
+              <Space>
+                {selectedRowsNumber.length === 0 ? (
+                  <Button loading={isSubmitting} onClick={confirmDelete}>
+                    Delete all
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      disabled={selectedRowsNumber.length > 0 ? false : true}
+                      loading={isSubmitting}
+                      onClick={confirmDelete}
+                    >
+                      Delete
+                    </Button>
+                    <span>
+                      {selectedRowsNumber.length > 0
+                        ? `Selected ${selectedRowsNumber.length} items`
+                        : ""}
+                    </span>
+                  </>
+                )}
+                <span>
+                  Solved:&nbsp;&nbsp;
+                  <Progress
+                    percent={Math.round((solved * 100) / data.length)}
+                    steps={10}
+                    size="small"
+                    strokeColor="#52c41a"
+                  />
+                </span>
+              </Space>
             </div>
             <div>
               <Button

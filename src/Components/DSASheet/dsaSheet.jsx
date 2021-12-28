@@ -1,23 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  Input,
-  Space,
-  Button,
-  message,
-  Tag,
-  Tooltip,
-  Switch,
-} from "antd";
+import { Table, Input, Space, Button, message, Tag, Tooltip } from "antd";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import {
-  SearchOutlined,
-  SendOutlined,
-  EyeOutlined,
-  CheckOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined, SendOutlined, EyeOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 const DSASheet = () => {
   const location = useLocation();
@@ -25,7 +10,6 @@ const DSASheet = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [topics, settopics] = useState([]);
   const [searchInput, setsearchInput] = useState("");
-  const [showPagi, setshowPagi] = useState(false);
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   useEffect(() => {
@@ -43,7 +27,6 @@ const DSASheet = () => {
       })
       .then((data) => {
         setIsSubmitting(false);
-        console.table(data.totalProblem);
         setData([...data.totalProblem]);
       })
       .catch((err) => {
@@ -88,21 +71,24 @@ const DSASheet = () => {
           throw new Error(text);
         }
       })
-      .then((data) => {
-        console.log(data);
-        if (data.accessToken !== false) {
-          Cookies.set("accessToken", data.accessToken, {
+      .then((datas) => {
+        if (datas.accessToken !== false) {
+          Cookies.set("accessToken", datas.accessToken, {
             expires: 7,
             path: "",
           });
           let obj = {};
           delete values._id;
           delete values.__v;
-          obj.userid = data.userid;
+          obj.userid = datas.userid;
           if (values.status !== undefined) {
             obj.problems = [];
             obj.problems.push(values);
-          } else obj.problems = [...selectedRowsData];
+          } else if (selectedRowsData.length > 0) {
+            obj.problems = [...selectedRowsData];
+          } else {
+            obj.problems = [...data];
+          }
           fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
@@ -264,20 +250,9 @@ const DSASheet = () => {
   ];
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      // console.log(
-      //   `selectedRowKeys: ${selectedRowKeys}`,
-      //   "selectedRows: ",
-      //   selectedRows
-      // );
       setselectedRowsNumber([...selectedRowKeys]);
       setselectedRowsData([...selectedRows]);
     },
-    // onSelect: (record, selected, selectedRows) => {
-    //   console.log(record, selected, selectedRows);
-    // },
-    // onSelectAll: (selected, selectedRows, changeRows) => {
-    //   console.log(selected, selectedRows, changeRows);
-    // },
   };
   return (
     <div>
@@ -287,31 +262,29 @@ const DSASheet = () => {
         dataSource={data}
         loading={isSubmitting}
         rowKey={(record) => record._id}
-        pagination={!showPagi}
         align="center"
-        title={(currentPageData) => (
+        title={() => (
           <Space>
-            <span>
-              {!showPagi ? "Show" : "Hide"} full table &nbsp;
-              <Switch
-                checkedChildren={<CheckOutlined />}
-                unCheckedChildren={<CloseOutlined />}
-                checked={showPagi}
-                onClick={() => setshowPagi(!showPagi)}
-              />
-            </span>
-            <Button
-              disabled={selectedRowsNumber.length > 0 ? false : true}
-              loading={isSubmitting}
-              onClick={handleAdd}
-            >
-              Move to problems
-            </Button>
-            <span>
-              {selectedRowsNumber.length > 0
-                ? `Selected ${selectedRowsNumber.length} items`
-                : ""}
-            </span>
+            {selectedRowsNumber.length === 0 ? (
+              <Button loading={isSubmitting} onClick={handleAdd}>
+                Move all to problems
+              </Button>
+            ) : (
+              <>
+                <Button
+                  disabled={selectedRowsNumber.length > 0 ? false : true}
+                  loading={isSubmitting}
+                  onClick={handleAdd}
+                >
+                  Move to problems
+                </Button>
+                <span>
+                  {selectedRowsNumber.length > 0
+                    ? `Selected ${selectedRowsNumber.length} items`
+                    : ""}
+                </span>
+              </>
+            )}
           </Space>
         )}
       />
