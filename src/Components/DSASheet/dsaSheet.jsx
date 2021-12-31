@@ -78,7 +78,6 @@ const DSASheet = () => {
             path: "",
           });
           let obj = {};
-          delete values._id;
           delete values.__v;
           obj.userid = datas.userid;
           if (values.status !== undefined) {

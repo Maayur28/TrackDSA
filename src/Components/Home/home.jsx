@@ -50,7 +50,6 @@ const Home = () => {
             path: "",
           });
           let obj = {};
-          delete values._id;
           delete values.__v;
           obj.userid = data.userid;
           obj.problems = [];
