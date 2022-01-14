@@ -657,7 +657,7 @@ const Problems = () => {
                 <Button
                   type="link"
                   icon={<NodeIndexOutlined />}
-                  onClick={() => openRandom(currentPageData)}
+                  onClick={() => openRandom(data)}
                 >
                   Pick Random
                 </Button>
