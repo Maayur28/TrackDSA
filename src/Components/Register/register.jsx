@@ -137,7 +137,7 @@ const Register = () => {
                 message: "Please input your E-mail!",
               },
             ]}
-            extra="We will never share you email."
+            extra="We will never share your email."
           >
             <Input prefix={<MailOutlined />} placeholder="E-mail" />
           </Form.Item>
