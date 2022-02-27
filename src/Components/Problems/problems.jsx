@@ -128,7 +128,7 @@ const Problems = () => {
               path: "",
             });
             fetch(
-              `http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/getproblems/${data.userid}`
+              `https://trackdsaproblems.herokuapp.com/getproblems/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -215,16 +215,13 @@ const Problems = () => {
           if (editMode) {
             values._id = edit._id;
             values.userid = data.userid;
-            fetch(
-              "http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/editproblem",
-              {
-                method: "PUT",
-                body: JSON.stringify(values),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-              }
-            )
+            fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
+              method: "PUT",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -249,16 +246,13 @@ const Problems = () => {
             obj.userid = data.userid;
             obj.problems = [];
             obj.problems.push(values);
-            fetch(
-              "http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/addproblem",
-              {
-                method: "POST",
-                body: JSON.stringify(obj),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-              }
-            )
+            fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
+              method: "POST",
+              body: JSON.stringify(obj),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -339,16 +333,13 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch(
-            "http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/deleteproblem",
-            {
-              method: "DELETE",
-              body: JSON.stringify(obj),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            }
-          )
+          fetch("https://trackdsaproblems.herokuapp.com/deleteproblem", {
+            method: "DELETE",
+            body: JSON.stringify(obj),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
             .then(async (response) => {
               if (response.status >= 200 && response.status <= 299) {
                 return response.json();

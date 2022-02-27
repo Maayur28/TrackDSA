@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/problemoftheday`)
+    fetch(`https://trackdsaproblems.herokuapp.com/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -54,7 +54,7 @@ const Home = () => {
           obj.userid = data.userid;
           obj.problems = [];
           obj.problems.push(values);
-          fetch("http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/addproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

@@ -16,9 +16,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(
-      `http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/${params.name}`
-    )
+    fetch(`https://trackdsaproblems.herokuapp.com/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -90,16 +88,13 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch(
-            "http://ec2-3-110-142-7.ap-south-1.compute.amazonaws.com:5000/addproblem",
-            {
-              method: "POST",
-              body: JSON.stringify(obj),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            }
-          )
+          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
+            method: "POST",
+            body: JSON.stringify(obj),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
             .then(async (response) => {
               if (response.status >= 200 && response.status <= 299) {
                 return response.json();
