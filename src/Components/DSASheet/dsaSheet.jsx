@@ -16,7 +16,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`https://trackdsaproblems.herokuapp.com/${params.name}`)
+    fetch(`https://www.trackdsa.in/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -88,7 +88,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
+          fetch("https://www.trackdsa.in/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
