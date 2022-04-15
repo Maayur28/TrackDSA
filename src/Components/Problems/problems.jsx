@@ -127,7 +127,9 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://www.trackdsa.in/getproblems/${data.userid}`)
+            fetch(
+              `https://trackdsaproblems.herokuapp.com/getproblems/${data.userid}`
+            )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -213,7 +215,7 @@ const Problems = () => {
           if (editMode) {
             values._id = edit._id;
             values.userid = data.userid;
-            fetch("https://www.trackdsa.in/editproblem", {
+            fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -244,7 +246,7 @@ const Problems = () => {
             obj.userid = data.userid;
             obj.problems = [];
             obj.problems.push(values);
-            fetch("https://www.trackdsa.in/addproblem", {
+            fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -331,7 +333,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("https://www.trackdsa.in/deleteproblem", {
+          fetch("https://trackdsaproblems.herokuapp.com/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
