@@ -13,6 +13,8 @@ import {
   Select,
   Badge,
   Progress,
+  Checkbox,
+  Slider,
 } from "antd";
 
 import {
@@ -27,6 +29,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   CheckOutlined,
+  SendOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
@@ -93,6 +96,7 @@ const Problems = () => {
   const [edit, setedit] = useState({});
   const [editorVisible, seteditorVisible] = useState(false);
   const [addProblemVisible, setaddProblemVisible] = useState(false);
+  const [sendMailVisible, setSendMailVisible] = useState(false);
   useEffect(() => {
     if (
       Cookies.get("accessToken") === undefined ||
@@ -588,6 +592,105 @@ const Problems = () => {
     },
   };
 
+  const sendMailOption1 = ["Unsolved", "Solved"];
+
+  const sendMailOption2 = ["Easy", "Medium", "Hard"];
+
+  const sendMail = (values) => {
+    setIsSubmitting(true);
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((datas) => {
+        if (datas.accessToken !== false) {
+          Cookies.set("accessToken", datas.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          let arr = [];
+          if (values.prob === "Unsolved") values.status = false;
+          else values.status = true;
+          if (values.diff === "Easy") values.difficulty = "1";
+          else if (values.diff === "Medium") values.difficulty = "2";
+          else values.difficulty = "3";
+          console.log(values);
+          for (let i = 0; i < data.length; i++) {
+            if (
+              data[i].status === values.status &&
+              data[i].difficulty === values.difficulty
+            ) {
+              arr.push(data[i]);
+            }
+          }
+          console.log(arr);
+          let brr = [],
+            array = [],
+            counter = values.slider;
+          while (counter !== 0 && arr.length > 0) {
+            let random = Math.floor(Math.random() * arr.length);
+            if (!brr.includes[random]) {
+              brr.push(random);
+              array.push(arr[random]);
+              counter--;
+            }
+          }
+          if (array.length > 0) {
+            fetch("http://localhost:5000/sendmail", {
+              method: "POST",
+              body: JSON.stringify(array),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
+              .then(async (response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                  return response.json();
+                } else {
+                  const text = await response.text();
+                  throw new Error(text);
+                }
+              })
+              .then((data) => {
+                setIsSubmitting(false);
+                message.success("Problems sent successfully", 5);
+                setSendMailVisible(false);
+              })
+              .catch((err) => {
+                setIsSubmitting(false);
+                message.error(err.message, 5);
+              });
+          } else {
+            message.info("No problems to send!!! Please try again", 5);
+            setIsSubmitting(false);
+            form.resetFields();
+          }
+        } else {
+          message.error("Please login to view problems", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        form.resetFields();
+        message.error(err.message, 5);
+      });
+  };
+
   return (
     <div>
       <Table
@@ -641,6 +744,16 @@ const Problems = () => {
               ) : null}
             </div>
             <div>
+              <Button
+                type="link"
+                icon={<SendOutlined />}
+                onClick={() => {
+                  form.resetFields();
+                  setSendMailVisible(true);
+                }}
+              >
+                Send Mail
+              </Button>
               <Button
                 type="text"
                 icon={<PlusSquareOutlined />}
@@ -757,6 +870,47 @@ const Problems = () => {
                 disabled={isSubmitting ? true : false}
               >
                 Cancel
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Modal
+        title="Maximum 5 problems can be sent"
+        visible={sendMailVisible}
+        onCancel={() => {
+          setSendMailVisible(false);
+        }}
+        width={360}
+        footer={[]}
+      >
+        <Form
+          form={form}
+          name="sendMail"
+          onFinish={sendMail}
+          autoComplete="on"
+          initialValues={{ prob: "Unsolved", diff: "Easy", slider: 3 }}
+        >
+          <Form.Item name="prob" label="Solved">
+            <Checkbox.Group options={sendMailOption1} />
+          </Form.Item>
+          <Form.Item name="diff" label="Difficulty">
+            <Checkbox.Group options={sendMailOption2} />
+          </Form.Item>
+          <Form.Item name="slider" label="Problems">
+            <Slider min={1} max={5} />
+          </Form.Item>
+          <Form.Item>
+            <Space>
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
+                Send Mail
+              </Button>
+              <Button
+                danger
+                onClick={() => form.resetFields()}
+                disabled={isSubmitting ? true : false}
+              >
+                Reset
               </Button>
             </Space>
           </Form.Item>
