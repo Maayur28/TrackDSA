@@ -650,7 +650,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("http://localhost:5000/sendmail", {
+            fetch("https://trackdsaproblems.herokuapp.com/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
