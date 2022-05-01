@@ -628,7 +628,6 @@ const Problems = () => {
           if (values.diff === "Easy") values.difficulty = "1";
           else if (values.diff === "Medium") values.difficulty = "2";
           else values.difficulty = "3";
-          console.log(values);
           for (let i = 0; i < data.length; i++) {
             if (
               data[i].status === values.status &&
@@ -637,7 +636,6 @@ const Problems = () => {
               arr.push(data[i]);
             }
           }
-          console.log(arr);
           let brr = [],
             array = [],
             counter = values.slider;
