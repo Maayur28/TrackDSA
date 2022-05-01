@@ -118,7 +118,7 @@ const Home = () => {
             cover={<img alt="example" src="/medium.png" />}
             actions={[
               <Tooltip title="View">
-                <a href={data[0].url} target="_blank" rel="noopener noreferrer">
+                <a href={data[1].url} target="_blank" rel="noopener noreferrer">
                   <EyeOutlined style={{ color: "#1890ff" }} />
                 </a>
               </Tooltip>,
@@ -144,7 +144,7 @@ const Home = () => {
             cover={<img alt="example" src="/hard.png" />}
             actions={[
               <Tooltip title="View">
-                <a href={data[0].url} target="_blank" rel="noopener noreferrer">
+                <a href={data[2].url} target="_blank" rel="noopener noreferrer">
                   <EyeOutlined style={{ color: "#1890ff" }} />
                 </a>
               </Tooltip>,
