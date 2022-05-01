@@ -35,6 +35,8 @@ import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Problems = () => {
   const { Option } = Select;
@@ -49,6 +51,7 @@ const Problems = () => {
   const [solved, setsolved] = useState(0);
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
+  const [note, setNote] = useState("");
   const topicTags = [
     "Array",
     "String",
@@ -410,7 +413,9 @@ const Problems = () => {
   const openNotes = (text) => {
     Modal.info({
       title: "Note",
-      content: text,
+      content: <ReactQuill theme="snow" value={text} readOnly={true} />,
+      width: window.innerWidth > 800 ? window.innerWidth - 400 : 360,
+      height: 1000,
       onOk() {},
     });
   };
@@ -797,7 +802,7 @@ const Problems = () => {
         onCancel={() => {
           setaddProblemVisible(false);
         }}
-        width={360}
+        width={window.innerWidth > 800 ? window.innerWidth - 400 : 360}
         footer={[]}
       >
         <Form
@@ -855,7 +860,7 @@ const Problems = () => {
             </Form.Item>
           ) : null}
           <Form.Item name="note" label="Note">
-            <Input.TextArea />
+            <ReactQuill theme="snow" value={note} onChange={setNote} />
           </Form.Item>
           <Form.Item>
             <Space>
