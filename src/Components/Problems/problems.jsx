@@ -646,7 +646,7 @@ const Problems = () => {
             counter = values.slider;
           while (counter !== 0 && arr.length > 0) {
             let random = Math.floor(Math.random() * arr.length);
-            if (!brr.includes[random]) {
+            if (!brr.includes(random)) {
               brr.push(random);
               array.push(arr[random]);
               counter--;
