@@ -30,6 +30,7 @@ import {
   DeleteOutlined,
   CheckOutlined,
   SendOutlined,
+  ClearOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
@@ -52,6 +53,7 @@ const Problems = () => {
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [note, setNote] = useState("");
+  const [filteredInfo, setFilteredInfo] = useState(null);
   const topicTags = [
     "Array",
     "String",
@@ -496,6 +498,7 @@ const Problems = () => {
       title: "Topic",
       dataIndex: "topic",
       width: "12%",
+      filteredValue: (filteredInfo && filteredInfo.topic) || null,
       filters: [...topics],
       onFilter: (value, record) => {
         return record.topic.includes(value);
@@ -512,6 +515,7 @@ const Problems = () => {
     },
     {
       title: "Title",
+      filteredValue: (filteredInfo && filteredInfo.title) || null,
       dataIndex: "title",
       ...getColumnSearchProps("title"),
     },
@@ -541,6 +545,7 @@ const Problems = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
+      filteredValue: (filteredInfo && filteredInfo.difficulty) || null,
       width: "5%",
       filters: [
         { text: "Easy", value: 1 },
@@ -597,6 +602,9 @@ const Problems = () => {
     },
   };
 
+  const handleChange = (pagination, filters, sorter) => {
+    setFilteredInfo(filters);
+  };
   const sendMailOption1 = ["Unsolved", "Solved"];
 
   const sendMailOption2 = ["Easy", "Medium", "Hard"];
@@ -704,6 +712,7 @@ const Problems = () => {
         loading={isSubmitting}
         rowKey={(record) => record._id}
         align="center"
+        onChange={handleChange}
         title={(currentPageData) => (
           <div
             style={{
@@ -748,6 +757,18 @@ const Problems = () => {
               ) : null}
             </div>
             <div>
+              {filteredInfo ? (
+                <Button
+                  type="link"
+                  icon={<ClearOutlined />}
+                  onClick={() => {
+                    setFilteredInfo(null);
+                    setsearchInput("");
+                  }}
+                >
+                  Reset Filters
+                </Button>
+              ) : null}
               <Button
                 type="link"
                 icon={<SendOutlined />}
