@@ -671,6 +671,7 @@ const Problems = () => {
               .then((data) => {
                 setIsSubmitting(false);
                 message.success("Problems sent successfully", 5);
+                form.resetFields();
                 setSendMailVisible(false);
               })
               .catch((err) => {
