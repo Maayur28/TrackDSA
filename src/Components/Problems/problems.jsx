@@ -478,6 +478,14 @@ const Problems = () => {
       title: "Status",
       dataIndex: "status",
       width: "5%",
+      filteredValue: (filteredInfo && filteredInfo.status) || null,
+      filters: [
+        { text: "Unsolved", value: false },
+        { text: "Solved", value: true },
+      ],
+      onFilter: (value, record) => {
+        return record.status.toString() === value.toString();
+      },
       sorter: {
         compare: (a, b) => a.status - b.status,
         multiple: 1,
@@ -545,8 +553,8 @@ const Problems = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
-      filteredValue: (filteredInfo && filteredInfo.difficulty) || null,
       width: "5%",
+      filteredValue: (filteredInfo && filteredInfo.difficulty) || null,
       filters: [
         { text: "Easy", value: 1 },
         { text: "Medium", value: 2 },
