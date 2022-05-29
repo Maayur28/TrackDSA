@@ -31,6 +31,7 @@ import {
   CheckOutlined,
   SendOutlined,
   ClearOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Highlighter from "react-highlight-words";
@@ -577,6 +578,7 @@ const Problems = () => {
       key: "action",
       fixed: "right",
       width: "10%",
+      align: "center",
       render: (text) => (
         <Space size="large" key={text}>
           <Tooltip title="View">
@@ -588,6 +590,12 @@ const Problems = () => {
             <EditOutlined
               style={{ cursor: "pointer" }}
               onClick={() => editData(text)}
+            />
+          </Tooltip>
+          <Tooltip title="Send Mail">
+            <MailOutlined
+              style={{ cursor: "pointer", color: "darkturquoise" }}
+              onClick={() => sendQuesMail(text)}
             />
           </Tooltip>
           <Popconfirm
@@ -699,6 +707,71 @@ const Problems = () => {
             setIsSubmitting(false);
             form.resetFields();
           }
+        } else {
+          message.error("Please login to view problems", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        form.resetFields();
+        message.error(err.message, 5);
+      });
+  };
+
+  const sendQuesMail = (values) => {
+    setIsSubmitting(true);
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((datas) => {
+        if (datas.accessToken !== false) {
+          Cookies.set("accessToken", datas.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          let array = [];
+          array.push(values);
+          fetch("https://trackdsaproblems.herokuapp.com/sendmail", {
+            method: "POST",
+            body: JSON.stringify(array),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
+            .then(async (response) => {
+              if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+              } else {
+                const text = await response.text();
+                throw new Error(text);
+              }
+            })
+            .then((data) => {
+              setIsSubmitting(false);
+              message.success("Problems sent successfully", 5);
+              form.resetFields();
+              setSendMailVisible(false);
+            })
+            .catch((err) => {
+              setIsSubmitting(false);
+              message.error(err.message, 5);
+            });
         } else {
           message.error("Please login to view problems", 5);
           navigate("/login");
