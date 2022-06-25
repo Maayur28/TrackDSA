@@ -652,15 +652,19 @@ const Problems = () => {
             path: "",
           });
           let arr = [];
-          if (values.prob === "Unsolved") values.status = false;
-          else values.status = true;
-          if (values.diff === "Easy") values.difficulty = "1";
-          else if (values.diff === "Medium") values.difficulty = "2";
-          else values.difficulty = "3";
+          let sta = [];
+          if (values.prob.includes("Unsolved")) sta.push(false);
+          if (values.prob.includes("Solved")) sta.push(true);
+          let dif = [];
+          if (values.diff.includes("Easy")) dif.push("1");
+          if (values.diff.includes("Medium")) dif.push("2");
+          if (values.diff.includes("Hard")) dif.push("3");
+          values.difficulty = dif;
+          values.status = sta;
           for (let i = 0; i < data.length; i++) {
             if (
-              data[i].status === values.status &&
-              data[i].difficulty === values.difficulty
+              values.status.includes(data[i].status) &&
+              values.difficulty.includes(data[i].difficulty)
             ) {
               arr.push(data[i]);
             }
