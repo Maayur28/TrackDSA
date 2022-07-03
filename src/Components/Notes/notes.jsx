@@ -66,7 +66,7 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(`http://localhost:5000/getnotes/${data.userid}`)
+            fetch(`https://trackdsaauth.herokuapp.com/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -132,7 +132,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("http://localhost:5000/editnote", {
+          fetch("https://trackdsaauth.herokuapp.com/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -199,7 +199,7 @@ const Notes = () => {
           obj.userid = data.userid;
           obj.notes = [];
           obj.notes.push(values);
-          fetch("http://localhost:5000/addnote", {
+          fetch("https://trackdsaauth.herokuapp.com/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -264,7 +264,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("http://localhost:5000/deletenote", {
+          fetch("https://trackdsaauth.herokuapp.com/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
