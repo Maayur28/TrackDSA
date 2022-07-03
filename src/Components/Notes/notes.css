@@ -1,0 +1,9 @@
+.notes-div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+}
+.notes-head {
+  position: absolute;
+  right: 0;
+}
