@@ -7,8 +7,9 @@ import {
   Input,
   Space,
   message,
-  Skeleton,
   Popconfirm,
+  BackTop,
+  Spin,
 } from "antd";
 import "./notes.css";
 import ReactQuill from "react-quill";
@@ -330,7 +331,7 @@ const Notes = () => {
         </div>
         {isSubmitting === false ? (
           <>
-            <Collapse accordion onChange={accorChange}>
+            <Collapse accordion onChange={accorChange} collapsible="header">
               {data.map((val, index) => (
                 <Panel
                   key={index}
@@ -340,7 +341,7 @@ const Notes = () => {
                     <Space size="large" key={val._id}>
                       {currCollape === val._id && val.note !== note && (
                         <Button
-                          type="text"
+                          type="link"
                           onClick={() => {
                             onEdit(val);
                           }}
@@ -376,34 +377,19 @@ const Notes = () => {
             </Collapse>
           </>
         ) : (
-          <>
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-            <Skeleton.Button
-              active
-              style={{ width: "300px", height: "30px", margin: "20px" }}
-            />
-          </>
+          <div
+            style={{
+              display: "flex",
+              height: "80vh",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Spin tip="Loading..." />
+          </div>
         )}
       </div>
+      <BackTop />
       <Modal
         title="Add Note"
         visible={addNoteVisible}
