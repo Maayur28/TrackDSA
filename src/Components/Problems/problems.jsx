@@ -55,6 +55,14 @@ const Problems = () => {
   const [selectedRowsData, setselectedRowsData] = useState([]);
   const [note, setNote] = useState("");
   const [filteredInfo, setFilteredInfo] = useState(null);
+  const sendTopics = [];
+  for (let i = 0; i < topics.length; i++) {
+    sendTopics.push(
+      <Option key={i.toString() + topics[i].value} value={topics[i].value}>
+        {topics[i].text}
+      </Option>
+    );
+  }
   const topicTags = [
     "Array",
     "String",
@@ -662,9 +670,20 @@ const Problems = () => {
           values.difficulty = dif;
           values.status = sta;
           for (let i = 0; i < data.length; i++) {
+            let found = true;
+            if (values.topicsToSend !== undefined) {
+              found = false;
+              for (let j = 0; j < data[i].topic.length; j++) {
+                if (values.topicsToSend.includes(data[i].topic[j])) {
+                  found = true;
+                  break;
+                }
+              }
+            }
             if (
               values.status.includes(data[i].status) &&
-              values.difficulty.includes(data[i].difficulty)
+              values.difficulty.includes(data[i].difficulty) &&
+              found
             ) {
               arr.push(data[i]);
             }
@@ -1006,6 +1025,16 @@ const Problems = () => {
           </Form.Item>
           <Form.Item name="diff" label="Difficulty">
             <Checkbox.Group options={sendMailOption2} />
+          </Form.Item>
+          <Form.Item name="topicsToSend" label="Topics">
+            <Select
+              mode="multiple"
+              size="middle"
+              placeholder="Please select"
+              style={{ width: "100%" }}
+            >
+              {sendTopics}
+            </Select>
           </Form.Item>
           <Form.Item name="slider" label="Problems">
             <Slider min={1} max={5} />
