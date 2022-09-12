@@ -1037,7 +1037,7 @@ const Problems = () => {
             </Select>
           </Form.Item>
           <Form.Item name="slider" label="Problems">
-            <Slider min={1} max={5} />
+            <Slider min={1} max={10} />
           </Form.Item>
           <Form.Item>
             <Space>
