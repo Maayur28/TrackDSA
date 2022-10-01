@@ -21,14 +21,12 @@ import {
   SearchOutlined,
   PlusSquareOutlined,
   NodeIndexOutlined,
-  LineOutlined,
   FileDoneOutlined,
   FileExclamationOutlined,
   QuestionCircleOutlined,
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
-  CheckOutlined,
   SendOutlined,
   ClearOutlined,
   MailOutlined,
@@ -396,6 +394,69 @@ const Problems = () => {
     setaddProblemVisible(true);
   };
 
+  const statusCalled = (values) => {
+    setIsSubmitting(true);
+    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+      method: "POST",
+      body: JSON.stringify({
+        accessToken: Cookies.get("accessToken"),
+        refreshToken: Cookies.get("refreshToken"),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(async (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          const text = await response.text();
+          throw new Error(text);
+        }
+      })
+      .then((data) => {
+        if (data.accessToken !== false) {
+          Cookies.set("accessToken", data.accessToken, {
+            expires: 7,
+            path: "",
+          });
+          values.userid = data.userid;
+          values.status = !values.status;
+          fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
+            method: "PUT",
+            body: JSON.stringify(values),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
+            .then(async (response) => {
+              if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+              } else {
+                const text = await response.text();
+                throw new Error(text);
+              }
+            })
+            .then((data) => {
+              setIsSubmitting(false);
+              setData([...data.totalproblem]);
+              setaddProblemVisible(false);
+            })
+            .catch((err) => {
+              setIsSubmitting(false);
+              message.error(err.message, 5);
+            });
+        } else {
+          message.error("Please login to view problems", 5);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setIsSubmitting(false);
+        message.error(err.message, 5);
+      });
+  };
+
   const openRandom = (text) => {
     let random = Math.floor(Math.random() * text.length);
     Modal.info({
@@ -485,7 +546,6 @@ const Problems = () => {
   const columns = [
     {
       title: "Status",
-      dataIndex: "status",
       width: "5%",
       filteredValue: (filteredInfo && filteredInfo.status) || null,
       filters: [
@@ -502,11 +562,10 @@ const Problems = () => {
       render: (text) => {
         return (
           <div key={text}>
-            {text === false ? (
-              <LineOutlined />
-            ) : (
-              <CheckOutlined style={{ color: "darkgreen" }} />
-            )}
+            <Checkbox
+              checked={text.status}
+              onChange={() => statusCalled(text)}
+            />
           </div>
         );
       },
