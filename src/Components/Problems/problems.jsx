@@ -29,6 +29,8 @@ import {
   DeleteOutlined,
   SendOutlined,
   ClearOutlined,
+  CheckOutlined,
+  LineOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
@@ -546,6 +548,7 @@ const Problems = () => {
   const columns = [
     {
       title: "Status",
+      dataIndex: "status",
       width: "5%",
       filteredValue: (filteredInfo && filteredInfo.status) || null,
       filters: [
@@ -562,10 +565,11 @@ const Problems = () => {
       render: (text) => {
         return (
           <div key={text}>
-            <Checkbox
-              checked={text.status}
-              onChange={() => statusCalled(text)}
-            />
+            {text === false ? (
+              <LineOutlined />
+            ) : (
+              <CheckOutlined style={{ color: "darkgreen" }} />
+            )}
           </div>
         );
       },
@@ -648,6 +652,12 @@ const Problems = () => {
       align: "center",
       render: (text) => (
         <Space size="large" key={text}>
+          <div key={text}>
+            <Checkbox
+              checked={text.status}
+              onChange={() => statusCalled(text)}
+            />
+          </div>
           <Tooltip title="View">
             <a href={text.url} target="_blank" rel="noopener noreferrer">
               <EyeOutlined style={{ color: "#1890ff" }} />
