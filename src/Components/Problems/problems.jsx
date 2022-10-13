@@ -1055,7 +1055,7 @@ const Problems = () => {
             </Form.Item>
           ) : null}
           <Form.Item name="note" label="Note">
-            <ReactQuill theme="snow" value={note} onChange={setNote} />
+            <ReactQuill theme="snow" value={""} onChange={setNote} />
           </Form.Item>
           <Form.Item>
             <Space>
