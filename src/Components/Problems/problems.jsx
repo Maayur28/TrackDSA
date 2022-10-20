@@ -759,13 +759,16 @@ const Problems = () => {
           }
           let brr = [],
             array = [],
-            counter = values.slider;
-          while (counter !== 0 && arr.length > 0) {
+            counter = values.slider,
+            retry = 0;
+          while (retry < 30 && counter !== 0 && arr.length > 0) {
             let random = Math.floor(Math.random() * arr.length);
+            retry++;
             if (!brr.includes(random)) {
               brr.push(random);
               array.push(arr[random]);
               counter--;
+              retry = 0;
             }
           }
           if (array.length > 0) {
@@ -1106,7 +1109,7 @@ const Problems = () => {
             </Select>
           </Form.Item>
           <Form.Item name="slider" label="Problems">
-            <Slider min={1} max={10} />
+            <Slider min={1} max={25} />
           </Form.Item>
           <Form.Item>
             <Space>
