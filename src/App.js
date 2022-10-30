@@ -13,6 +13,7 @@ import Home from "./Components/Home/home";
 import DSASheet from "./Components/DSASheet/dsaSheet";
 import Contact from "./Components/Contact/contact";
 import Notes from "./Components/Notes/notes";
+import Images from "./Components/Images/images";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="/reset/:token" element={<Reset />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/images" element={<Images />} />
           </Routes>
         </div>
       </Router>

@@ -9,6 +9,7 @@ import {
   MailOutlined,
   LogoutOutlined,
   BookOutlined,
+  FileImageOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -38,6 +39,7 @@ const SideNav = () => {
     else if (location.pathname === "/register") setcurrentPath("7");
     else if (location.pathname === "/contact") setcurrentPath("9");
     else if (location.pathname === "/notes") setcurrentPath("10");
+    else if (location.pathname === "/images") setcurrentPath("11");
     else if (location.pathname === "/") setcurrentPath("1");
   }, [location]);
 
@@ -73,7 +75,12 @@ const SideNav = () => {
                 <Link to="/notes">Notes</Link>
               </Menu.Item>
             )}
-
+          {Cookies.get("accessToken") !== undefined &&
+            Cookies.get("refreshToken") !== undefined && (
+              <Menu.Item key="11" icon={<FileImageOutlined />}>
+                <Link to="/images">Images</Link>
+              </Menu.Item>
+            )}
           <SubMenu key="sub1" icon={<SketchOutlined />} title="DSA Sheet">
             <Menu.Item key="4" icon={<UserOutlined />}>
               <Link to="/dsasheet?name=lovebabbar">Love Babbar</Link>
