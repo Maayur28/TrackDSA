@@ -1,6 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Card, Divider, message, Modal, Upload, Image, Button } from "antd";
+import {
+  Card,
+  Divider,
+  message,
+  Modal,
+  Upload,
+  Image,
+  Button,
+  Segmented,
+  Input,
+} from "antd";
 import "./images.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +25,9 @@ const getBase64 = (file) =>
 
 const Images = () => {
   const navigate = useNavigate();
+  const [groupValue, setGroupValue] = useState("All");
+  const [groupName, setGroupName] = useState("");
+  const [groupData, setGroupData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState([]);
   const [isUploading, setIsUploading] = useState(undefined);
@@ -22,6 +35,18 @@ const Images = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
+  const [groups, setGroups] = useState(["All"]);
+
+  const setGroup = (val) => {
+    setGroupValue(val);
+    let gData = [];
+    data.forEach((element) => {
+      if (element.group === val || val === "All") {
+        gData.push(element);
+      }
+    });
+    setGroupData(gData);
+  };
 
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file) => {
@@ -66,12 +91,19 @@ const Images = () => {
 
   const setImageData = (response) => {
     let newData = [];
+    let group = ["All"];
     response.forEach((element) => {
       if (element.title != null && element.title.startsWith("image_")) {
+        if (element.group !== "" && !group.includes(element.group)) {
+          group.push(element.group);
+        }
         element.title = element.title.substr(6);
         newData.push(element);
       }
     });
+    setGroups([...group]);
+    setGroupData([...newData]);
+    setGroupValue("All");
     return newData;
   };
 
@@ -187,6 +219,7 @@ const Images = () => {
                 notes.push({
                   title: "image_" + fileList[i].response.original_filename,
                   note: fileList[i].response.secure_url,
+                  group: groupName,
                 });
               }
             }
@@ -211,6 +244,7 @@ const Images = () => {
                   setIsUploading(false);
                   setFileList([]);
                   setData(setImageData(data.totalnote));
+                  setGroupName("");
                 })
                 .catch((err) => {
                   setIsUploading(false);
@@ -314,13 +348,21 @@ const Images = () => {
         >
           {fileList.length >= 8 ? null : uploadButton}
         </Upload>
+        <Input
+          value={groupName}
+          showCount
+          maxLength={10}
+          onChange={(e) => setGroupName(e.target.value)}
+          size="small"
+          style={{ width: 150 }}
+        />
         <Button
           size="small"
           type="primary"
           onClick={handleUpload}
           disabled={fileList.length === 0}
           loading={isUploading}
-          style={{ marginTop: 16 }}
+          style={{ width: 150, display: "block", marginTop: 16 }}
         >
           {isUploading ? "Uploading" : "Start Upload"}
         </Button>
@@ -340,9 +382,17 @@ const Images = () => {
         </Modal>
       </div>
       <Divider>Uploaded Images</Divider>
+      {groups.length > 0 && (
+        <Segmented
+          block
+          options={groups}
+          value={groupValue}
+          onChange={setGroup}
+        />
+      )}
       <div style={{ display: "flex" }}>
-        {data.length > 0 &&
-          data.map((val, index) => (
+        {groupData.length > 0 &&
+          groupData.map((val, index) => (
             <Card
               style={{ width: "200px", textAlign: "center" }}
               key={index}
