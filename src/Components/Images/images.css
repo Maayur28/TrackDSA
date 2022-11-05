@@ -9,3 +9,8 @@
 .ant-card {
   margin: 10px 10px !important;
 }
+.ant-card-body {
+  padding: 4px 10px !important;
+  display: flex;
+  justify-content: center;
+}

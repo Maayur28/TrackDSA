@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Card,
   Divider,
@@ -390,15 +390,27 @@ const Images = () => {
           onChange={setGroup}
         />
       )}
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
         {groupData.length > 0 &&
           groupData.map((val, index) => (
             <Card
+              actions={[
+                <DeleteOutlined
+                  key="delete"
+                  onClick={() => confirmDelete(val)}
+                />,
+              ]}
               style={{ width: "200px", textAlign: "center" }}
               key={index}
               cover={<Image width={180} height={200} src={val.note} />}
             >
-              <Meta title={val.title} />
+              <Meta title={val.title} style={{ height: "30px" }} />
             </Card>
           ))}
       </div>
