@@ -221,7 +221,6 @@ const Notes = () => {
             })
             .then((data) => {
               setIsSubmitting(false);
-              console.log(data);
               setData([...data.totalnote]);
               setaddNoteVisible(false);
             })

@@ -52,7 +52,6 @@ const Images = () => {
   const handlePreview = async (file) => {
     if (!file.preview) {
       file.preview = await getBase64(file.originFileObj);
-      console.log(file.preview);
     }
     setPreviewImage(file.preview);
     setPreviewOpen(true);

@@ -38,6 +38,7 @@ import Highlighter from "react-highlight-words";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
+import EditorToolbar, { modules, formats } from "../Notes/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 
 const Problems = () => {
@@ -233,6 +234,7 @@ const Problems = () => {
           if (editMode) {
             values._id = edit._id;
             values.userid = data.userid;
+            values.note = note;
             fetch("https://trackdsaproblems.herokuapp.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
@@ -263,6 +265,7 @@ const Problems = () => {
             delete values.__v;
             obj.userid = data.userid;
             obj.problems = [];
+            values.note = note;
             obj.problems.push(values);
             fetch("https://trackdsaproblems.herokuapp.com/addproblem", {
               method: "POST",
@@ -392,6 +395,7 @@ const Problems = () => {
     setedit({ ...edit, ...text });
     form.setFieldsValue(text);
     seteditMode(true);
+    setNote(text.note);
     settopicdefaultedit([...text.topic]);
     setaddProblemVisible(true);
   };
@@ -1058,7 +1062,28 @@ const Problems = () => {
             </Form.Item>
           ) : null}
           <Form.Item name="note" label="Note">
-            <ReactQuill theme="snow" value={""} onChange={setNote} />
+            {editMode ? (
+              <>
+                <EditorToolbar />
+                <ReactQuill
+                  theme="snow"
+                  value={note}
+                  onChange={setNote}
+                  modules={modules}
+                  formats={formats}
+                />
+              </>
+            ) : (
+              <>
+                <EditorToolbar />
+                <ReactQuill
+                  theme="snow"
+                  onChange={setNote}
+                  modules={modules}
+                  formats={formats}
+                />
+              </>
+            )}
           </Form.Item>
           <Form.Item>
             <Space>
