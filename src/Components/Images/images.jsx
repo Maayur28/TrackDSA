@@ -96,6 +96,10 @@ const Images = () => {
         if (element.group !== "" && !group.includes(element.group)) {
           group.push(element.group);
         }
+        if (element.note.startsWith("<p>")) {
+          let len = element.note.length;
+          element.note = element.note.substring(3, len - 4);
+        }
         element.title = element.title.substr(6);
         newData.push(element);
       }
@@ -140,9 +144,7 @@ const Images = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://trackdsa.azurewebsites.net/getnotes/${data.userid}`
-            )
+            fetch(`https://trackdsa.azurewebsites.net/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
