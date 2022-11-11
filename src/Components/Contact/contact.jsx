@@ -22,7 +22,7 @@ const Contact = () => {
       obj.message != null &&
       recaptchaValue != null
     ) {
-      fetch("https://trackdsaauth.herokuapp.com/contact", {
+      fetch("https://trackdsauser.azurewebsites.net/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

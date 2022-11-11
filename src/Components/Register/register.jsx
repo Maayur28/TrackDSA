@@ -29,7 +29,7 @@ const Register = () => {
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
-    fetch("https://trackdsaauth.herokuapp.com/register", {
+    fetch("https://trackdsauser.azurewebsites.net/register", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
@@ -59,7 +59,7 @@ const Register = () => {
     let obj = {};
     obj.sessionId = Cookies.get("sessionId");
     obj.otp = otp;
-    fetch("https://trackdsaauth.herokuapp.com/verifyotp", {
+    fetch("https://trackdsauser.azurewebsites.net/verifyotp", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {

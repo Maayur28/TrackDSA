@@ -116,7 +116,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+      fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -141,7 +141,7 @@ const Images = () => {
               path: "",
             });
             fetch(
-              `https://trackdsaproblems.herokuapp.com/getnotes/${data.userid}`
+              `https://trackdsa.azurewebsites.net/getnotes/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -183,7 +183,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+      fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -224,7 +224,7 @@ const Images = () => {
             }
             if (notes.length > 0) {
               obj.notes = notes;
-              fetch("https://trackdsaproblems.herokuapp.com/addnote", {
+              fetch("https://trackdsa.azurewebsites.net/addnote", {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -267,7 +267,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsaauth.herokuapp.com/verifyaccess", {
+    fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -294,7 +294,7 @@ const Images = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://trackdsaproblems.herokuapp.com/deletenote", {
+          fetch("https://trackdsa.azurewebsites.net/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

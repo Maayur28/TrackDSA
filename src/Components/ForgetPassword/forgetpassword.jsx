@@ -10,7 +10,7 @@ const ForgetPassword = () => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsaauth.herokuapp.com/forgetpassword", {
+    fetch("https://trackdsauser.azurewebsites.net/forgetpassword", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

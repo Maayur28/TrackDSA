@@ -25,7 +25,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsaauth.herokuapp.com/login", {
+    fetch("https://trackdsauser.azurewebsites.net/login", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
