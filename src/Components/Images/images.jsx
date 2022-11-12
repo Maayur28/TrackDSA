@@ -395,7 +395,7 @@ const Images = () => {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
         }}
       >
         {groupData.length > 0 &&
@@ -407,11 +407,14 @@ const Images = () => {
                   onClick={() => confirmDelete(val)}
                 />,
               ]}
-              style={{ width: "200px", textAlign: "center" }}
+              style={{ width: "200px" }}
               key={index}
               cover={<Image width={180} height={200} src={val.note} />}
             >
-              <Meta title={val.title} style={{ height: "30px" }} />
+              <Meta
+                title={val.title}
+                style={{ height: "30px", width: "180px" }}
+              />
             </Card>
           ))}
       </div>
