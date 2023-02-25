@@ -22,7 +22,7 @@ const Contact = () => {
       obj.message != null &&
       recaptchaValue != null
     ) {
-      fetch("https://trackdsauser.azurewebsites.net/contact", {
+      fetch("https://trackdsa-auth.vercel.app/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

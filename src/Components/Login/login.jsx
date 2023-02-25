@@ -25,7 +25,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsauser.azurewebsites.net/login", {
+    fetch("https://trackdsa-auth.vercel.app/login", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

@@ -44,7 +44,7 @@ const Notes = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
+      fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -68,7 +68,9 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://trackdsa.azurewebsites.net/getnotes/${data.userid}`)
+            fetch(
+              `https://trackdsa-problems.vercel.app/getnotes/${data.userid}`
+            )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -108,7 +110,7 @@ const Notes = () => {
 
   const onEdit = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
+    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -134,7 +136,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://trackdsa.azurewebsites.net/editnote", {
+          fetch("https://trackdsa-problems.vercel.app/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -171,7 +173,7 @@ const Notes = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
+    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -202,7 +204,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://trackdsa.azurewebsites.net/addnote", {
+          fetch("https://trackdsa-problems.vercel.app/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -239,7 +241,7 @@ const Notes = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsauser.azurewebsites.net/verifyaccess", {
+    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -266,7 +268,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://trackdsa.azurewebsites.net/deletenote", {
+          fetch("https://trackdsa-problems.vercel.app/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
