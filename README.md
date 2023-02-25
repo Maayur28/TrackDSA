@@ -1,5 +1,4 @@
 <br />
-<br />
 <p align="center">
     <img src="https://res.cloudinary.com/mayur28/image/upload/v1631346937/logo_yuerkf.png" alt="Logo" width="80" height="80">
   <h3 align="center">TrackDSA</h3>
