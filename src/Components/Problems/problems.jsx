@@ -122,7 +122,7 @@ const Problems = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -147,7 +147,7 @@ const Problems = () => {
               path: "",
             });
             fetch(
-              `https://trackdsa-problems.vercel.app/getproblems/${data.userid}`
+              `https://pleasant-attire-yak.cyclic.app/getproblems/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -207,7 +207,7 @@ const Problems = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -235,7 +235,7 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch("https://trackdsa-problems.vercel.app/editproblem", {
+            fetch("https://pleasant-attire-yak.cyclic.app/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -267,7 +267,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("https://trackdsa-problems.vercel.app/addproblem", {
+            fetch("https://pleasant-attire-yak.cyclic.app/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -312,7 +312,7 @@ const Problems = () => {
   };
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -354,7 +354,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("https://trackdsa-problems.vercel.app/deleteproblem", {
+          fetch("https://pleasant-attire-yak.cyclic.app/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -402,7 +402,7 @@ const Problems = () => {
 
   const statusCalled = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -428,7 +428,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("https://trackdsa-problems.vercel.app/editproblem", {
+          fetch("https://pleasant-attire-yak.cyclic.app/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -708,7 +708,7 @@ const Problems = () => {
 
   const sendMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -776,7 +776,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("https://trackdsa-problems.vercel.app/sendmail", {
+            fetch("https://pleasant-attire-yak.cyclic.app/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -820,7 +820,7 @@ const Problems = () => {
 
   const sendQuesMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -846,7 +846,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("https://trackdsa-problems.vercel.app/sendmail", {
+          fetch("https://pleasant-attire-yak.cyclic.app/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {

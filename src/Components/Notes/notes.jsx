@@ -44,7 +44,7 @@ const Notes = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -69,7 +69,7 @@ const Notes = () => {
               path: "",
             });
             fetch(
-              `https://trackdsa-problems.vercel.app/getnotes/${data.userid}`
+              `https://pleasant-attire-yak.cyclic.app/getnotes/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -110,7 +110,7 @@ const Notes = () => {
 
   const onEdit = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -136,7 +136,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://trackdsa-problems.vercel.app/editnote", {
+          fetch("https://pleasant-attire-yak.cyclic.app/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -173,7 +173,7 @@ const Notes = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -204,7 +204,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://trackdsa-problems.vercel.app/addnote", {
+          fetch("https://pleasant-attire-yak.cyclic.app/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -241,7 +241,7 @@ const Notes = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -268,7 +268,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://trackdsa-problems.vercel.app/deletenote", {
+          fetch("https://pleasant-attire-yak.cyclic.app/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

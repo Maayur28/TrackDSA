@@ -16,7 +16,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`https://trackdsa-problems.vercel.app/${params.name}`)
+    fetch(`https://pleasant-attire-yak.cyclic.app/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -53,7 +53,7 @@ const DSASheet = () => {
   };
   const handleAdd = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -88,7 +88,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("https://trackdsa-problems.vercel.app/addproblem", {
+          fetch("https://pleasant-attire-yak.cyclic.app/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

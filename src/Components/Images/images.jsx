@@ -120,7 +120,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -145,7 +145,7 @@ const Images = () => {
               path: "",
             });
             fetch(
-              `https://trackdsa-problems.vercel.app/getnotes/${data.userid}`
+              `https://pleasant-attire-yak.cyclic.app/getnotes/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -187,7 +187,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -228,7 +228,7 @@ const Images = () => {
             }
             if (notes.length > 0) {
               obj.notes = notes;
-              fetch("https://trackdsa-problems.vercel.app/addnote", {
+              fetch("https://pleasant-attire-yak.cyclic.app/addnote", {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -271,7 +271,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -298,7 +298,7 @@ const Images = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://trackdsa-problems.vercel.app/deletenote", {
+          fetch("https://pleasant-attire-yak.cyclic.app/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

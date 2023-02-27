@@ -25,7 +25,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa-auth.vercel.app/login", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/login", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

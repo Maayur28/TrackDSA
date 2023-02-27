@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`https://trackdsa-problems.vercel.app/problemoftheday`)
+    fetch(`https://pleasant-attire-yak.cyclic.app/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -25,7 +25,7 @@ const Home = () => {
       });
   }, []);
   const handleAdd = (values) => {
-    fetch("https://trackdsa-auth.vercel.app/verifyaccess", {
+    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -54,7 +54,7 @@ const Home = () => {
           obj.userid = data.userid;
           obj.problems = [];
           obj.problems.push(values);
-          fetch("https://trackdsa-problems.vercel.app/addproblem", {
+          fetch("https://pleasant-attire-yak.cyclic.app/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
