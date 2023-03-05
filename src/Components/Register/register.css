@@ -5,12 +5,17 @@
   min-height: 80vh;
   align-items: center;
 }
+.ant-steps {
+  width: 300px;
+}
 .login_button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 25px;
 }
 .verifyOtp {
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 }

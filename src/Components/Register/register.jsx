@@ -202,7 +202,7 @@ const Register = () => {
           <Form.Item>
             <div className="login_button">
               <Button type="primary" htmlType="submit" loading={isSubmitting}>
-                Register
+                Send Otp
               </Button>
               <Link to="/login">Login!</Link>
             </div>
