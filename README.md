@@ -6,7 +6,7 @@
   <p align="center">
    A clean and easy-to-use web experience!
     <br />
-    <a href="https://trackdsa.vercel.app/"><strong>View Website»</strong></a>
+    <a href="https://trackdsa.com/"><strong>View Website»</strong></a>
     <br />
   </p>
 </p>
@@ -88,6 +88,6 @@ You can start editing the page by modifying `src/app.js`. The page auto-updates 
 
 ## Contact
 
-Connect with me - [drop message](https://trackdsa.vercel.app/contact)
+Connect with me - [drop message](https://trackdsa.com/contact)
 
 Portfolio Link: [Portfolio](https://www.mayuragarwal.in/)
