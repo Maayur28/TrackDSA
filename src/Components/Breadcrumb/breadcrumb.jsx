@@ -19,7 +19,7 @@ const BreadCrumb = () => {
     "/settings": "Settings",
     "/login": "Login",
     "/register": "Register",
-    "/forgetpassword": "Forget Password",
+    "/forgetpassword": "Forgot Password",
     "/reset": "Reset Password",
     "/contact": "Contact",
   };
