@@ -11,12 +11,12 @@ const BreadCrumb = () => {
   const urlSearchParams = new URLSearchParams(location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const breadcrumbNameMap = {
-    // "/top-interview-questions": "Top Interview Questions",
     "/problems": "Problems",
     "/dsasheet?name=lovebabbar": "Love Babbar",
     "/dsasheet?name=striver": "Striver",
     "/dsasheet?name=fraz": "Fraz",
     "/settings": "Settings",
+    "/account": "Account",
     "/login": "Login",
     "/register": "Register",
     "/forgetpassword": "Forgot Password",

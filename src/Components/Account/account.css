@@ -1,0 +1,8 @@
+.ant-segmented-item-selected {
+  color: #1890ff;
+  font-weight: bolder;
+}
+.account_body {
+  display: flex;
+  justify-content: center;
+}

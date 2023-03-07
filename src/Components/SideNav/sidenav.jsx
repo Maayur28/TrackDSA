@@ -26,7 +26,6 @@ const SideNav = () => {
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    // if (location.pathname === "/top-interview-questions") setcurrentPath("2");
     if (location.pathname === "/problems") setcurrentPath("3");
     else if (location.pathname === "/dsasheet" && params.name === "lovebabbar")
       setcurrentPath("4");
@@ -40,6 +39,7 @@ const SideNav = () => {
     else if (location.pathname === "/contact") setcurrentPath("9");
     else if (location.pathname === "/notes") setcurrentPath("10");
     else if (location.pathname === "/images") setcurrentPath("11");
+    else if (location.pathname === "/account") setcurrentPath("12");
     else if (location.pathname === "/") setcurrentPath("1");
   }, [location]);
 
@@ -63,9 +63,12 @@ const SideNav = () => {
           <Menu.Item key="1" icon={<HomeOutlined />}>
             <Link to="/">Home</Link>
           </Menu.Item>
-          {/* <Menu.Item key="2" icon={<TrophyOutlined />}>
-            <Link to="/top-interview-questions">Top Interview Questions</Link>
-          </Menu.Item> */}
+          {Cookies.get("accessToken") !== undefined &&
+            Cookies.get("refreshToken") !== undefined && (
+              <Menu.Item key="12" icon={<UserOutlined />}>
+                <Link to="/account">My Account</Link>
+              </Menu.Item>
+            )}
           <Menu.Item key="3" icon={<CodeOutlined />}>
             <Link to="/problems">Problems</Link>
           </Menu.Item>
@@ -92,9 +95,6 @@ const SideNav = () => {
               <Link to="/dsasheet?name=fraz">Fraz</Link>
             </Menu.Item>
           </SubMenu>
-          {/* <Menu.Item key="6" icon={<SettingOutlined />}>
-            <Link to="/settings">Settings</Link>
-          </Menu.Item> */}
           <Menu.Item key="9" icon={<MailOutlined />}>
             <Link to="/contact">Contact</Link>
           </Menu.Item>

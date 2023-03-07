@@ -13,6 +13,7 @@ import DSASheet from "./Components/DSASheet/dsaSheet";
 import Contact from "./Components/Contact/contact";
 import Notes from "./Components/Notes/notes";
 import Images from "./Components/Images/images";
+import Account from "./Components/Account/account";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <BreadCrumb />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/problems" element={<Problems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
