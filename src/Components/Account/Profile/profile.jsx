@@ -273,6 +273,7 @@ const Profile = () => {
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Username"
+              onChange={() => setUserNameVerified(false)}
             />
           </Form.Item>
           <Typography.Link onClick={verifyUsername}>Verify</Typography.Link>
@@ -309,7 +310,11 @@ const Profile = () => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={isSubmitting || !usernameVerified}
+          >
             Save
           </Button>
           <Button
