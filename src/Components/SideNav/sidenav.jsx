@@ -54,6 +54,7 @@ const SideNav = () => {
   return (
     <Layout style={{ minHeight: "100vh", maxWidth: "fit-content" }}>
       <Sider
+        trigger={width <= 600 && null}
         collapsible
         collapsed={collapsed}
         onCollapse={() => setcollapsed((prevState) => !prevState)}
