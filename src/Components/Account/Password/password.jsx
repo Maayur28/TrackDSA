@@ -37,7 +37,7 @@ const Password = () => {
             path: "",
           });
           fetch(
-            `https://pleasant-attire-yak.cyclic.app/changepassword/${data.userid}`,
+            `https://hippopotamus-gaiters.cyclic.app/changepassword/${data.userid}`,
             {
               method: "POST",
               body: JSON.stringify(values),

@@ -49,7 +49,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://pleasant-attire-yak.cyclic.app/getprofile/${data.userid}`
+              `https://hippopotamus-gaiters.cyclic.app/getprofile/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -116,7 +116,7 @@ const Profile = () => {
             path: "",
           });
           fetch(
-            `https://pleasant-attire-yak.cyclic.app/updateprofile/${data.userid}`,
+            `https://hippopotamus-gaiters.cyclic.app/updateprofile/${data.userid}`,
             {
               method: "PUT",
               body: JSON.stringify(values),
@@ -194,7 +194,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://pleasant-attire-yak.cyclic.app/validateusername/${form.getFieldValue(
+              `https://hippopotamus-gaiters.cyclic.app/validateusername/${form.getFieldValue(
                 "username"
               )}`
             )
