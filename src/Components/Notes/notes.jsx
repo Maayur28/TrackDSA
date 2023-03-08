@@ -68,9 +68,7 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://pleasant-attire-yak.cyclic.app/getnotes/${data.userid}`
-            )
+            fetch(`http://139.59.47.53/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -136,7 +134,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://pleasant-attire-yak.cyclic.app/editnote", {
+          fetch("http://139.59.47.53/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -204,7 +202,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://pleasant-attire-yak.cyclic.app/addnote", {
+          fetch("http://139.59.47.53/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -268,7 +266,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://pleasant-attire-yak.cyclic.app/deletenote", {
+          fetch("http://139.59.47.53/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

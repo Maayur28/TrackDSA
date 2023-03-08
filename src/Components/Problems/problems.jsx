@@ -146,9 +146,7 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://pleasant-attire-yak.cyclic.app/getproblems/${data.userid}`
-            )
+            fetch(`http://139.59.47.53/getproblems/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -235,7 +233,7 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch("https://pleasant-attire-yak.cyclic.app/editproblem", {
+            fetch("http://139.59.47.53/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -267,7 +265,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("https://pleasant-attire-yak.cyclic.app/addproblem", {
+            fetch("http://139.59.47.53/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -354,7 +352,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("https://pleasant-attire-yak.cyclic.app/deleteproblem", {
+          fetch("http://139.59.47.53/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -428,7 +426,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("https://pleasant-attire-yak.cyclic.app/editproblem", {
+          fetch("http://139.59.47.53/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -776,7 +774,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("https://pleasant-attire-yak.cyclic.app/sendmail", {
+            fetch("http://139.59.47.53/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -846,7 +844,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("https://pleasant-attire-yak.cyclic.app/sendmail", {
+          fetch("http://139.59.47.53/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {
