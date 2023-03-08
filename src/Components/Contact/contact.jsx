@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Row, Col, message } from "antd";
+import { Rate, Form, Input, Button, Row, Col, message } from "antd";
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ const Contact = () => {
       obj.email != null &&
       obj.name != null &&
       obj.message != null &&
+      obj.rating != null &&
       recaptchaValue != null
     ) {
       fetch("https://hippopotamus-gaiters.cyclic.app/contact", {
@@ -113,6 +114,17 @@ const Contact = () => {
                 rows={4}
                 placeholder="Please feel free to provide suggestion or feedback."
               />
+            </Form.Item>
+            <Form.Item
+              name="rating"
+              rules={[
+                {
+                  required: true,
+                  message: "Please provide your valuable rating!",
+                },
+              ]}
+            >
+              <Rate />
             </Form.Item>
             <ReCAPTCHA
               ref={recaptchaRef}
