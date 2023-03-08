@@ -6,3 +6,7 @@
   display: flex;
   justify-content: center;
 }
+.account_image_div{
+  text-align: center;
+  margin-top: 20px;
+}

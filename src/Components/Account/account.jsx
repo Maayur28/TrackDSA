@@ -1,9 +1,9 @@
 import React from "react";
 import { Segmented } from "antd";
-import "./account.css";
 import Profile from "./Profile/profile";
 import { useState } from "react";
 import Password from "./Password/password";
+import "./account.css";
 
 const Account = () => {
   const [segmentValue, setSegmentValue] = useState(
