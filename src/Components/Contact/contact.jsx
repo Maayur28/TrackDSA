@@ -23,7 +23,7 @@ const Contact = () => {
       obj.rating != null &&
       recaptchaValue != null
     ) {
-      fetch("https://hippopotamus-gaiters.cyclic.app/contact", {
+      fetch("http://auth.trackdsa.com/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

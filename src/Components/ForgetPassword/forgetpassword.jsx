@@ -10,7 +10,7 @@ const ForgetPassword = () => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://hippopotamus-gaiters.cyclic.app/forgetpassword", {
+    fetch("http://auth.trackdsa.com/forgetpassword", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

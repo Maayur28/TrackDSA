@@ -94,7 +94,7 @@ const Profile = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+      fetch("http://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -118,9 +118,7 @@ const Profile = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://hippopotamus-gaiters.cyclic.app/getprofile/${data.userid}`
-            )
+            fetch(`http://auth.trackdsa.com/getprofile/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -177,7 +175,7 @@ const Profile = () => {
   const onFinish = (values) => {
     if (usernameVerified) {
       setIsSubmitting(true);
-      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+      fetch("http://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -214,16 +212,13 @@ const Profile = () => {
             } else {
               values.image = "";
             }
-            fetch(
-              `https://hippopotamus-gaiters.cyclic.app/updateprofile/${data.userid}`,
-              {
-                method: "PUT",
-                body: JSON.stringify(values),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-              }
-            )
+            fetch(`http://auth.trackdsa.com/updateprofile/${data.userid}`, {
+              method: "PUT",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -285,7 +280,7 @@ const Profile = () => {
     } else {
       setVerifyCalled(true);
       setValidating(true);
-      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+      fetch("http://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -310,7 +305,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://hippopotamus-gaiters.cyclic.app/validateusername/${form.getFieldValue(
+              `http://auth.trackdsa.com/validateusername/${form.getFieldValue(
                 "username"
               )}`
             )

@@ -120,7 +120,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+      fetch("http://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -185,7 +185,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+      fetch("http://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -269,7 +269,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://hippopotamus-gaiters.cyclic.app/verifyaccess", {
+    fetch("http://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),

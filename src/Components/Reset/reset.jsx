@@ -12,7 +12,7 @@ const Reset = () => {
     let obj = {};
     obj.token = token;
     setIsSubmitting(true);
-    fetch("https://hippopotamus-gaiters.cyclic.app/reset", {
+    fetch("http://auth.trackdsa.com/reset", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -43,7 +43,7 @@ const Reset = () => {
 
   const onFinish = (values) => {
     values.token = token;
-    fetch("https://hippopotamus-gaiters.cyclic.app/reset", {
+    fetch("http://auth.trackdsa.com/reset", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

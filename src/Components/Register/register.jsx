@@ -29,7 +29,7 @@ const Register = () => {
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
-    fetch("https://hippopotamus-gaiters.cyclic.app/register", {
+    fetch("http://auth.trackdsa.com/register", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
@@ -59,7 +59,7 @@ const Register = () => {
     let obj = {};
     obj.sessionId = Cookies.get("sessionId");
     obj.otp = otp;
-    fetch("https://hippopotamus-gaiters.cyclic.app/verifyotp", {
+    fetch("http://auth.trackdsa.com/verifyotp", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
