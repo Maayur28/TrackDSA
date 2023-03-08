@@ -68,7 +68,7 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(`http://139.59.47.53/getnotes/${data.userid}`)
+            fetch(`http://problems.trackdsa.com/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -134,7 +134,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("http://139.59.47.53/editnote", {
+          fetch("http://problems.trackdsa.com/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -202,7 +202,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("http://139.59.47.53/addnote", {
+          fetch("http://problems.trackdsa.com/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -266,7 +266,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("http://139.59.47.53/deletenote", {
+          fetch("http://problems.trackdsa.com/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

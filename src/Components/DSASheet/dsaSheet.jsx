@@ -16,7 +16,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`http://139.59.47.53/${params.name}`)
+    fetch(`http://problems.trackdsa.com/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -88,7 +88,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("http://139.59.47.53/addproblem", {
+          fetch("http://problems.trackdsa.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

@@ -146,7 +146,7 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(`http://139.59.47.53/getproblems/${data.userid}`)
+            fetch(`http://problems.trackdsa.com/getproblems/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -233,7 +233,7 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch("http://139.59.47.53/editproblem", {
+            fetch("http://problems.trackdsa.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -265,7 +265,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("http://139.59.47.53/addproblem", {
+            fetch("http://problems.trackdsa.com/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -352,7 +352,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("http://139.59.47.53/deleteproblem", {
+          fetch("http://problems.trackdsa.com/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -426,7 +426,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("http://139.59.47.53/editproblem", {
+          fetch("http://problems.trackdsa.com/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -774,7 +774,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("http://139.59.47.53/sendmail", {
+            fetch("http://problems.trackdsa.com/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -844,7 +844,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("http://139.59.47.53/sendmail", {
+          fetch("http://problems.trackdsa.com/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {
