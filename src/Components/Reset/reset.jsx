@@ -12,7 +12,7 @@ const Reset = () => {
     let obj = {};
     obj.token = token;
     setIsSubmitting(true);
-    fetch("http://auth.trackdsa.com/reset", {
+    fetch("https://auth.trackdsa.com/reset", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -43,7 +43,7 @@ const Reset = () => {
 
   const onFinish = (values) => {
     values.token = token;
-    fetch("http://auth.trackdsa.com/reset", {
+    fetch("https://auth.trackdsa.com/reset", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
