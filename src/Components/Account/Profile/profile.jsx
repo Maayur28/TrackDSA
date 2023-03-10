@@ -94,7 +94,7 @@ const Profile = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsa.com/auth/verifyaccess", {
+      fetch("https://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -118,7 +118,7 @@ const Profile = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://trackdsa.com/auth/getprofile/${data.userid}`)
+            fetch(`https://auth.trackdsa.com/getprofile/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -175,7 +175,7 @@ const Profile = () => {
   const onFinish = (values) => {
     if (usernameVerified) {
       setIsSubmitting(true);
-      fetch("https://trackdsa.com/auth/verifyaccess", {
+      fetch("https://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -212,7 +212,7 @@ const Profile = () => {
             } else {
               values.image = "";
             }
-            fetch(`https://trackdsa.com/auth/updateprofile/${data.userid}`, {
+            fetch(`https://auth.trackdsa.com/updateprofile/${data.userid}`, {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -280,7 +280,7 @@ const Profile = () => {
     } else {
       setVerifyCalled(true);
       setValidating(true);
-      fetch("https://trackdsa.com/auth/verifyaccess", {
+      fetch("https://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -305,7 +305,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://trackdsa.com/auth/validateusername/${form.getFieldValue(
+              `https://auth.trackdsa.com/validateusername/${form.getFieldValue(
                 "username"
               )}`
             )

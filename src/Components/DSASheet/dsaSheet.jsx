@@ -16,7 +16,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`https://trackdsa.com/problems/${params.name}`)
+    fetch(`https://problems.trackdsa.com/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -53,7 +53,7 @@ const DSASheet = () => {
   };
   const handleAdd = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa.com/auth/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -88,7 +88,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("https://trackdsa.com/problems/addproblem", {
+          fetch("https://problems.trackdsa.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

@@ -25,7 +25,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://trackdsa.com/auth/login", {
+    fetch("https://auth.trackdsa.com/login", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
