@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`https://problems.trackdsa.com/problemoftheday`)
+    fetch(`https://trackdsa.com/problems/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -25,7 +25,7 @@ const Home = () => {
       });
   }, []);
   const handleAdd = (values) => {
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa.com/auth/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -54,7 +54,7 @@ const Home = () => {
           obj.userid = data.userid;
           obj.problems = [];
           obj.problems.push(values);
-          fetch("https://problems.trackdsa.com/addproblem", {
+          fetch("https://trackdsa.com/problems/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

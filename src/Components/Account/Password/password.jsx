@@ -12,7 +12,7 @@ const Password = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa.com/auth/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -36,7 +36,7 @@ const Password = () => {
             expires: 7,
             path: "",
           });
-          fetch(`https://auth.trackdsa.com/changepassword/${data.userid}`, {
+          fetch(`https://trackdsa.com/auth/changepassword/${data.userid}`, {
             method: "POST",
             body: JSON.stringify(values),
             headers: {

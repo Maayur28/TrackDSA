@@ -44,7 +44,7 @@ const Notes = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://auth.trackdsa.com/verifyaccess", {
+      fetch("https://trackdsa.com/auth/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -68,7 +68,7 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://problems.trackdsa.com/getnotes/${data.userid}`)
+            fetch(`https://trackdsa.com/problems/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -108,7 +108,7 @@ const Notes = () => {
 
   const onEdit = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa.com/auth/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -134,7 +134,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://problems.trackdsa.com/editnote", {
+          fetch("https://trackdsa.com/problems/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -171,7 +171,7 @@ const Notes = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa.com/auth/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -202,7 +202,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://problems.trackdsa.com/addnote", {
+          fetch("https://trackdsa.com/problems/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -239,7 +239,7 @@ const Notes = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa.com/auth/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -266,7 +266,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://problems.trackdsa.com/deletenote", {
+          fetch("https://trackdsa.com/problems/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
