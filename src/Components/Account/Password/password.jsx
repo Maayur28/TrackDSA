@@ -12,7 +12,7 @@ const Password = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -36,13 +36,16 @@ const Password = () => {
             expires: 7,
             path: "",
           });
-          fetch(`https://auth.trackdsa.com/changepassword/${data.userid}`, {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          })
+          fetch(
+            `https://jellyfish-app-gvj7z.ondigitalocean.app/changepassword/${data.userid}`,
+            {
+              method: "POST",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            }
+          )
             .then(async (response) => {
               if (response.status >= 200 && response.status <= 299) {
                 return response.json();

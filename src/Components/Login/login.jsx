@@ -25,7 +25,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/login", {
+    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/login", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

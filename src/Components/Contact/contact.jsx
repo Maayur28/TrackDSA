@@ -23,7 +23,7 @@ const Contact = () => {
       obj.rating != null &&
       recaptchaValue != null
     ) {
-      fetch("https://auth.trackdsa.com/contact", {
+      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

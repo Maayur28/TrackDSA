@@ -10,7 +10,7 @@ const ForgetPassword = () => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/forgetpassword", {
+    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/forgetpassword", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
