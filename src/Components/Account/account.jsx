@@ -7,7 +7,7 @@ import "./account.css";
 
 const Account = () => {
   const [segmentValue, setSegmentValue] = useState(
-    localStorage.getItem("accountSegment") === undefined
+    localStorage.getItem("accountSegment") === null
       ? "Profile"
       : localStorage.getItem("accountSegment")
   );
