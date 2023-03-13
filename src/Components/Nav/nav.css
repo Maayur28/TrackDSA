@@ -1,7 +1,6 @@
 .nav_component {
   height: 100vh;
   max-width: fit-content !important;
-  overflow: hidden;
 }
 .nav_header {
   padding: 0;
