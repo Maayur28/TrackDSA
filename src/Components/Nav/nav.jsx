@@ -24,6 +24,7 @@ import Register from "../Register/register";
 import DSASheet from "../DSASheet/dsaSheet";
 import Notes from "../Notes/notes";
 import Images from "../Images/images";
+import Contact from "../Contact/contact";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -253,6 +254,8 @@ const Nav = () => {
               <DSASheet />
             ) : location.pathname === "/notes" ? (
               <Notes />
+            ) : location.pathname === "/contact" ? (
+              <Contact />
             ) : location.pathname === "/images" ? (
               <Images />
             ) : null}
