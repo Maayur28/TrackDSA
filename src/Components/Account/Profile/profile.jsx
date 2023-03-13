@@ -236,6 +236,14 @@ const Profile = () => {
                 setIsSubmitting(false);
                 message.success("Profile Updated", 3);
                 setProfile(val.profile);
+                Cookies.set("profileName", val.profile.name, {
+                  expires: 7,
+                  path: "",
+                });
+                Cookies.set("profileImage", val.profile.image, {
+                  expires: 7,
+                  path: "",
+                });
                 if (
                   val.profile.image != null &&
                   val.profile.image !== undefined &&
@@ -251,6 +259,7 @@ const Profile = () => {
                 setusernameChange(false);
                 setVerifyCalled(false);
                 form.setFieldsValue(val.profile);
+                window.location.reload();
               })
               .catch((err) => {
                 setIsSubmitting(false);
@@ -473,16 +482,7 @@ const Profile = () => {
               </Select>
             </Form.Item>
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={
-                  (profile.image ===
-                    (fileList.length > 0 ? fileList[0].url : "") &&
-                    !usernameChange) ||
-                  isSubmitting
-                }
-              >
+              <Button type="primary" htmlType="submit" disabled={isSubmitting}>
                 Save
               </Button>
               <Button

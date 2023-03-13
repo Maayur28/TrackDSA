@@ -1,5 +1,10 @@
-.right-side-top {
-  text-align: center;
-  color: #001529;
-  text-transform: uppercase;
+.breadcrumb_container {
+  padding: 10px;
+  min-width: 200px
+}
+.ant-breadcrumb ol {
+  flex-wrap: nowrap;
+}
+.ant-breadcrumb a:hover {
+  color: #1890ff;
 }

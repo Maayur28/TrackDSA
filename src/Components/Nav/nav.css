@@ -1,0 +1,21 @@
+.nav_component {
+  height: 100vh;
+  max-width: fit-content !important;
+  overflow: hidden;
+}
+.nav_header {
+  padding: 0;
+  max-height: 55px !important;
+  width: 100vw !important;
+}
+.nav_component .ant-image {
+  margin: 0px !important;
+}
+.ant-menu-horizontal,
+.ant-menu-item::after,
+.ant-menu-submenu::after {
+  border: none !important;
+}
+.ant-menu-inline {
+  border: none !important;
+}

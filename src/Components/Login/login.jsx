@@ -50,6 +50,14 @@ const Login = () => {
           expires: 7,
           path: "",
         });
+        Cookies.set("profileName", data.name, {
+          expires: 7,
+          path: "",
+        });
+        Cookies.set("profileImage", data.image, {
+          expires: 7,
+          path: "",
+        });
         message.success("Login Successful", 5);
         navigate("/problems");
       })

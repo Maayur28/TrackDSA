@@ -87,6 +87,14 @@ const Register = () => {
             expires: 7,
             path: "",
           });
+          Cookies.set("profileName", data.name, {
+            expires: 7,
+            path: "",
+          });
+          Cookies.set("profileImage", data.image, {
+            expires: 7,
+            path: "",
+          });
           message.success("Registered Successfully", 3);
           navigate("/problems");
         }
