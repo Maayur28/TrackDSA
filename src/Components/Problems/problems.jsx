@@ -553,7 +553,7 @@ const Problems = () => {
     {
       title: "Status",
       dataIndex: "status",
-      width: "5%",
+      width: "80px",
       filteredValue: (filteredInfo && filteredInfo.status) || null,
       filters: [
         { text: "Unsolved", value: false },
@@ -581,7 +581,7 @@ const Problems = () => {
     {
       title: "Topic",
       dataIndex: "topic",
-      width: "12%",
+      width: "100px",
       filteredValue: (filteredInfo && filteredInfo.topic) || null,
       filters: [...topics],
       onFilter: (value, record) => {
@@ -606,7 +606,8 @@ const Problems = () => {
     {
       title: "Note",
       dataIndex: "note",
-      width: "5%",
+      width: "65px",
+      align: "left",
       render: (text) => (
         <div key={text}>
           {text.length > 0 ? (
@@ -629,7 +630,7 @@ const Problems = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
-      width: "5%",
+      width: "125px",
       filteredValue: (filteredInfo && filteredInfo.difficulty) || null,
       filters: [
         { text: "Easy", value: 1 },
@@ -652,8 +653,8 @@ const Problems = () => {
       title: "Action",
       key: "action",
       fixed: "right",
-      width: "10%",
-      align: "center",
+      width: "250px",
+      align: "left",
       render: (text) => (
         <Space size="large" key={text}>
           <div key={text}>
@@ -893,6 +894,11 @@ const Problems = () => {
         rowKey={(record) => record._id}
         align="center"
         onChange={handleChange}
+        style={{ maxWidth: "95vw" }}
+        scroll={{
+          x: 800,
+          y: 800,
+        }}
         title={(currentPageData) => (
           <div
             style={{

@@ -65,7 +65,7 @@ const Contact = () => {
   return (
     <div>
       <Row>
-        <Col span={8} offset={8}>
+        <Col xs={20} sm={16} md={12} lg={10} xl={8} style={{marginLeft:'20px'}}>
           <Form
             form={form}
             name="contact_form"

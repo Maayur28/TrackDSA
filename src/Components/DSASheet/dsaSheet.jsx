@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { SearchOutlined, SendOutlined, EyeOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import "./dsaSheet.css";
 const DSASheet = () => {
   const location = useLocation();
   const [data, setData] = useState([]);
@@ -206,7 +207,7 @@ const DSASheet = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
-      width: "5%",
+      width: "10%",
       filters: [
         { text: "Easy", value: 1 },
         { text: "Medium", value: 2 },
@@ -227,7 +228,7 @@ const DSASheet = () => {
       title: "Action",
       dataIndex: "action",
       fixed: "right",
-      width: "10%",
+      width: "125px",
       render: (_, value) => {
         return (
           <Space size="large">
@@ -254,7 +255,7 @@ const DSASheet = () => {
     },
   };
   return (
-    <div>
+    <div style={{ maxWidth: "95vw" }}>
       <Table
         columns={columns}
         rowSelection={{ ...rowSelection }}
@@ -262,6 +263,11 @@ const DSASheet = () => {
         loading={isSubmitting}
         rowKey={(record) => record._id}
         align="center"
+        scroll={{
+          x: 800,
+          y: 800,
+        }}
+        style={{ maxWidth: "95vw" }}
         title={() => (
           <Space>
             {selectedRowsNumber.length === 0 ? (
