@@ -84,7 +84,7 @@ const Nav = () => {
           </Menu.Item>
           <Menu.Item
             key="notification"
-            style={{ position: "absolute", right: "180px" }}
+            style={{ position: "absolute", right: "210px" }}
           >
             <div className="notification">
               <Badge dot>

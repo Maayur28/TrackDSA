@@ -3,11 +3,6 @@
   max-width: 100vw !important;
   overflow-x: hidden;
 }
-@media only screen and (max-width: 720px) {
-  .nav_component {
-    min-height: fit-content !important;
-  }
-}
 .nav_header {
   padding: 0;
   max-height: 55px !important;
