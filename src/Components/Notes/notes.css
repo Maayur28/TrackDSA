@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
   margin: 0 1rem;
+  min-width: fit-content !important;
+  max-width: 93vw !important;
 }
 .notes-head {
-  position: absolute;
-  right: 0;
+  text-align: end;
 }
 .text-editor {
   margin: 0 auto;

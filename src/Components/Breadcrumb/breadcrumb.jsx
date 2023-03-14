@@ -19,6 +19,8 @@ const BreadCrumb = () => {
     "/forgetpassword": "Forgot Password",
     "/reset": "Reset Password",
     "/contact": "Contact",
+    "/notes": "Notes",
+    "/images": "Images"
   };
   const pathSnippets = location.pathname.split("/").filter((i) => i);
   let url;

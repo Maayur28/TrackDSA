@@ -10,6 +10,7 @@ import {
   Popconfirm,
   BackTop,
   Spin,
+  Typography,
 } from "antd";
 import "./notes.css";
 import ReactQuill from "react-quill";
@@ -23,9 +24,15 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 
+const { Text } = Typography;
 const { Panel } = Collapse;
 
 const Notes = () => {
+  const panelStyle = {
+    marginBottom: 24,
+    border: "none",
+  };
+  const width = window.innerWidth;
   const [addNoteVisible, setaddNoteVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [note, setNote] = useState("");
@@ -336,18 +343,26 @@ const Notes = () => {
       />
     </svg>
   );
-
-  function undoChange() {
-    this.quill.history.undo();
-  }
-  function redoChange() {
-    this.quill.history.redo();
-  }
+  const EllipsisMiddle = ({ suffixCount, children }) => {
+    const start = children.slice(0, children.length - suffixCount).trim();
+    const suffix = children.slice(-suffixCount).trim();
+    return (
+      <Text
+        style={{
+          maxWidth: width <= 500 ? "50vw" : width <= 800 ? "70vw" : "90vw",
+        }}
+        ellipsis={{
+          suffix,
+        }}
+      >
+        {start}
+      </Text>
+    );
+  };
 
   return (
     <>
       <div className="notes-div">
-        <h1 style={{ display: "flex", justifyContent: "center" }}>My Notes</h1>
         <div className="notes-head">
           <Button
             size="large"
@@ -363,14 +378,18 @@ const Notes = () => {
         </div>
         {isSubmitting === false ? (
           <>
-            <Collapse accordion onChange={accorChange} collapsible="header">
+            <Collapse bordered={false} accordion onChange={accorChange} ghost>
               {data.map((val, index) => (
                 <>
                   {!val.title.startsWith("image_") && (
                     <Panel
                       key={index}
-                      style={{ marginTop: "10px" }}
-                      header={val.title}
+                      style={panelStyle}
+                      header={
+                        <EllipsisMiddle suffixCount={8}>
+                          {val.title}
+                        </EllipsisMiddle>
+                      }
                       extra={
                         <Space size="large" key={val._id}>
                           {currCollape === val._id && val.note !== note && (
