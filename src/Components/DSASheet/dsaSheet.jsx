@@ -207,7 +207,7 @@ const DSASheet = () => {
         compare: (a, b) => a.difficulty - b.difficulty,
         multiple: 2,
       },
-      width: "10%",
+      width: "125px",
       filters: [
         { text: "Easy", value: 1 },
         { text: "Medium", value: 2 },
