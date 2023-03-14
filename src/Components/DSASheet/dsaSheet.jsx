@@ -228,7 +228,7 @@ const DSASheet = () => {
       title: "Action",
       dataIndex: "action",
       fixed: "right",
-      width: "125px",
+      width: "135px",
       render: (_, value) => {
         return (
           <Space size="large">
