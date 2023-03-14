@@ -84,7 +84,7 @@ const Nav = () => {
           </Menu.Item>
           <Menu.Item
             key="notification"
-            style={{ position: "absolute", right: "210px" }}
+            style={{ position: "absolute", right: "200px" }}
           >
             <div className="notification">
               <Badge dot>
@@ -100,7 +100,7 @@ const Nav = () => {
             key="profile"
             style={{
               position: "absolute",
-              right: "20px",
+              right: "10px",
               marginTop: "-5px",
             }}
             onClick={() => {
