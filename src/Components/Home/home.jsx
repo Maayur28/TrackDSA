@@ -88,7 +88,7 @@ const Home = () => {
       {data.length > 0 ? (
         <>
           <Card
-            style={{ width: "300px", margin: "20px" }}
+            style={{ width: "50vw", maxWidth: "300px", margin: "20px" }}
             cover={<img alt="example" src="/easy.png" />}
             actions={[
               <Tooltip title="View">
@@ -114,7 +114,7 @@ const Home = () => {
             />
           </Card>
           <Card
-            style={{ width: "300px", margin: "20px" }}
+            style={{width: "50vw", maxWidth: "300px", margin: "20px" }}
             cover={<img alt="example" src="/medium.png" />}
             actions={[
               <Tooltip title="View">
@@ -140,7 +140,7 @@ const Home = () => {
             />
           </Card>
           <Card
-            style={{ width: "300px", margin: "20px" }}
+            style={{ width: "50vw", maxWidth: "300px", margin: "20px" }}
             cover={<img alt="example" src="/hard.png" />}
             actions={[
               <Tooltip title="View">
@@ -170,15 +170,15 @@ const Home = () => {
         <>
           <Skeleton.Button
             active
-            style={{ width: "300px", height: "300px", margin: "20px" }}
+            style={{ width: "300px", height: "200px", margin: "20px" }}
           />
           <Skeleton.Button
             active
-            style={{ width: "300px", height: "300px", margin: "20px" }}
+            style={{ width: "300px", height: "200px", margin: "20px" }}
           />
           <Skeleton.Button
             active
-            style={{ width: "300px", height: "300px", margin: "20px" }}
+            style={{ width: "300px", height: "200px", margin: "20px" }}
           />
         </>
       )}

@@ -128,7 +128,7 @@ const Contact = () => {
             </Form.Item>
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6Lf5Hr0dAAAAALIuH2ZavQv0r9CVnmkJFYhNH2VE"
+              sitekey="6LfDRfwkAAAAABYtVvE7GNQYzo_G3iOlDulPSg_r"
               onChange={() => setcaptchaverified(true)}
               onExpired={() => recaptchaRef.reset()}
             />

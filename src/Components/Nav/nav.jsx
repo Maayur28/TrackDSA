@@ -229,6 +229,7 @@ const Nav = () => {
           style={{
             height: "calc(100vh-100px)",
             paddingLeft: "10px",
+            width: collapsed ? "95vw" : "89vw",
           }}
         >
           <BreadCrumb />
@@ -236,7 +237,6 @@ const Nav = () => {
             style={{
               padding: 0,
               marginTop: 0,
-              width: collapsed ? "95vw" : "89vw",
               backgroundColor: "white",
             }}
           >

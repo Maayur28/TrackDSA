@@ -1,11 +1,11 @@
 .nav_component {
-  height: 100vh;
-  max-width: fit-content !important;
+  min-height: 100vh;
+  min-width: 100vw !important;
 }
 .nav_header {
   padding: 0;
   max-height: 55px !important;
-  width: 100vw !important;
+  min-width: 100vw !important;
 }
 .nav_component .ant-image {
   margin: 0px !important;
