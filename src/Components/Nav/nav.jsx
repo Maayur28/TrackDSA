@@ -87,7 +87,7 @@ const Nav = () => {
             key="linkedIn"
             style={{
               position: "absolute",
-              right: "150px"
+              right: "125px"
             }}
           >
             <a
@@ -104,7 +104,7 @@ const Nav = () => {
             key="github"
             style={{
               position: "absolute",
-              right: "200px",
+              right: "175px",
             }}
           >
             <a
@@ -121,7 +121,7 @@ const Nav = () => {
             key="profile"
             style={{
               position: "absolute",
-              right: "10px",
+              right: "1px",
               marginTop: "-5px",
             }}
             onClick={() => {
