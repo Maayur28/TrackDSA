@@ -2,7 +2,7 @@
 <p align="center">
     <img src="https://res.cloudinary.com/mayur28/image/upload/v1678708247/trackdsa-high-resolution-logo-color-on-transparent-background_vayuy2.png" alt="Logo" width="80" height="80">
   <h3 align="center">TrackDSA</h3>
-  <h6 align="center">Every Step Matters</h3>
+  <h6 align="center">Every Step Matters</h6>
   <p align="center">
    A clean and easy-to-use web experience!
     <br />
