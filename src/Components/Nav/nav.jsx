@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Menu, Image, Badge, Avatar } from "antd";
+import { Layout, Menu, Image, Avatar } from "antd";
 import {
   CodeOutlined,
   LoginOutlined,
@@ -10,7 +10,8 @@ import {
   LogoutOutlined,
   BookOutlined,
   FileImageOutlined,
-  NotificationOutlined,
+  LinkedinOutlined,
+  GithubOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -83,18 +84,38 @@ const Nav = () => {
             />
           </Menu.Item>
           <Menu.Item
-            key="notification"
-            style={{ position: "absolute", right: "200px" }}
+            key="linkedIn"
+            style={{
+              position: "absolute",
+              right: "150px"
+            }}
           >
-            <div className="notification">
-              <Badge dot>
-                <NotificationOutlined
-                  style={{
-                    fontSize: 16,
-                  }}
-                />
-              </Badge>
-            </div>
+            <a
+              href="https://www.linkedin.com/in/mayur28/"
+              target="_blank"
+              rel="noreferrer"
+              className="linkedin"
+              aria-label="linkedIn"
+            >
+              <LinkedinOutlined style={{ fontSize: "1.5rem" }} />
+            </a>
+          </Menu.Item>
+          <Menu.Item
+            key="github"
+            style={{
+              position: "absolute",
+              right: "200px",
+            }}
+          >
+            <a
+              href="https://github.com/Maayur28"
+              target="_blank"
+              rel="noreferrer"
+              className="github"
+              aria-label="github"
+            >
+              <GithubOutlined style={{ fontSize: "1.5rem" }} />
+            </a>
           </Menu.Item>
           <Menu.Item
             key="profile"
