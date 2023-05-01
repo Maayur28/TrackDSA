@@ -120,7 +120,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -145,7 +145,7 @@ const Images = () => {
               path: "",
             });
             fetch(
-              `https://whale-app-5mtbo.ondigitalocean.app/getnotes/${data.userid}`
+              `https://jellyfish-app-lnzn2.ondigitalocean.app/getnotes/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -187,7 +187,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -228,7 +228,7 @@ const Images = () => {
             }
             if (notes.length > 0) {
               obj.notes = notes;
-              fetch("https://whale-app-5mtbo.ondigitalocean.app/addnote", {
+              fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/addnote", {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -271,7 +271,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -298,7 +298,7 @@ const Images = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/deletenote", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

@@ -94,7 +94,7 @@ const Profile = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -119,7 +119,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://jellyfish-app-gvj7z.ondigitalocean.app/getprofile/${data.userid}`
+              `https://sea-lion-app-v9t3n.ondigitalocean.app/getprofile/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -177,7 +177,7 @@ const Profile = () => {
   const onFinish = (values) => {
     if (usernameVerified) {
       setIsSubmitting(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -215,7 +215,7 @@ const Profile = () => {
               values.image = "";
             }
             fetch(
-              `https://jellyfish-app-gvj7z.ondigitalocean.app/updateprofile/${data.userid}`,
+              `https://sea-lion-app-v9t3n.ondigitalocean.app/updateprofile/${data.userid}`,
               {
                 method: "PUT",
                 body: JSON.stringify(values),
@@ -294,7 +294,7 @@ const Profile = () => {
     } else {
       setVerifyCalled(true);
       setValidating(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -319,7 +319,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://jellyfish-app-gvj7z.ondigitalocean.app/validateusername/${form.getFieldValue(
+              `https://sea-lion-app-v9t3n.ondigitalocean.app/validateusername/${form.getFieldValue(
                 "username"
               )}`
             )

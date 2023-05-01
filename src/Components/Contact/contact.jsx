@@ -23,7 +23,7 @@ const Contact = () => {
       obj.rating != null &&
       recaptchaValue != null
     ) {
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/contact", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -65,7 +65,14 @@ const Contact = () => {
   return (
     <div>
       <Row>
-        <Col xs={20} sm={16} md={12} lg={10} xl={8} style={{marginLeft:'20px'}}>
+        <Col
+          xs={20}
+          sm={16}
+          md={12}
+          lg={10}
+          xl={8}
+          style={{ marginLeft: "20px" }}
+        >
           <Form
             form={form}
             name="contact_form"

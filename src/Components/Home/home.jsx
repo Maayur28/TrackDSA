@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`https://whale-app-5mtbo.ondigitalocean.app/problemoftheday`)
+    fetch(`https://jellyfish-app-lnzn2.ondigitalocean.app/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -25,7 +25,7 @@ const Home = () => {
       });
   }, []);
   const handleAdd = (values) => {
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -54,7 +54,7 @@ const Home = () => {
           obj.userid = data.userid;
           obj.problems = [];
           obj.problems.push(values);
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/addproblem", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -114,7 +114,7 @@ const Home = () => {
             />
           </Card>
           <Card
-            style={{width: "50vw", maxWidth: "300px", margin: "20px" }}
+            style={{ width: "50vw", maxWidth: "300px", margin: "20px" }}
             cover={<img alt="example" src="/medium.png" />}
             actions={[
               <Tooltip title="View">

@@ -17,7 +17,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`https://whale-app-5mtbo.ondigitalocean.app/${params.name}`)
+    fetch(`https://jellyfish-app-lnzn2.ondigitalocean.app/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -54,7 +54,7 @@ const DSASheet = () => {
   };
   const handleAdd = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -89,7 +89,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/addproblem", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {

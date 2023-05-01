@@ -29,7 +29,7 @@ const Register = () => {
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/register", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/register", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
@@ -59,7 +59,7 @@ const Register = () => {
     let obj = {};
     obj.sessionId = Cookies.get("sessionId");
     obj.otp = otp;
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyotp", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyotp", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {

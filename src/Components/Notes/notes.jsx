@@ -51,7 +51,7 @@ const Notes = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -76,7 +76,7 @@ const Notes = () => {
               path: "",
             });
             fetch(
-              `https://whale-app-5mtbo.ondigitalocean.app/getnotes/${data.userid}`
+              `https://jellyfish-app-lnzn2.ondigitalocean.app/getnotes/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -117,7 +117,7 @@ const Notes = () => {
 
   const onEdit = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -143,7 +143,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/editnote", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -180,7 +180,7 @@ const Notes = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -211,7 +211,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/addnote", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -248,7 +248,7 @@ const Notes = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -275,7 +275,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://whale-app-5mtbo.ondigitalocean.app/deletenote", {
+          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

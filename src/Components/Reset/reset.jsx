@@ -12,7 +12,7 @@ const Reset = () => {
     let obj = {};
     obj.token = token;
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/reset", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/reset", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -43,7 +43,7 @@ const Reset = () => {
 
   const onFinish = (values) => {
     values.token = token;
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/reset", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/reset", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {

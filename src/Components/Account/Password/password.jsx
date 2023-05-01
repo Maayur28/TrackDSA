@@ -12,7 +12,7 @@ const Password = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://jellyfish-app-gvj7z.ondigitalocean.app/verifyaccess", {
+    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -37,7 +37,7 @@ const Password = () => {
             path: "",
           });
           fetch(
-            `https://jellyfish-app-gvj7z.ondigitalocean.app/changepassword/${data.userid}`,
+            `https://sea-lion-app-v9t3n.ondigitalocean.app/changepassword/${data.userid}`,
             {
               method: "POST",
               body: JSON.stringify(values),
