@@ -15,6 +15,7 @@ import {
   Progress,
   Checkbox,
   Slider,
+  Typography,
 } from "antd";
 
 import {
@@ -40,6 +41,8 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "../Notes/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
+
+const { Text } = Typography;
 
 const Problems = () => {
   const { Option } = Select;
@@ -596,9 +599,9 @@ const Problems = () => {
       render: (topic) => (
         <>
           {topic.map((tag) => (
-            <Tag style={{ marginBottom: "5px" }} key={tag}>
+            <Text ellipsis={true} type="secondary" code>
               {tag}
-            </Tag>
+            </Text>
           ))}
         </>
       ),
