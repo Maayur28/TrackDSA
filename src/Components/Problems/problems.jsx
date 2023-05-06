@@ -16,6 +16,7 @@ import {
   Checkbox,
   Slider,
   Typography,
+  Image,
 } from "antd";
 
 import {
@@ -207,6 +208,11 @@ const Problems = () => {
     setsolved(count);
     settopics([...arr]);
   }, [data]);
+
+  const shuffle = () => {
+    let newData = data.sort(() => Math.random() - 0.5);
+    setData([...newData]);
+  };
 
   const onFinish = (values) => {
     setIsSubmitting(true);
@@ -939,7 +945,7 @@ const Problems = () => {
                       </span>
                     </>
                   )}
-                  <span>
+                  <div>
                     Solved:&nbsp;&nbsp;
                     <Progress
                       percent={Math.round((solved * 100) / data.length)}
@@ -947,7 +953,15 @@ const Problems = () => {
                       size="small"
                       strokeColor="#52c41a"
                     />
-                  </span>
+                  </div>
+                  <Image
+                    style={{ cursor: "pointer" }}
+                    src="/shuffle-arrows.png"
+                    preview={false}
+                    width={20}
+                    height={20}
+                    onClick={shuffle}
+                  />
                 </Space>
               ) : null}
             </div>
@@ -1117,7 +1131,7 @@ const Problems = () => {
         </Form>
       </Modal>
       <Modal
-        title="Maximum 5 problems can be sent"
+        title="Maximum 25 problems can be sent"
         visible={sendMailVisible}
         onCancel={() => {
           setSendMailVisible(false);
