@@ -126,7 +126,7 @@ const Problems = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+      fetch("https://auth.trackdsa.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -150,9 +150,7 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://jellyfish-app-lnzn2.ondigitalocean.app/getproblems/${data.userid}`
-            )
+            fetch(`https://problems.trackdsa.com/getproblems/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -216,7 +214,7 @@ const Problems = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -244,16 +242,13 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch(
-              "https://jellyfish-app-lnzn2.ondigitalocean.app/editproblem",
-              {
-                method: "PUT",
-                body: JSON.stringify(values),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8",
-                },
-              }
-            )
+            fetch("https://problems.trackdsa.com/editproblem", {
+              method: "PUT",
+              body: JSON.stringify(values),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            })
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -279,7 +274,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/addproblem", {
+            fetch("https://problems.trackdsa.com/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -324,7 +319,7 @@ const Problems = () => {
   };
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -366,16 +361,13 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch(
-            "https://jellyfish-app-lnzn2.ondigitalocean.app/deleteproblem",
-            {
-              method: "DELETE",
-              body: JSON.stringify(obj),
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-            }
-          )
+          fetch("https://problems.trackdsa.com/deleteproblem", {
+            method: "DELETE",
+            body: JSON.stringify(obj),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          })
             .then(async (response) => {
               if (response.status >= 200 && response.status <= 299) {
                 return response.json();
@@ -417,7 +409,7 @@ const Problems = () => {
 
   const statusCalled = (values) => {
     setIsSubmitting(true);
-    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -443,7 +435,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/editproblem", {
+          fetch("https://problems.trackdsa.com/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -724,7 +716,7 @@ const Problems = () => {
 
   const sendMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -792,7 +784,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/sendmail", {
+            fetch("https://problems.trackdsa.com/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -836,7 +828,7 @@ const Problems = () => {
 
   const sendQuesMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://sea-lion-app-v9t3n.ondigitalocean.app/verifyaccess", {
+    fetch("https://auth.trackdsa.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -862,7 +854,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("https://jellyfish-app-lnzn2.ondigitalocean.app/sendmail", {
+          fetch("https://problems.trackdsa.com/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {
