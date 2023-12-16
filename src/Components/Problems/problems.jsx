@@ -471,24 +471,72 @@ const Problems = () => {
   };
 
   const openRandom = (text) => {
-    let random = Math.floor(Math.random() * text.length);
+    let filteredData = [];
+    text.forEach((element) => {
+      let temp = element;
+      if (filteredInfo) {
+        if (
+          filteredInfo.difficulty != null &&
+          filteredInfo.difficulty.length > 0
+        ) {
+          if (!filteredInfo.difficulty.includes(Number(element.difficulty))) {
+            temp = null;
+          }
+        }
+        if (filteredInfo.status != null && filteredInfo.status.length > 0) {
+          if (!filteredInfo.status.includes(element.status)) {
+            temp = null;
+          }
+        }
+      }
+      if (temp) {
+        filteredData.push(temp);
+      }
+    });
+    let random = Math.floor(Math.random() * filteredData.length);
     Modal.info({
       title: (
         <>
-          <h3>"Why not try this problem!!!"</h3>
-          <a href={text[random].url} target="_blank" rel="noopener noreferrer">
+          <h3>"Try this problem!!!"</h3>
+          <a
+            href={filteredData[random].url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             View
           </a>
         </>
       ),
       content: (
         <>
-          <h4>Problem: {text[random].title}</h4>
-          {text[random].topic.map((val) => (
-            <Tag color="#001529" key={val} style={{ margin: "5px" }}>
-              {val}
+          <h4>Problem: {filteredData[random].title}</h4>
+          <h5>
+            Difficulty:
+            <Tag
+              color={
+                filteredData[random].difficulty === "1"
+                  ? "success"
+                  : filteredData[random].difficulty === "2"
+                  ? "warning"
+                  : "error"
+              }
+              style={{ margin: "5px" }}
+            >
+              {filteredData[random].difficulty === "1"
+                ? "Easy"
+                : filteredData[random].difficulty === "2"
+                ? "Medium"
+                : "Hard"}
             </Tag>
-          ))}
+          </h5>
+          <h5>
+            Topics:
+            {filteredData[random].topic.map((val) => (
+              <Tag color="#001529" key={val} style={{ margin: "5px" }}>
+                {val}
+              </Tag>
+            ))}
+          </h5>
         </>
       ),
       icon: false,
@@ -560,7 +608,7 @@ const Problems = () => {
     {
       title: "Status",
       dataIndex: "status",
-      width: "80px",
+      width: "95px",
       filteredValue: (filteredInfo && filteredInfo.status) || null,
       filters: [
         { text: "Unsolved", value: false },
