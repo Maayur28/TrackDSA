@@ -55,7 +55,7 @@ const Problems = () => {
   const [searchInput, setsearchInput] = useState("");
   const [topics, settopics] = useState([]);
   const [topicdefaultedit, settopicdefaultedit] = useState([]);
-  const [previousRandom, setPreviousRandom] = useState([]);
+  const [previousRandom, setPreviousRandom] = useState({});
   const [solved, setsolved] = useState(0);
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
@@ -473,7 +473,6 @@ const Problems = () => {
 
   const openRandom = (text) => {
     let filteredData = [];
-    setPreviousRandom(text);
     text.forEach((element) => {
       let temp = element;
       if (filteredInfo) {
@@ -496,44 +495,44 @@ const Problems = () => {
       }
     });
     let random = Math.floor(Math.random() * filteredData.length);
+    setPreviousRandom(filteredData[random]);
+    openModel(filteredData[random]);
+  };
+  const openModel = (obj) => {
     Modal.info({
       title: (
         <>
           <h3>"Try this problem!!!"</h3>
-          <a
-            href={filteredData[random].url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={obj.url} target="_blank" rel="noopener noreferrer">
             View
           </a>
         </>
       ),
       content: (
         <>
-          <h4>Problem: {filteredData[random].title}</h4>
+          <h4>Problem: {obj.title}</h4>
           <h5>
             Difficulty:
             <Tag
               color={
-                filteredData[random].difficulty === "1"
+                obj.difficulty === "1"
                   ? "success"
-                  : filteredData[random].difficulty === "2"
+                  : obj.difficulty === "2"
                   ? "warning"
                   : "error"
               }
               style={{ margin: "5px" }}
             >
-              {filteredData[random].difficulty === "1"
+              {obj.difficulty === "1"
                 ? "Easy"
-                : filteredData[random].difficulty === "2"
+                : obj.difficulty === "2"
                 ? "Medium"
                 : "Hard"}
             </Tag>
           </h5>
           <h5>
             Topics:
-            {filteredData[random].topic.map((val) => (
+            {obj.topic.map((val) => (
               <Tag color="#001529" key={val} style={{ margin: "5px" }}>
                 {val}
               </Tag>
@@ -1008,8 +1007,8 @@ const Problems = () => {
               ) : null}
             </div>
             <div>
-              {previousRandom && previousRandom.length > 0 && (
-                <Button type="text" onClick={() => openRandom(previousRandom)}>
+              {previousRandom && Object.keys(previousRandom).length > 0 && (
+                <Button type="text" onClick={() => openModel(previousRandom)}>
                   Previous Random
                 </Button>
               )}
