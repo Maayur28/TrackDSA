@@ -55,6 +55,7 @@ const Problems = () => {
   const [searchInput, setsearchInput] = useState("");
   const [topics, settopics] = useState([]);
   const [topicdefaultedit, settopicdefaultedit] = useState([]);
+  const [previousRandom, setPreviousRandom] = useState([]);
   const [solved, setsolved] = useState(0);
   const [selectedRowsNumber, setselectedRowsNumber] = useState([]);
   const [selectedRowsData, setselectedRowsData] = useState([]);
@@ -472,6 +473,7 @@ const Problems = () => {
 
   const openRandom = (text) => {
     let filteredData = [];
+    setPreviousRandom(text);
     text.forEach((element) => {
       let temp = element;
       if (filteredInfo) {
@@ -1006,6 +1008,11 @@ const Problems = () => {
               ) : null}
             </div>
             <div>
+              {previousRandom && previousRandom.length > 0 && (
+                <Button type="text" onClick={() => openRandom(previousRandom)}>
+                  Previous Random
+                </Button>
+              )}
               {filteredInfo ? (
                 <Button
                   type="link"
