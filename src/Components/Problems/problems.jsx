@@ -43,7 +43,7 @@ import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "../Notes/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 
-const { Text } = Typography;
+const { Text, Paragraph } = Typography;
 
 const Problems = () => {
   const { Option } = Select;
@@ -510,7 +510,8 @@ const Problems = () => {
       ),
       content: (
         <>
-          <h4>Problem: {obj.title}</h4>
+          <h4>Problem: </h4>
+          <Paragraph copyable>{obj.title}</Paragraph>
           <h5>
             Difficulty:
             <Tag
