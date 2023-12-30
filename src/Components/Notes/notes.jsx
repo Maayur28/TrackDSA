@@ -75,7 +75,7 @@ const Notes = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://problems.trackdsa.com/getnotes/${data.userid}`)
+            fetch(`https://problem.trackdsa.com/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -141,7 +141,7 @@ const Notes = () => {
           });
           values.userid = data.userid;
           values.note = note;
-          fetch("https://problems.trackdsa.com/editnote", {
+          fetch("https://problem.trackdsa.com/editnote", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -209,7 +209,7 @@ const Notes = () => {
           obj.notes = [];
           values.note = note;
           obj.notes.push(values);
-          fetch("https://problems.trackdsa.com/addnote", {
+          fetch("https://problem.trackdsa.com/addnote", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
@@ -273,7 +273,7 @@ const Notes = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://problems.trackdsa.com/deletenote", {
+          fetch("https://problem.trackdsa.com/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

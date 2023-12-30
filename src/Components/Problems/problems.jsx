@@ -151,7 +151,7 @@ const Problems = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://problems.trackdsa.com/getproblems/${data.userid}`)
+            fetch(`https://problem.trackdsa.com/getproblems/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -243,7 +243,7 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch("https://problems.trackdsa.com/editproblem", {
+            fetch("https://problem.trackdsa.com/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -275,7 +275,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("https://problems.trackdsa.com/addproblem", {
+            fetch("https://problem.trackdsa.com/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -362,7 +362,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("https://problems.trackdsa.com/deleteproblem", {
+          fetch("https://problem.trackdsa.com/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -436,7 +436,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("https://problems.trackdsa.com/editproblem", {
+          fetch("https://problem.trackdsa.com/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -834,7 +834,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("https://problems.trackdsa.com/sendmail", {
+            fetch("https://problem.trackdsa.com/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -904,7 +904,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("https://problems.trackdsa.com/sendmail", {
+          fetch("https://problem.trackdsa.com/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {

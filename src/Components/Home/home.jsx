@@ -8,7 +8,7 @@ const { Meta } = Card;
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`https://problems.trackdsa.com/problemoftheday`)
+    fetch(`https://problem.trackdsa.com/problemoftheday`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -54,7 +54,7 @@ const Home = () => {
           obj.userid = data.userid;
           obj.problems = [];
           obj.problems.push(values);
-          fetch("https://problems.trackdsa.com/addproblem", {
+          fetch("https://problem.trackdsa.com/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
