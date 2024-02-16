@@ -120,7 +120,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://auth.trackdsa.com/verifyaccess", {
+      fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -144,7 +144,9 @@ const Images = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://problem.trackdsa.com/getnotes/${data.userid}`)
+            fetch(
+              `https://trackdsa-problems.onrender.com/getnotes/${data.userid}`
+            )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -185,7 +187,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://auth.trackdsa.com/verifyaccess", {
+      fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -226,7 +228,7 @@ const Images = () => {
             }
             if (notes.length > 0) {
               obj.notes = notes;
-              fetch("https://problem.trackdsa.com/addnote", {
+              fetch("https://trackdsa-problems.onrender.com/addnote", {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -269,7 +271,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://auth.trackdsa.com/verifyaccess", {
+    fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -296,7 +298,7 @@ const Images = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://problem.trackdsa.com/deletenote", {
+          fetch("https://trackdsa-problems.onrender.com/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
