@@ -94,7 +94,7 @@ const Profile = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
+      fetch("https://orch.trackdsa.com/auth/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -118,9 +118,7 @@ const Profile = () => {
               expires: 7,
               path: "",
             });
-            fetch(
-              `https://trackdsa-auth.onrender.com/getprofile/${data.userid}`
-            )
+            fetch(`https://orch.trackdsa.com/auth/getprofile/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -177,7 +175,7 @@ const Profile = () => {
   const onFinish = (values) => {
     if (usernameVerified) {
       setIsSubmitting(true);
-      fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
+      fetch("https://orch.trackdsa.com/auth/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -215,7 +213,7 @@ const Profile = () => {
               values.image = "";
             }
             fetch(
-              `https://trackdsa-auth.onrender.com/updateprofile/${data.userid}`,
+              `https://orch.trackdsa.com/auth/updateprofile/${data.userid}`,
               {
                 method: "PUT",
                 body: JSON.stringify(values),
@@ -294,7 +292,7 @@ const Profile = () => {
     } else {
       setVerifyCalled(true);
       setValidating(true);
-      fetch("https://trackdsa-auth.onrender.com/verifyaccess", {
+      fetch("https://orch.trackdsa.com/auth/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -319,7 +317,7 @@ const Profile = () => {
               path: "",
             });
             fetch(
-              `https://trackdsa-auth.onrender.com/validateusername/${form.getFieldValue(
+              `https://orch.trackdsa.com/auth/validateusername/${form.getFieldValue(
                 "username"
               )}`
             )
