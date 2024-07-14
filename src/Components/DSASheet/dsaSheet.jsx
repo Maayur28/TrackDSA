@@ -17,7 +17,7 @@ const DSASheet = () => {
     setIsSubmitting(true);
     const urlSearchParams = new URLSearchParams(location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    fetch(`https://orch.trackdsa.com/problems/${params.name}`)
+    fetch(`https://orchestration.trackdsa.com/problems/${params.name}`)
       .then(async (response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -54,7 +54,7 @@ const DSASheet = () => {
   };
   const handleAdd = (values) => {
     setIsSubmitting(true);
-    fetch("https://orch.trackdsa.com/auth/verifyaccess", {
+    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -89,7 +89,7 @@ const DSASheet = () => {
           } else {
             obj.problems = [...data];
           }
-          fetch("https://orch.trackdsa.com/problems/addproblem", {
+          fetch("https://orchestration.trackdsa.com/problems/addproblem", {
             method: "POST",
             body: JSON.stringify(obj),
             headers: {
