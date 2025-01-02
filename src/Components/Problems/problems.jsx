@@ -127,7 +127,7 @@ const Problems = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+      fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -152,7 +152,7 @@ const Problems = () => {
               path: "",
             });
             fetch(
-              `https://orchestration.trackdsa.com/problems/getproblems/${data.userid}`
+              `https://orchestration.trackdsa.in/problems/getproblems/${data.userid}`
             )
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -217,7 +217,7 @@ const Problems = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -245,7 +245,7 @@ const Problems = () => {
             values._id = edit._id;
             values.userid = data.userid;
             values.note = note;
-            fetch("https://orchestration.trackdsa.com/problems/editproblem", {
+            fetch("https://orchestration.trackdsa.in/problems/editproblem", {
               method: "PUT",
               body: JSON.stringify(values),
               headers: {
@@ -277,7 +277,7 @@ const Problems = () => {
             obj.problems = [];
             values.note = note;
             obj.problems.push(values);
-            fetch("https://orchestration.trackdsa.com/problems/addproblem", {
+            fetch("https://orchestration.trackdsa.in/problems/addproblem", {
               method: "POST",
               body: JSON.stringify(obj),
               headers: {
@@ -322,7 +322,7 @@ const Problems = () => {
   };
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -364,7 +364,7 @@ const Problems = () => {
             }
             obj.problems = [...arr];
           }
-          fetch("https://orchestration.trackdsa.com/problems/deleteproblem", {
+          fetch("https://orchestration.trackdsa.in/problems/deleteproblem", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {
@@ -412,7 +412,7 @@ const Problems = () => {
 
   const statusCalled = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -438,7 +438,7 @@ const Problems = () => {
           });
           values.userid = data.userid;
           values.status = !values.status;
-          fetch("https://orchestration.trackdsa.com/problems/editproblem", {
+          fetch("https://orchestration.trackdsa.in/problems/editproblem", {
             method: "PUT",
             body: JSON.stringify(values),
             headers: {
@@ -768,7 +768,7 @@ const Problems = () => {
 
   const sendMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -836,7 +836,7 @@ const Problems = () => {
             }
           }
           if (array.length > 0) {
-            fetch("https://orchestration.trackdsa.com/problems/sendmail", {
+            fetch("https://orchestration.trackdsa.in/problems/sendmail", {
               method: "POST",
               body: JSON.stringify(array),
               headers: {
@@ -880,7 +880,7 @@ const Problems = () => {
 
   const sendQuesMail = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -906,7 +906,7 @@ const Problems = () => {
           });
           let array = [];
           array.push(values);
-          fetch("https://orchestration.trackdsa.com/problems/sendmail", {
+          fetch("https://orchestration.trackdsa.in/problems/sendmail", {
             method: "POST",
             body: JSON.stringify(array),
             headers: {

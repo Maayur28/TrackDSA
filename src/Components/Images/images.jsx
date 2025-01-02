@@ -120,7 +120,7 @@ const Images = () => {
       navigate("/login");
     } else {
       setIsSubmitting(true);
-      fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+      fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -144,7 +144,7 @@ const Images = () => {
               expires: 7,
               path: "",
             });
-            fetch(`https://orchestration.trackdsa.com/problems/getnotes/${data.userid}`)
+            fetch(`https://orchestration.trackdsa.in/problems/getnotes/${data.userid}`)
               .then(async (response) => {
                 if (response.status >= 200 && response.status <= 299) {
                   return response.json();
@@ -185,7 +185,7 @@ const Images = () => {
   const handleUpload = () => {
     if (fileList) {
       setIsUploading(true);
-      fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+      fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
         method: "POST",
         body: JSON.stringify({
           accessToken: Cookies.get("accessToken"),
@@ -226,7 +226,7 @@ const Images = () => {
             }
             if (notes.length > 0) {
               obj.notes = notes;
-              fetch("https://orchestration.trackdsa.com/problems/addnote", {
+              fetch("https://orchestration.trackdsa.in/problems/addnote", {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {
@@ -269,7 +269,7 @@ const Images = () => {
 
   const confirmDelete = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -296,7 +296,7 @@ const Images = () => {
           let obj = {};
           obj.userid = datas.userid;
           obj._id = values._id;
-          fetch("https://orchestration.trackdsa.com/problems/deletenote", {
+          fetch("https://orchestration.trackdsa.in/problems/deletenote", {
             method: "DELETE",
             body: JSON.stringify(obj),
             headers: {

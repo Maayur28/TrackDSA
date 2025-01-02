@@ -12,7 +12,7 @@ const Password = () => {
 
   const onFinish = (values) => {
     setIsSubmitting(true);
-    fetch("https://orchestration.trackdsa.com/user/verifyaccess", {
+    fetch("https://orchestration.trackdsa.in/user/verifyaccess", {
       method: "POST",
       body: JSON.stringify({
         accessToken: Cookies.get("accessToken"),
@@ -37,7 +37,7 @@ const Password = () => {
             path: "",
           });
           fetch(
-            `https://orchestration.trackdsa.com/user/changepassword/${data.userid}`,
+            `https://orchestration.trackdsa.in/user/changepassword/${data.userid}`,
             {
               method: "POST",
               body: JSON.stringify(values),

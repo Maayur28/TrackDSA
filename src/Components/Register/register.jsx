@@ -29,7 +29,7 @@ const Register = () => {
   const onFinish = (values) => {
     setIsSubmitting(true);
     setError("");
-    fetch("https://orchestration.trackdsa.com/user/register", {
+    fetch("https://orchestration.trackdsa.in/user/register", {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
@@ -59,7 +59,7 @@ const Register = () => {
     let obj = {};
     obj.sessionId = Cookies.get("sessionId");
     obj.otp = otp;
-    fetch("https://orchestration.trackdsa.com/user/verifyotp", {
+    fetch("https://orchestration.trackdsa.in/user/verifyotp", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {

@@ -23,7 +23,7 @@ const Contact = () => {
       obj.rating != null &&
       recaptchaValue != null
     ) {
-      fetch("https://orchestration.trackdsa.com/user/contact", {
+      fetch("https://orchestration.trackdsa.in/user/contact", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
