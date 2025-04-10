@@ -144,7 +144,7 @@ const Nav = () => {
               Cookies.get("accessToken").endsWith("=") &&
               Cookies.get("refreshToken") &&
               Cookies.get("profileName")
-                ? fullName = decodeURIComponent(Cookies.get("profileName")).split(" ")[0]
+                ? decodeURIComponent(Cookies.get("profileName")).split(" ")[0]
                 : "sign in"}
               <Avatar
                 style={{
