@@ -139,7 +139,7 @@ const Nav = () => {
                 alignItems: "center",
               }}
             >
-              Hello,
+              Hello,&nbsp;
               {Cookies.get("accessToken") &&
               Cookies.get("accessToken").endsWith("=") &&
               Cookies.get("refreshToken") &&
