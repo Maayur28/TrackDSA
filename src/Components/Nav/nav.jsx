@@ -144,7 +144,13 @@ const Nav = () => {
               Cookies.get("accessToken").endsWith("=") &&
               Cookies.get("refreshToken") &&
               Cookies.get("profileName")
-                ? Cookies.get("profileName")
+                ? ()=>{
+                  let fullName = Cookies.get("profileName");
+                  if (fullName) {
+                    fullName = decodeURIComponent(fullName).split(" ")[0];
+                  }
+                  return fullName;
+                  }
                 : "sign in"}
               <Avatar
                 style={{
