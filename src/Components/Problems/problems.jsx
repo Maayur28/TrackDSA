@@ -825,12 +825,15 @@ const Problems = () => {
             array = [],
             counter = values.slider,
             retry = 0;
-          while (retry < 30 && counter !== 0 && arr.length > 0) {
+          while (retry < 100 && counter !== 0 && arr.length > 0) {
             let random = Math.floor(Math.random() * arr.length);
             retry++;
             if (!brr.includes(random)) {
               brr.push(random);
-              array.push(arr[random]);
+              let tempObj = {};
+              tempObj.title = arr[random].title;
+              tempObj.url = arr[random].url;
+              array.push(tempObj);
               counter--;
               retry = 0;
             }
@@ -1180,7 +1183,7 @@ const Problems = () => {
         </Form>
       </Modal>
       <Modal
-        title="Maximum 25 problems can be sent"
+        title="Maximum 100 problems can be sent"
         visible={sendMailVisible}
         onCancel={() => {
           setSendMailVisible(false);
@@ -1212,7 +1215,7 @@ const Problems = () => {
             </Select>
           </Form.Item>
           <Form.Item name="slider" label="Problems">
-            <Slider min={1} max={25} />
+            <Slider min={1} max={100} />
           </Form.Item>
           <Form.Item>
             <Space>
