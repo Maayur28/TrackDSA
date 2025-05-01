@@ -821,11 +821,12 @@ const Problems = () => {
               arr.push(data[i]);
             }
           }
+          console.log(values.slider + " " + arr.length);
           let brr = [],
             array = [],
-            counter = values.slider,
+            counter = Math.max(values.slider, arr.length),
             retry = 0;
-          while (retry < 100 && counter !== 0 && arr.length > 0) {
+          while (retry < 200 && counter !== 0) {
             let random = Math.floor(Math.random() * arr.length);
             retry++;
             if (!brr.includes(random)) {
